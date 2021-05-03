@@ -14,6 +14,7 @@
 		166D6BA2D6E9D4FC33F80FDD /* libPods-DJIGeoSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */; };
 		246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */; };
 		246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */; };
+		3A4FE0562640AC5E00D1E8B9 /* DJIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */; };
 		A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3141E7AA50F0089C965 /* DJICircle.m */; };
 		A437B3201E7AA50F0089C965 /* DJIFlyLimitPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */; };
 		A437B3211E7AA50F0089C965 /* DJILimitSpaceOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */; };
@@ -65,6 +66,8 @@
 		246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoCustomUnlockingViewController.m; sourceTree = "<group>"; };
 		246F1AB72047F2870038B95D /* DJIGeoCustomZoneDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJIGeoCustomZoneDetailViewController.h; sourceTree = "<group>"; };
 		246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoCustomZoneDetailViewController.m; sourceTree = "<group>"; };
+		3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DJIGeoSample-Bridging-Header.h"; sourceTree = "<group>"; };
+		3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIScrollView.swift; sourceTree = "<group>"; };
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 				A4B87EF51D2A71B200123466 /* DemoUtility.m */,
 				A437B3431E7BEF490089C965 /* DJIScrollView.h */,
 				A437B3441E7BEF490089C965 /* DJIScrollView.m */,
+				3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */,
 				A437B3451E7BEF490089C965 /* DJIScrollView.xib */,
 				A4B87ECF1D2A6EB600123466 /* AppDelegate.h */,
 				A4B87ED01D2A6EB600123466 /* AppDelegate.m */,
@@ -188,6 +192,7 @@
 				A4B87EDD1D2A6EB600123466 /* Info.plist */,
 				A4B87EEE1D2A715900123466 /* Frameworks */,
 				A4B87ECC1D2A6EB600123466 /* Supporting Files */,
+				3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */,
 			);
 			path = DJIGeoSample;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 					A4B87EC81D2A6EB600123466 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = R725LZS4G8;
+						LastSwiftMigration = 1250;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -392,6 +398,7 @@
 				1449B32E2091832D003955AE /* DJIGeoGroupInfoViewController.m in Sources */,
 				A437B3231E7AA50F0089C965 /* DJIMapPolygon.m in Sources */,
 				A4B87ED11D2A6EB600123466 /* AppDelegate.m in Sources */,
+				3A4FE0562640AC5E00D1E8B9 /* DJIScrollView.swift in Sources */,
 				A437B3211E7AA50F0089C965 /* DJILimitSpaceOverlay.m in Sources */,
 				A437B3221E7AA50F0089C965 /* DJIMapOverlay.m in Sources */,
 				A4B87F0F1D2A75B500123466 /* DJIFlyZoneCircle.m in Sources */,
@@ -512,6 +519,7 @@
 			baseConfigurationReference = 1E337176DA7FBD1E2C722E3D /* Pods-DJIGeoSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DJIGeoSample/DJIGeoSample.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = R725LZS4G8;
@@ -523,6 +531,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = DJISwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DJIGeoSample/DJIGeoSample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -531,6 +542,7 @@
 			baseConfigurationReference = 775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DJIGeoSample/DJIGeoSample.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = R725LZS4G8;
@@ -542,6 +554,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = DJISwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DJIGeoSample/DJIGeoSample-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -7,7 +7,7 @@
 
 #import "DJIGeoGroupInfoViewController.h"
 #import <DJISDK/DJISDK.h>
-#import "DJIScrollView.h"
+#import <DJIGeoSample-Swift.h>
 
 @interface DJIGeoGroupInfoViewController () 
 
@@ -74,11 +74,11 @@
     
     if ([tableView isEqual:self.selfUnlockingTable]) {
         DJIFlyZoneInformation *information = self.unlockedZoneGroup.selfUnlockedFlyZones[indexPath.row];
-        [self.flyZoneInfoView writeStatus:[self formatFlyZoneInformtionString:information]];
+        [self.flyZoneInfoView writeWithStatus:[self formatFlyZoneInformtionString:information]];
 
     } else if ([tableView isEqual:self.customUnlockingTable]) {
         DJICustomUnlockZone *customUnlockZone = self.unlockedZoneGroup.customUnlockZones[indexPath.row];
-        [self.flyZoneInfoView writeStatus:[self formatCustomUnlockZoneInformtionString:customUnlockZone]];
+        [self.flyZoneInfoView writeWithStatus:[self formatCustomUnlockZoneInformtionString:customUnlockZone]];
     }
 }
 

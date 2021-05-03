@@ -9,7 +9,7 @@
 #import "DJIMapViewController.h"
 #import <DJISDK/DJISDK.h>
 #import "DemoUtility.h"
-#import "DJIScrollView.h"
+#import <DJIGeoSample-Swift.h>
 
 @interface DJIGeoDemoViewController ()<DJIFlyZoneDelegate, DJIFlightControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -538,7 +538,7 @@
     self.flyZoneInfoView.hidden = NO;
     [self.flyZoneInfoView show];
     DJIFlyZoneInformation* information = self.djiMapViewController.flyZones[indexPath.row];
-    [self.flyZoneInfoView writeStatus:[self formatFlyZoneInformtionString:information]];
+    [self.flyZoneInfoView writeWithStatus:[self formatFlyZoneInformtionString:information]];
 }
 
 @end
