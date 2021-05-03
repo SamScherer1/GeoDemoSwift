@@ -1,14 +1,14 @@
+////
+////  ViewController.h
+////  DJIGeoSample
+////
+////  Copyright © 2016 DJI. All rights reserved.
+////
 //
-//  ViewController.h
-//  DJIGeoSample
+//#import <UIKit/UIKit.h>
 //
-//  Copyright © 2016 DJI. All rights reserved.
+//@interface RootViewController : UIViewController
 //
-
-#import <UIKit/UIKit.h>
-
-@interface RootViewController : UIViewController
-
-
-@end
-
+//
+//@end
+//
