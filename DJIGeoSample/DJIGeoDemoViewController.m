@@ -40,8 +40,6 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
     self.title = @"DJI GEO Demo";
     
     [self.pickerContainerView setHidden:YES];
@@ -64,7 +62,7 @@
         
         [aircraft.flightController.simulator setFlyZoneLimitationEnabled:YES withCompletion:^(NSError * _Nullable error) {
             if (error) {
-                ShowResult(@"setFlyZoneLimitationEnabled failed:%@", error.description);
+                //ShowResult(@"setFlyZoneLimitationEnabled failed:%@", error.description);
             } else {
                 NSLog(@"setFlyZoneLimitationEnabled success");
             }
@@ -92,7 +90,7 @@
     
     [aircraft.flightController.simulator setFlyZoneLimitationEnabled:NO withCompletion:^(NSError * _Nullable error) {
         if (error) {
-            ShowResult(@"setFlyZoneLimitationEnabled failed:%@", error.description);
+            //ShowResult(@"setFlyZoneLimitationEnabled failed:%@", error.description);
         } else {
             NSLog(@"setFlyZoneLimitationEnabled success");
         }
@@ -122,10 +120,10 @@
 {
     [[DJISDKManager userAccountManager] logIntoDJIUserAccountWithAuthorizationRequired:YES withCompletion:^(DJIUserAccountState status, NSError * _Nullable error) {
         if (error) {
-            ShowResult([NSString stringWithFormat:@"GEO Login Error: %@", error.description]);
+            //ShowResult([NSString stringWithFormat:@"GEO Login Error: %@", error.description]);
             
         } else {
-            ShowResult(@"GEO Login Success");
+            //ShowResult(@"GEO Login Success");
         }
     }];
 }
@@ -134,9 +132,9 @@
     
     [[DJISDKManager userAccountManager] logOutOfDJIUserAccountWithCompletion:^(NSError * _Nullable error) {
         if (error) {
-            ShowResult(@"Login out error:%@", error.description);
+            //ShowResult(@"Login out error:%@", error.description);
         } else {
-            ShowResult(@"Login out success");
+            //ShowResult(@"Login out success");
         }
     }];
     
@@ -156,7 +154,7 @@
 		
 		WeakReturn(target);
 		if (error) {
-			ShowResult(@"Get Unlock Error:%@", error.description);
+			//ShowResult(@"Get Unlock Error:%@", error.description);
 		} else {
 			NSString* unlockInfo = [NSString stringWithFormat:@"unlock zone count = %lu\n", infos.count];
 			
@@ -168,7 +166,7 @@
 			for (DJIFlyZoneInformation* info in infos) {
 				unlockInfo = [unlockInfo stringByAppendingString:[NSString stringWithFormat:@"ID:%lu Name:%@ Begin:%@ end:%@\n", (unsigned long)info.flyZoneID, info.name, info.unlockStartTime, info.unlockEndTime]];
 			};
-			ShowResult(@"%@", unlockInfo);
+			//ShowResult(@"%@", unlockInfo);
 		}
 		
 	}];
@@ -208,9 +206,9 @@
             [flightController.simulator startWithLocation:location updateFrequency:20 GPSSatellitesNumber:10 withCompletion:^(NSError * _Nullable error) {
                 WeakReturn(target);
                 if (error) {
-                    ShowResult(@"Start simulator error:%@", error.description);
+                    //ShowResult(@"Start simulator error:%@", error.description);
                 } else {
-                    ShowResult(@"Start simulator success");
+                    //ShowResult(@"Start simulator success");
                     [target.djiMapViewController refreshMapViewRegion];
                 }
             }];
@@ -237,10 +235,10 @@
     [flightController.simulator stopWithCompletion:^(NSError * _Nullable error) {
         WeakReturn(target);
         if (error) {
-            ShowResult(@"Stop simulator error:%@", error.description);
+            //ShowResult(@"Stop simulator error:%@", error.description);
         }else
         {
-            ShowResult(@"Stop simulator success");
+            //ShowResult(@"Stop simulator success");
 
         }
     }];
@@ -258,10 +256,10 @@
         [self.selectedFlyZoneInfo setUnlockingEnabled:self.isUnlockEnable withCompletion:^(NSError * _Nullable error) {
             
             if (error) {
-                ShowResult(@"Set unlocking enabled failed %@", error.description);
+                //ShowResult(@"Set unlocking enabled failed %@", error.description);
             }else
             {
-                ShowResult(@"Set unlocking enabled success");
+                //ShowResult(@"Set unlocking enabled success");
             }
         }];
     }
@@ -358,18 +356,18 @@
 			[target.unlockFlyZoneIDs removeAllObjects];
 			
 			if (error) {
-				ShowResult(@"unlock fly zones failed%@", error.description);
+				//ShowResult(@"unlock fly zones failed%@", error.description);
 			} else {
 				[[DJISDKManager flyZoneManager] getUnlockedFlyZonesForAircraftWithCompletion:^(NSArray<DJIFlyZoneInformation *> * _Nullable infos, NSError * _Nullable error) {
 					if (error) {
-						ShowResult(@"get unlocked fly zone failed:%@", error.description);
+						//ShowResult(@"get unlocked fly zone failed:%@", error.description);
 					} else {
 						NSString* resultMessage = [NSString stringWithFormat:@"unlock zone: %tu ", [infos count]];
 						for (int i = 0; i < infos.count; ++i) {
 							DJIFlyZoneInformation* info = [infos objectAtIndex:i];
 							resultMessage = [resultMessage stringByAppendingString:[NSString stringWithFormat:@"\n ID:%lu Name:%@ Begin:%@ End:%@\n", (unsigned long)info.flyZoneID, info.name, info.unlockStartTime, info.unlockEndTime]];
 						}
-						ShowResult(resultMessage);
+						//ShowResult(resultMessage);
 					}
 				}];
 			}
