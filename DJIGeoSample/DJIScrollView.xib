@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DJIScrollView">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DJIScrollView" customModule="DJIGeoSample" customModuleProvider="target">
             <connections>
                 <outlet property="scrollView" destination="lUY-Ol-P5Y" id="utA-hh-MgW"/>
                 <outlet property="statusLabel" destination="nWZ-Tl-4KE" id="Qtr-9h-mh5"/>
@@ -39,7 +39,7 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
-                        <action selector="onCloseButtonClicked:" destination="-1" eventType="touchUpInside" id="YXg-3e-YxI"/>
+                        <action selector="onCloseButtonClicked:" destination="-1" eventType="touchUpInside" id="xCE-gT-az8"/>
                     </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lUY-Ol-P5Y">

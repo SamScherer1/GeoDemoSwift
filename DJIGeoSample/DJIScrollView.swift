@@ -33,7 +33,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         return scrollView
     }
     
-    func setup() {
+    @objc public func setup() { //TODO: remove all @objc tags
         //Bundle.main.loadNibNamed(NSStringFromClass(type(of: self.self)), owner: self, options: nil)
         //TODO: use type(of:) to get class type
         Bundle.main.loadNibNamed("DJIScrollView", owner: self, options: nil)
@@ -80,7 +80,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         }
     }
     
-    public func onCloseButtonClicked(sender:Any) {
+    @IBAction func onCloseButtonClicked(_ sender: Any) {
         UIView.animate(withDuration: 0.25) {
             self.alpha = 0;
         }
