@@ -7,8 +7,6 @@
 
 #import "DJIMapViewController.h"
 #import <DJISDK/DJISDK.h>
-#import "DJIAircraftAnnotation.h"
-#import "DJIAircraftAnnotationView.h"
 #import "DJIFlyZoneCircle.h"
 #import "DJIFlyZoneCircleView.h"
 #import "DemoUtility.h"
@@ -17,6 +15,7 @@
 #import "DJIFlyLimitPolygonView.h"
 #import "DJICircle.h"
 #import "DJICustomUnlockOverlay.h"
+#import "DJIGeoSample-Swift.h"
 
 #define UPDATETIMESTAMP (10)
 
@@ -25,7 +24,7 @@
 
 @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
 @property (weak, nonatomic) MKMapView *mapView;
-@property (nonatomic, strong) DJIAircraftAnnotation* aircraftAnnotation;
+@property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
 @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
 @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
 @property (nonatomic, assign) NSTimeInterval lastUpdateTime;
@@ -69,7 +68,7 @@
         self.aircraftCoordinate = coordinate;
         
         if (self.aircraftAnnotation == nil) {
-            self.aircraftAnnotation =  [[DJIAircraftAnnotation alloc] initWithCoordinate:coordinate heading:heading];
+            self.aircraftAnnotation =  [[AircraftAnnotation alloc] initWithCoordinate:coordinate heading:heading];
             [self.mapView addAnnotation:self.aircraftAnnotation];
             MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500);
             MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
@@ -79,8 +78,8 @@
         else
         {
             [self.aircraftAnnotation setCoordinate:coordinate];
-            DJIAircraftAnnotationView *annotationView = (DJIAircraftAnnotationView *)[_mapView viewForAnnotation:self.aircraftAnnotation];
-            [annotationView updateHeading:heading];
+            AircraftAnnotationView *annotationView = (AircraftAnnotationView *)[_mapView viewForAnnotation:self.aircraftAnnotation];
+            [annotationView updateWithHeading:heading];
             [self updateFlyZones];
         }
         
@@ -94,13 +93,13 @@
     
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
-    }else if ([annotation isKindOfClass:[DJIAircraftAnnotation class]])
+    }else if ([annotation isKindOfClass:[AircraftAnnotation class]])
     {
         
         static NSString* aircraftReuseIdentifier = @"DJI_AIRCRAFT_ANNOTATION_VIEW";
-        DJIAircraftAnnotationView* aircraftAnno = (DJIAircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
+        AircraftAnnotationView* aircraftAnno = (AircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
         if (aircraftAnno == nil) {
-            aircraftAnno = [[DJIAircraftAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:aircraftReuseIdentifier];
+            aircraftAnno = [[AircraftAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:aircraftReuseIdentifier];
         }
 
         return aircraftAnno;

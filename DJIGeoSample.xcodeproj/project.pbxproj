@@ -19,6 +19,8 @@
 		3A4FE05C2640B4DC00D1E8B9 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */; };
 		3A4FE05E2640BCAF00D1E8B9 /* DemoUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE05D2640BCAF00D1E8B9 /* DemoUtility.swift */; };
 		3A4FE0602640C21700D1E8B9 /* GeoCustomUnlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */; };
+		3A4FE0622641A31600D1E8B9 /* AircraftAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0612641A31600D1E8B9 /* AircraftAnnotation.swift */; };
+		3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0632641A32500D1E8B9 /* AircraftAnnotationView.swift */; };
 		A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3141E7AA50F0089C965 /* DJICircle.m */; };
 		A437B3201E7AA50F0089C965 /* DJIFlyLimitPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */; };
 		A437B3211E7AA50F0089C965 /* DJILimitSpaceOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */; };
@@ -27,8 +29,6 @@
 		A437B3241E7AA50F0089C965 /* DJIPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B31E1E7AA50F0089C965 /* DJIPolygon.m */; };
 		A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3441E7BEF490089C965 /* DJIScrollView.m */; };
 		A437B3471E7BEF490089C965 /* DJIScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A437B3451E7BEF490089C965 /* DJIScrollView.xib */; };
-		A446D0E31D3F7DB400804A32 /* DJIAircraftAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A446D0E01D3F7DB400804A32 /* DJIAircraftAnnotation.m */; };
-		A446D0E41D3F7DB400804A32 /* DJIAircraftAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A446D0E21D3F7DB400804A32 /* DJIAircraftAnnotationView.m */; };
 		A4B87ED41D2A6EB600123466 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87ED31D2A6EB600123466 /* RootViewController.m */; };
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
 		A4B87ED91D2A6EB600123466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED81D2A6EB600123466 /* Assets.xcassets */; };
@@ -73,6 +73,8 @@
 		3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		3A4FE05D2640BCAF00D1E8B9 /* DemoUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUtility.swift; sourceTree = "<group>"; };
 		3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCustomUnlockViewController.swift; sourceTree = "<group>"; };
+		3A4FE0612641A31600D1E8B9 /* AircraftAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftAnnotation.swift; sourceTree = "<group>"; };
+		3A4FE0632641A32500D1E8B9 /* AircraftAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftAnnotationView.swift; sourceTree = "<group>"; };
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
@@ -91,10 +93,6 @@
 		A437B3431E7BEF490089C965 /* DJIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIScrollView.h; sourceTree = "<group>"; };
 		A437B3441E7BEF490089C965 /* DJIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIScrollView.m; sourceTree = "<group>"; };
 		A437B3451E7BEF490089C965 /* DJIScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJIScrollView.xib; sourceTree = "<group>"; };
-		A446D0DF1D3F7DB400804A32 /* DJIAircraftAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIAircraftAnnotation.h; sourceTree = "<group>"; };
-		A446D0E01D3F7DB400804A32 /* DJIAircraftAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIAircraftAnnotation.m; sourceTree = "<group>"; };
-		A446D0E11D3F7DB400804A32 /* DJIAircraftAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIAircraftAnnotationView.h; sourceTree = "<group>"; };
-		A446D0E21D3F7DB400804A32 /* DJIAircraftAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIAircraftAnnotationView.m; sourceTree = "<group>"; };
 		A4B87EC91D2A6EB600123466 /* DJIGeoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJIGeoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B87ED21D2A6EB600123466 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		A4B87ED31D2A6EB600123466 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
@@ -220,10 +218,8 @@
 		A4B87EFD1D2A75B500123466 /* DJIAnnotationViews */ = {
 			isa = PBXGroup;
 			children = (
-				A446D0DF1D3F7DB400804A32 /* DJIAircraftAnnotation.h */,
-				A446D0E01D3F7DB400804A32 /* DJIAircraftAnnotation.m */,
-				A446D0E11D3F7DB400804A32 /* DJIAircraftAnnotationView.h */,
-				A446D0E21D3F7DB400804A32 /* DJIAircraftAnnotationView.m */,
+				3A4FE0612641A31600D1E8B9 /* AircraftAnnotation.swift */,
+				3A4FE0632641A32500D1E8B9 /* AircraftAnnotationView.swift */,
 			);
 			path = DJIAnnotationViews;
 			sourceTree = "<group>";
@@ -379,15 +375,15 @@
 				A4B87ED41D2A6EB600123466 /* RootViewController.m in Sources */,
 				A4B87F101D2A75B500123466 /* DJIFlyZoneCircleView.m in Sources */,
 				A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */,
-				A446D0E41D3F7DB400804A32 /* DJIAircraftAnnotationView.m in Sources */,
 				A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */,
 				3A4FE05E2640BCAF00D1E8B9 /* DemoUtility.swift in Sources */,
+				3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */,
 				146C3C4E217B0327000B589E /* DJICustomUnlockOverlay.m in Sources */,
 				144D11C1219C28480085C2A1 /* DJIFlyZoneColorProvider.m in Sources */,
 				A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */,
 				1449B32720917944003955AE /* DJIGeoUnlockingGroupViewController.m in Sources */,
+				3A4FE0622641A31600D1E8B9 /* AircraftAnnotation.swift in Sources */,
 				A437B3241E7AA50F0089C965 /* DJIPolygon.m in Sources */,
-				A446D0E31D3F7DB400804A32 /* DJIAircraftAnnotation.m in Sources */,
 				1449B32E2091832D003955AE /* DJIGeoGroupInfoViewController.m in Sources */,
 				3A4FE05A2640B3D900D1E8B9 /* AppDelegate.swift in Sources */,
 				3A4FE05C2640B4DC00D1E8B9 /* RootViewController.swift in Sources */,
