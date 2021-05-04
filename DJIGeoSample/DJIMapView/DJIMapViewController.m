@@ -64,9 +64,9 @@
 -(void) updateAircraftLocation:(CLLocationCoordinate2D)coordinate withHeading:(CGFloat)heading
 {
     if (CLLocationCoordinate2DIsValid(coordinate)) {
-        
+
         self.aircraftCoordinate = coordinate;
-        
+
         if (self.aircraftAnnotation == nil) {
             self.aircraftAnnotation =  [[AircraftAnnotation alloc] initWithCoordinate:coordinate heading:heading];
             [self.mapView addAnnotation:self.aircraftAnnotation];
@@ -82,7 +82,7 @@
             [annotationView updateWithHeading:heading];
             [self updateFlyZones];
         }
-        
+
     }
 }
 
