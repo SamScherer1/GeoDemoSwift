@@ -108,10 +108,8 @@
     return nil;
 }
 
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay
-{
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay {
    if ([overlay isKindOfClass:[DJIFlyZoneCircle class]]) {
-       
        DJIFlyZoneCircleView* circleView = [[DJIFlyZoneCircleView alloc] initWithCircle:overlay];
        return circleView;
    }else if([overlay isKindOfClass:[DJIPolygon class]]){

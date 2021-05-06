@@ -13,9 +13,9 @@ import MapKit
 let kUpdateTimeStamp = 10.0
 
 
-class MapController : NSObject, MKMapViewDelegate {
+@objc class MapController : NSObject, MKMapViewDelegate {
     //@property (nonatomic, strong) NSMutableArray *flyZones;
-    var flyZones = [Any]()//TODO: specify type?
+    @objc public var flyZones = [Any]()//TODO: specify type?
 //    @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
     var aircraftCoordinate : CLLocationCoordinate2D
 //    @property (weak, nonatomic) MKMapView *mapView;
@@ -23,13 +23,13 @@ class MapController : NSObject, MKMapViewDelegate {
 //    @property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
     var aircraftAnnotation : AircraftAnnotation?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
-    var mapOverlays = [DJIMapOverlay]()
+    var mapOverlays = [DJIMapOverlay]()//TODO: should be DJILimitSpaceOverlay?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
     var customUnlockOverlays : [DJIMapOverlay]?
 //    @property (nonatomic, assign) NSTimeInterval lastUpdateTime;
     var lastUpdateTime : TimeInterval?
     
-    init(map:MKMapView) {
+    @objc init(map:MKMapView) {
         self.aircraftCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
         self.mapView = map
         
@@ -39,102 +39,115 @@ class MapController : NSObject, MKMapViewDelegate {
         //self.forceUpdateFlyZones()
     }
     
-    deinit {
+    @objc deinit {
         self.aircraftAnnotation = nil
         self.mapView?.delegate = nil
         self.mapView = nil
     }
     
-    func updateAircraft(coordinate:CLLocationCoordinate2D, heading:CGFloat) {
-    //    if (CLLocationCoordinate2DIsValid(coordinate)) {
-    //
-    //        self.aircraftCoordinate = coordinate;
-    //
-    //        if (self.aircraftAnnotation == nil) {
-    //            self.aircraftAnnotation =  [[AircraftAnnotation alloc] initWithCoordinate:coordinate heading:heading];
-    //            [self.mapView addAnnotation:self.aircraftAnnotation];
-    //            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 500, 500);
-    //            MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-    //            [self.mapView setRegion:adjustedRegion animated:YES];
-    //            [self updateFlyZones];
-    //        }
-    //        else
-    //        {
-    //            [self.aircraftAnnotation setCoordinate:coordinate];
-    //            AircraftAnnotationView *annotationView = (AircraftAnnotationView *)[_mapView viewForAnnotation:self.aircraftAnnotation];
-    //            [annotationView updateWithHeading:heading];
-    //            [self updateFlyZones];
-    //        }
-    //
-    //    }
+    @objc func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
+        if CLLocationCoordinate2DIsValid(coordinate) {
+            self.aircraftCoordinate = coordinate
+            if let _ = self.aircraftAnnotation {
+                self.aircraftAnnotation?.coordinate = coordinate
+                let annotationView = (self.mapView?.view(for: self.aircraftAnnotation!))! as! AircraftAnnotationView
+                annotationView.update(heading: heading)
+            } else {
+                let aircraftAnnotation = AircraftAnnotation(coordinate: coordinate, heading: heading)
+                self.aircraftAnnotation = aircraftAnnotation
+                self.mapView?.addAnnotation(aircraftAnnotation)
+                let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+                if let adjustedRegion = self.mapView?.regionThatFits(viewRegion) {
+                    self.mapView?.setRegion(adjustedRegion, animated: true)
+                }
+            }
+            self.updateFlyZones()
+        }
     }
     
     //MARK: - MKMapViewDelegate Methods
     
-    func viewFor(mapView:MKMapView, annotation:MKAnnotation) -> MKAnnotationView? {
+    @objc func viewFor(mapView:MKMapView, annotation:MKAnnotation) -> MKAnnotationView? {
     //
     //    if ([annotation isKindOfClass:[MKUserLocation class]]) {
     //        return nil;
-    //    }else if ([annotation isKindOfClass:[AircraftAnnotation class]])
-    //    {
-    //
-    //        static NSString* aircraftReuseIdentifier = @"DJI_AIRCRAFT_ANNOTATION_VIEW";
-    //        AircraftAnnotationView* aircraftAnno = (AircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
-    //        if (aircraftAnno == nil) {
-    //            aircraftAnno = [[AircraftAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:aircraftReuseIdentifier];
-    //        }
-    //
-    //        return aircraftAnno;
-    //    }
-    //
+        if annotation.isKind(of: MKUserLocation.self) { return nil }
+        if annotation.isKind(of: AircraftAnnotation.self) {
+            //        static NSString* aircraftReuseIdentifier = @"DJI_AIRCRAFT_ANNOTATION_VIEW";
+            //        AircraftAnnotationView* aircraftAnno = (AircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
+            //        if (aircraftAnno == nil) {
+            //            aircraftAnno = [[AircraftAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:aircraftReuseIdentifier];
+            //        }
+            //
+            //        return aircraftAnno;
+            let aircraftAnno = self.mapView?.dequeueReusableAnnotationView(withIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
+            return aircraftAnno ?? AircraftAnnotationView(annotation: annotation, reuseIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
+            
+        }
         return nil
     }
     //
-    func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
-    //   if ([overlay isKindOfClass:[DJIFlyZoneCircle class]]) {
-    //
-    //       DJIFlyZoneCircleView* circleView = [[DJIFlyZoneCircleView alloc] initWithCircle:overlay];
-    //       return circleView;
-    //   }else if([overlay isKindOfClass:[DJIPolygon class]]){
-    //       DJIFlyLimitPolygonView *polygonRender = [[DJIFlyLimitPolygonView alloc] initWithPolygon:(DJIPolygon *)overlay];
-    //       return polygonRender;
-    //   }else if ([overlay isKindOfClass:[DJIMapPolygon class]]) {
-    //       MKPolygonRenderer *polygonRender = [[MKPolygonRenderer alloc] initWithPolygon:(MKPolygon *)overlay];
-    //       DJIMapPolygon *polygon = (DJIMapPolygon *)overlay;
-    //       polygonRender.strokeColor = polygon.strokeColor;
-    //       polygonRender.lineWidth = polygon.lineWidth;
-    //       polygonRender.lineDashPattern = polygon.lineDashPattern;
-    //       polygonRender.lineJoin = polygon.lineJoin;
-    //       polygonRender.lineCap = polygon.lineCap;
-    //       polygonRender.fillColor = polygon.fillColor;
-    //       return polygonRender;
-    //   } else if ([overlay isKindOfClass:[DJICircle class]]) {
-    //       DJICircle *circle = (DJICircle *)overlay;
-    //       MKCircleRenderer *circleRender = [[MKCircleRenderer alloc] initWithCircle:circle];
-    //       circleRender.strokeColor = circle.strokeColor;
-    //       circleRender.lineWidth = circle.lineWidth;
-    //       circleRender.fillColor = circle.fillColor;
-    //       return circleRender;
-    //   }
-    //
-        return nil;
+    @objc func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
+        if let overlay = overlay as? DJIFlyZoneCircle {
+            //       DJIFlyZoneCircleView* circleView = [[DJIFlyZoneCircleView alloc] initWithCircle:overlay];
+            //       return circleView;
+            return DJIFlyZoneCircleView(circle: overlay)
+        } else if let overlay = overlay as? DJIPolygon {
+            //       DJIFlyLimitPolygonView *polygonRender = [[DJIFlyLimitPolygonView alloc] initWithPolygon:(DJIPolygon *)overlay];
+            //       return polygonRender;
+            return DJIFlyLimitPolygonView(overlay: overlay)
+//        } else if overlay.isKind(of: DJIMapPolygon.self) {
+        } else if let polygon = overlay as? DJIMapPolygon {
+            //       MKPolygonRenderer *polygonRender = [[MKPolygonRenderer alloc] initWithPolygon:(MKPolygon *)overlay];
+            //       DJIMapPolygon *polygon = (DJIMapPolygon *)overlay;
+            //       polygonRender.strokeColor = polygon.strokeColor;
+            //       polygonRender.lineWidth = polygon.lineWidth;
+            //       polygonRender.lineDashPattern = polygon.lineDashPattern;
+            //       polygonRender.lineJoin = polygon.lineJoin;
+            //       polygonRender.lineCap = polygon.lineCap;
+            //       polygonRender.fillColor = polygon.fillColor;
+            //       return polygonRender;
+            let polygonRender = MKPolygonRenderer(polygon: polygon)
+            polygonRender.strokeColor = polygon.strokeColor
+            polygonRender.lineWidth = polygon.lineWidth
+            polygonRender.lineDashPattern = polygon.lineDashPattern
+            polygonRender.lineJoin = polygon.lineJoin
+            polygonRender.lineCap = polygon.lineCap
+            polygonRender.fillColor = polygon.fillColor
+            return polygonRender
+        } else if let circle = overlay as? DJICircle {
+            //       DJICircle *circle = (DJICircle *)overlay;
+            //       MKCircleRenderer *circleRender = [[MKCircleRenderer alloc] initWithCircle:circle];
+            let circleRenderer = MKCircleRenderer(circle: circle)
+            circleRenderer.strokeColor = circle.strokeColor
+            circleRenderer.lineWidth = circle.lineWidth
+            circleRenderer.fillColor = circle.fillColor
+            return circleRenderer;
+        }
+        
+        return nil
     }
 
     //MARK: - Update Fly Zones in Surrounding Area
-    
-    func updateFlyZones() {
+
+    @objc func updateFlyZones() {
     //{
     //    if ([self canUpdateLimitFlyZoneWithCoordinate]) {
     //        [self updateFlyZonesInSurroundingArea];
     //        [self updateCustomUnlockZone];
     //    }
+        if self.canUpdateLimitFlyZoneWithCoordinate() {
+            self.updateFlyZonesInSurroundingArea()
+            self.updateCustomUnlockZone()
+        }
     }
     
-    func forceUpdateFlyZones() {
+    @objc func forceUpdateFlyZones() {//TODO: unnecessary method?
         //self.updateFlyZonesInSurroundingArea()
+        self.updateFlyZonesInSurroundingArea()
     }
     
-    func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
+    @objc func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
         guard let lastUpdateTime = self.lastUpdateTime else { return false }
         let currentTime = Date.timeIntervalSinceReferenceDate
         if (currentTime - lastUpdateTime) < kUpdateTimeStamp {
@@ -144,78 +157,96 @@ class MapController : NSObject, MKMapViewDelegate {
         return true
     }
     
-    func updateFlyZonesInSurroundingArea() {
-//        WeakRef(target);
-//        [[DJISDKManager flyZoneManager] getFlyZonesInSurroundingAreaWithCompletion:^(NSArray<DJIFlyZoneInformation *> * _Nullable infos, NSError * _Nullable error) {
-//            WeakReturn(target);
-//            if (nil == error && nil != infos) {
-//                [target updateFlyZoneOverlayWithInfos:infos];
-//            }else{
-//                if (target.mapOverlays.count > 0) {
-//                    [target removeMapOverlays:target.mapOverlays];
-//                }
-//                if (target.flyZones.count > 0) {
-//                    [target.flyZones removeAllObjects];
-//                }
-//            }
-//        }];
+    @objc func updateFlyZonesInSurroundingArea() {
+        DJISDKManager.flyZoneManager()?.getFlyZonesInSurroundingArea(completion: { [weak self] (infos:[DJIFlyZoneInformation]?, error:Error?) in
+            if let infos = infos, error == nil {
+                self?.updateFlyZoneOverlayWith(flyZoneInfos: infos)
+            } else {
+                if let mapOverlays = self?.mapOverlays {
+                    if mapOverlays.count > 0 {
+                        self?.removeMapOverlays(objects: mapOverlays)
+                    }
+                }
+                if let flyZones = self?.flyZones {
+                    if flyZones.count > 0 {
+                        self?.flyZones.removeAll()
+                    }
+                }
+            }
+        })
     }
     
-    func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
-//        if (flyZoneInfos && flyZoneInfos.count > 0) {
-//            dispatch_block_t block = ^{
-//                NSMutableArray *overlays = [NSMutableArray array];
-//                NSMutableArray *flyZones = [NSMutableArray array];
-//
-//                for (int i = 0; i < flyZoneInfos.count; i++) {
-//                    DJIFlyZoneInformation *flyZoneLimitInfo = [flyZoneInfos objectAtIndex:i];
-//                    DJILimitSpaceOverlay *aOverlay = nil;
-//                    for (DJILimitSpaceOverlay *aMapOverlay in _mapOverlays) {
-//                        if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZoneLimitInfo.flyZoneID &&
-//                            (aMapOverlay.limitSpaceInfo.subFlyZones.count == flyZoneLimitInfo.subFlyZones.count)) {
-//                            aOverlay = aMapOverlay;
-//                            break;
-//                        }
-//                    }
-//                    if (!aOverlay) {
-//                        aOverlay = [[DJILimitSpaceOverlay alloc] initWithLimitSpace:flyZoneLimitInfo];
-//                    }
-//                    [overlays addObject:aOverlay];
-//                    [flyZones addObject:flyZoneLimitInfo];
-//                }
-//                [self removeMapOverlays:self.mapOverlays];
-//                [self.flyZones removeAllObjects];
-//                [self addMapOverlays:overlays];
-//                [self.flyZones addObjectsFromArray:flyZones];
-//            };
-//            if ([NSThread currentThread].isMainThread) {
-//                block();
-//            } else {
-//                dispatch_sync(dispatch_get_main_queue(), ^{
-//                    block();
-//                });
-//            }
-//        }
+    @objc func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
+        guard let flyZoneInfos = flyZoneInfos else { return }
+        if flyZoneInfos.count > 0 {
+            //TODO: rename closure something descriptive
+            let closure = {
+                var overlays = [DJILimitSpaceOverlay]()
+                var flyZones = [DJIFlyZoneInformation]()
+                
+                for flyZoneLimitInfo in flyZoneInfos {
+                    var anOverlay : DJILimitSpaceOverlay?
+                    for aMapOverlay in self.mapOverlays as! [DJILimitSpaceOverlay] {
+                        if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
+                            anOverlay = aMapOverlay
+                            break
+                        }
+                    }
+                    if anOverlay == nil {
+                        anOverlay = DJILimitSpaceOverlay(limitSpace: flyZoneLimitInfo)
+                    }
+                    overlays.append(anOverlay!)
+                    flyZones.append(flyZoneLimitInfo)
+                }
+            }
+            
+            if Thread.current.isMainThread {
+                closure()
+            } else {
+                DispatchQueue.main.sync {
+                    closure()
+                }
+            }
+        }
     }
     
-    func updateCustomUnlockZone() {
+    @objc func updateCustomUnlockZone() { //TODO: test this method... it's a mess!
 //        WeakRef(target);
 //        NSArray* zones = [[DJISDKManager flyZoneManager] getCustomUnlockZonesFromAircraft];
 //
 //        if (zones.count > 0) {
-//            [[DJISDKManager flyZoneManager] getEnabledCustomUnlockZoneWithCompletion:^(DJICustomUnlockZone * _Nullable zone, NSError * _Nullable error) {
-//                if (!error && zone) {
-//                    [target updateCustomUnlockWithSpaces:@[zone] andEnabledZone:zone];
-//                }
-//            }];
+
 //        } else {
 //            if (target.customUnlockOverlays.count > 0) {
 //                [target removeMapOverlays:self.customUnlockOverlays];
 //            }
 //        }
+        if let zones = DJISDKManager.flyZoneManager()?.getCustomUnlockZonesFromAircraft() {
+            if zones.count > 0 {
+                //            [[DJISDKManager flyZoneManager] getEnabledCustomUnlockZoneWithCompletion:^(DJICustomUnlockZone * _Nullable zone, NSError * _Nullable error) {
+                //                if (!error && zone) {
+                //                    [target updateCustomUnlockWithSpaces:@[zone] andEnabledZone:zone];
+                //                }
+                //            }];
+                DJISDKManager.flyZoneManager()?.getEnabledCustomUnlockZone(completion: { [weak self] (zone:DJICustomUnlockZone?, error:Error?) in
+                    if (error == nil) && (zone != nil) {
+                        self?.updateCustomUnlockWith(spaceInfos: [zone!], enabledZone: zone!)//TODO: reconsider force unwrap
+                    }
+                })
+            } else {
+                removeCustomUnlocks()
+            }
+        }
     }
     
-    func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {
+    @objc func removeCustomUnlocks() {
+        guard let _ = self.customUnlockOverlays else { return }
+        if self.customUnlockOverlays!.count > 0 {
+            self.removeMapOverlays(objects: self.customUnlockOverlays!)
+        }
+    }
+    
+    @objc func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {
 //        if (spaceInfos && spaceInfos.count > 0) {
 //            NSMutableArray *overlays = [NSMutableArray array];
 //
@@ -242,11 +273,11 @@ class MapController : NSObject, MKMapViewDelegate {
     }
     
     //TODO: Turn this into a computed property (set)...
-    func set(mapType:MKMapType) {
+    @objc func set(mapType:MKMapType) {
         self.mapView?.mapType = mapType
     }
     
-    func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
+    @objc func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
     //    if (objects.count <= 0) {
     //        return;
     //    }
@@ -266,19 +297,18 @@ class MapController : NSObject, MKMapViewDelegate {
     //            [self.mapView addOverlays:overlays];
     //        });
     //    }
+        if objects.count <= 0 { return }
+        let overlays = self.subOverlaysFor(objects)
+        self.performOnMainThread {
+            self.customUnlockOverlays?.append(contentsOf: objects)
+            self.mapView?.addOverlays(overlays)
+        }
     }
     
-    func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
-    //{
-    //    if (objects.count <= 0) {
-    //        return;
-    //    }
-    //    NSMutableArray *overlays = [NSMutableArray array];
-    //    for (DJIMapOverlay *aMapOverlay in objects) {
-    //        for (id<MKOverlay> aOverlay in aMapOverlay.subOverlays) {
-    //            [overlays addObject:aOverlay];
-    //        }
-    //    }
+    @objc func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
+        if objects.count <= 0 { return }
+        let overlays = self.subOverlaysFor(objects)
+        
     //    if ([NSThread isMainThread]) {
     //        [self.mapOverlays removeObjectsInArray:objects];
     //        [self.mapView removeOverlays:overlays];
@@ -288,54 +318,80 @@ class MapController : NSObject, MKMapViewDelegate {
     //            [self.mapView removeOverlays:overlays];
     //        });
     //    }
+        self.performOnMainThread {
+            self.mapOverlays.removeAll(where: { objects.contains($0) } )
+            self.mapView?.removeOverlays(overlays)
+        }
     }
     
-    func addCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
-    //    if (objects.count <= 0) {
-    //        return;
-    //    }
-    //    NSMutableArray *overlays = [NSMutableArray array];
-    //    for (DJIMapOverlay *aMapOverlay in objects) {
-    //        for (id<MKOverlay> aOverlay in aMapOverlay.subOverlays) {
-    //            [overlays addObject:aOverlay];
-    //        }
-    //    }
-    //
-    //    if ([NSThread isMainThread]) {
-    //        [self.customUnlockOverlays addObjectsFromArray:objects];
-    //        [self.mapView addOverlays:overlays];
-    //    } else {
-    //        dispatch_sync(dispatch_get_main_queue(), ^{
-    //            [self.customUnlockOverlays addObjectsFromArray:objects];
-    //            [self.mapView addOverlays:overlays];
-    //        });
-    //    }
+    @objc func addCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+        if objects.count <= 0 { return }
+        let overlays = self.subOverlaysFor(objects)
+        
+//        if Thread.isMainThread {
+//            self.customUnlockOverlays?.append(contentsOf: objects)
+//            self.mapView?.addOverlays(overlays)
+//        } else {
+//            DispatchQueue.main.async {
+//                self.customUnlockOverlays?.append(contentsOf: objects)
+//                self.mapView?.addOverlays(overlays)
+//            }
+//        }
+        self.performOnMainThread {
+            self.customUnlockOverlays?.append(contentsOf: objects)
+            self.mapView?.addOverlays(overlays)
+        }
     }
     
-    func removeCustomUnlockOverlays(objects:[DJIMapOverlay]) {
-    //    if (objects.count <= 0) {
-    //        return;
-    //    }
-    //    NSMutableArray *overlays = [NSMutableArray array];
-    //    for (DJIMapOverlay *aMapOverlay in objects) {
-    //        for (id<MKOverlay> aOverlay in aMapOverlay.subOverlays) {
-    //            [overlays addObject:aOverlay];
-    //        }
-    //    }
-    //    if ([NSThread isMainThread]) {
-    //        [self.customUnlockOverlays removeObjectsInArray:objects];
-    //        [self.mapView removeOverlays:overlays];
-    //    } else {
-    //        dispatch_sync(dispatch_get_main_queue(), ^{
-    //            [self.customUnlockOverlays removeObjectsInArray:objects];
-    //            [self.mapView removeOverlays:overlays];
-    //        });
-    //    }
+    @objc func removeCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+        if objects.count <= 0 { return }
+
+        let overlays = self.subOverlaysFor(objects)
+        
+//        if Thread.isMainThread {
+//            self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
+//            self.mapView?.removeOverlays(overlays)
+//        } else {
+//            DispatchQueue.main.async {
+//                self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
+//                self.mapView?.removeOverlays(overlays)
+//            }
+//        }
+        self.performOnMainThread {
+            self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
+            self.mapView?.removeOverlays(overlays)
+        }
     }
-    //
-    func refreshMapViewRegion() {
+    
+    @objc func subOverlaysFor(_ overlays:[DJIMapOverlay]) -> [MKOverlay] {
+        var subOverlays = [MKOverlay]()
+        for aMapOverlay in overlays {
+            for aOverlay in aMapOverlay.subOverlays {
+                if let aOverlay = aOverlay as? MKOverlay {
+                    subOverlays.append(aOverlay)
+                }
+            }
+        }
+        return subOverlays
+    }
+    
+    @objc func performOnMainThread(closure: @escaping () -> ()) {
+        if Thread.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.async {
+                closure()
+            }
+        }
+    }
+
+    @objc func refreshMapViewRegion() {
     //    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(_aircraftCoordinate, 500, 500);
     //    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     //    [self.mapView setRegion:adjustedRegion animated:YES];
+        let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        if let adjustedRegion = self.mapView?.regionThatFits(viewRegion) {
+            self.mapView?.setRegion(adjustedRegion, animated: true)
+        }
     }
 }

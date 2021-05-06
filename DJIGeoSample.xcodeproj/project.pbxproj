@@ -188,12 +188,12 @@
 				246F1AB72047F2870038B95D /* DJIGeoCustomZoneDetailViewController.h */,
 				246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */,
 				A4B87ED51D2A6EB600123466 /* Main.storyboard */,
+				A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */,
+				3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */,
+				A4B87EDD1D2A6EB600123466 /* Info.plist */,
 				A4B87EFC1D2A75B500123466 /* DJIMapView */,
 				A4B87ED81D2A6EB600123466 /* Assets.xcassets */,
-				A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */,
-				A4B87EDD1D2A6EB600123466 /* Info.plist */,
 				A4B87EEE1D2A715900123466 /* Frameworks */,
-				3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */,
 			);
 			path = DJIGeoSample;
 			sourceTree = "<group>";
