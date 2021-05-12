@@ -12,5 +12,5 @@ import MapKit
 class Circle : MKCircle {
     @objc var strokeColor : UIColor?
     @objc var fillColor : UIColor?
-    @objc var lineWidth = 1.0 //TODO: Reconsider initial value
+    @objc var lineWidth : Float = 1.0 //TODO: Reconsider initial value
 }

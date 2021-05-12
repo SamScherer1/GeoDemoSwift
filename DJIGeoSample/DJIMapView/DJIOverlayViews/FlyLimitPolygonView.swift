@@ -12,10 +12,12 @@ class FlyLimitPolygonView : MKPolygonRenderer {
     
     //MARK: - life cycle
     
-    init(polygon: DJIPolygon) {
+    init(polygon: Polygon) {
         super.init(polygon: polygon)
         // self.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:polygon.level isHeightLimit:NO isFill:NO];
         // self.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:polygon.level isHeightLimit:NO isFill:YES];
+        self.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: polygon.level, isHeightLimit: false, isFill: false)
+        self.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: polygon.level, isHeightLimit: false, isFill: true)
         self.lineWidth = 1.0
         self.lineJoin = CGLineJoin.bevel
         self.lineCap = CGLineCap.butt

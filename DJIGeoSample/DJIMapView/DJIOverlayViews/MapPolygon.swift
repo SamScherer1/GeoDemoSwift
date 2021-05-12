@@ -15,9 +15,9 @@ class MapPolygon : MKPolygon {
     //@property (nonatomic, strong) UIColor *fillColor;
     var fillColor : UIColor?
     //@property (nonatomic, assign) CGFloat lineWidth;
-    public var lineWidth : CGFloat = 0.0
+    public var lineWidth : Float = 0.0
     //@property (nonatomic, assign) CGFloat lineDashPhase;
-    var lineDashPhase : CGFloat?
+    var lineDashPhase : Float?
     //@property (nonatomic, assign) CGLineCap lineCap;
     var lineCap : CGLineCap?
     //@property (nonatomic, assign) CGLineJoin lineJoin;

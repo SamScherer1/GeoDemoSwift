@@ -10,5 +10,5 @@ import Foundation
 import MapKit
 
 class Polygon : MKPolygon {
-    var level : UInt8 = 0 //TODO: reconsider initial value...
+    var level : DJIFlyZoneCategory = DJIFlyZoneCategory.unknown
 }

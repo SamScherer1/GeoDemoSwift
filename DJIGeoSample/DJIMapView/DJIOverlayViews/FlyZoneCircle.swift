@@ -16,7 +16,7 @@ class FlyZoneCircle : MKCircle {
     //@property (nonatomic, assign) CGFloat flyZoneRadius;
     var flyZoneRadius : CGFloat?
     //@property (nonatomic, assign) uint8_t category;
-    var category : UInt8 = 0
+    var category : DJIFlyZoneCategory = DJIFlyZoneCategory.unknown
     //@property (nonatomic, assign) NSUInteger flyZoneID;
     var flyZoneID : UInt = 0
     //@property (nonatomic, copy) NSString* name;

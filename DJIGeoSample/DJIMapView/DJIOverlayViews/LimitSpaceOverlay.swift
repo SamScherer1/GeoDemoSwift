@@ -10,16 +10,9 @@ import Foundation
 import DJISDK
 import MapKit
 
-//#import "DJILimitSpaceOverlay.h"
-//#import "DJIPolygon.h"
-//#import "DJICircle.h"
-//#import "DJIMapPolygon.h"
-//#import "DJIFlyZoneCircle.h"
-//#import "DJIFlyZoneColorProvider.h"
-
 let kDJILimitFlightSpaceBufferHeight = 5
 
-class LimitSpaceOverlay : DJIMapOverlay {
+class LimitSpaceOverlay : MapOverlay {
     
     var limitSpaceInfo : DJIFlyZoneInformation?
     
@@ -32,21 +25,17 @@ class LimitSpaceOverlay : DJIMapOverlay {
     func overlaysFor(aSubFlyZoneSpace:DJISubFlyZoneInformation) -> [MKOverlay]? {
         let isHeightLimit = aSubFlyZoneSpace.maximumFlightHeight > 0 && aSubFlyZoneSpace.maximumFlightHeight < UINT16_MAX
         if aSubFlyZoneSpace.shape == .cylinder {
-        //        CLLocationCoordinate2D coordinateInMap = aSpace.center;
-        //        DJICircle *circle = [DJICircle circleWithCenterCoordinate:coordinateInMap
-        //                                                           radius:aSpace.radius];
-        //        circle.lineWidth = [self strokLineWidthWithHeight:aSpace.maximumFlightHeight];
-        //        circle.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];
-        //        circle.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:NO];
-        //        return @[circle];
-        //
+            let circle = Circle(center: aSubFlyZoneSpace.center, radius: aSubFlyZoneSpace.radius)
+            circle.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
+            circle.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category,
+                                                                              isHeightLimit: isHeightLimit,
+                                                                              isFill: true)//TODO: reconsider force unwrap
+            circle.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category,
+                                                                                isHeightLimit: isHeightLimit,
+                                                                                isFill: false)
+            return [circle]
         } else if aSubFlyZoneSpace.shape == .polygon {
-        //        if (aSpace.vertices.count <= 0) {
-        //            return @[];
-        //        }
             if aSubFlyZoneSpace.vertices.count <= 0 { return [MKOverlay]() }//TODO: better to return nil here?
-            
-            
 //            CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * aSpace.vertices.count);
             //TODO: dangling pointer?
             var coordinates = UnsafePointer<CLLocationCoordinate2D>(OpaquePointer.init(aSubFlyZoneSpace.vertices))
@@ -61,37 +50,38 @@ class LimitSpaceOverlay : DJIMapOverlay {
             
         //        DJIMapPolygon *polygon = [DJIMapPolygon polygonWithCoordinates:coordinates count:aSpace.vertices.count];
             //var polygon = MapPolygon(coordinates: coordinates, count: UInt(aSubFlyZoneSpace.vertices.count))
-            var polygon = MapPolygon(coordinates: coordinates, count: aSubFlyZoneSpace.vertices.count)
+            let polygon = MapPolygon(coordinates: coordinates, count: aSubFlyZoneSpace.vertices.count)
         //        polygon.lineWidth = [self strokLineWidthWithHeight:aSpace.maximumFlightHeight];
             polygon.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
         //        polygon.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:NO];
-            
-            //TODO: RESUME HERE!!
-            
-            //polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorWith(category:self.limitSpaceInfo?.category, isHeightLimit:isHeightLimit, isFill:false)
-        //        polygon.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];;
-        //        return @[polygon];
+            polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: false)//TODO: reconsider force unwrap
+        //        polygon.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];
+            polygon.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: true)
+            return [polygon]
         }
         return nil
     }
 
-    
-//- (NSArray<id<MKOverlay>> *)overlysForFlyZoneSpace:(DJIFlyZoneInformation *)aSpace
-//{
-//    if (!aSpace) {
-//        return @[];
-//    }
-//    if (aSpace.subFlyZones.count <= 0) {
-//        CLLocationCoordinate2D coordinateInMap = aSpace.center;
-//        CGFloat radius = aSpace.radius;
-//        
-//        DJIFlyZoneCircle* circle = [DJIFlyZoneCircle circleWithCenterCoordinate:coordinateInMap radius:radius];
+    func overlaysFor(aFlyZoneSpace:DJIFlyZoneInformation) -> [MKOverlay]? {
+        guard let subFlyZones = aFlyZoneSpace.subFlyZones else {
+            print("subFlyZones Nil- perhaps should enter the <=0 if check?")
+            fatalError()
+        }
+        
+        if subFlyZones.count <= 0 {
+            let circle = FlyZoneCircle(center: aFlyZoneSpace.center, radius: aFlyZoneSpace.radius)
 //        circle.category = aSpace.category;
 //        circle.flyZoneID = aSpace.flyZoneID;
 //        circle.name = aSpace.name;
 //        circle.limitHeight = 0;
 //        return @[circle];
-//    } else {
+            circle.category = aFlyZoneSpace.category
+            circle.flyZoneID = aFlyZoneSpace.flyZoneID
+            circle.name = aFlyZoneSpace.name
+            circle.limitHeight = 0
+            return [circle]
+        } else {
+            //TODO: use map...
 //        NSMutableArray *results = [NSMutableArray array];
 //        for (DJISubFlyZoneInformation *aSubSpace in aSpace.subFlyZones) {
 //            NSArray *subOverlays = [self overlysForSubFlyZoneSpace:aSubSpace];
@@ -99,21 +89,21 @@ class LimitSpaceOverlay : DJIMapOverlay {
 //        }
 //        
 //        return results;
-//    }
-//    return @[];
-//}
-//
-//- (void)createOverlays
-//{
-//    self.subOverlays = [NSMutableArray array];
-//    NSArray *overlays = [self overlysForFlyZoneSpace:self.limitSpaceInfo];
-//    [self.subOverlays addObjectsFromArray:overlays];
-//}
+        }
+        return nil//TODO: remove when done
+    }
+
+    func createOverlays() {
+        self.subOverlays = [MKOverlay]()
+        if let overlays = self.overlaysFor(aFlyZoneSpace: self.limitSpaceInfo!) {//TODO:force unwrap
+            self.subOverlays?.append(contentsOf: overlays)
+        }
+    }
     
-    func strokeLineWidthWith(height:NSInteger) -> CGFloat {
-        //    if (height <= 30 + kDJILimitFlightSpaceBufferHeight) {
-        //        return 0;
-        //    }
+    func strokeLineWidthWith(height:NSInteger) -> Float {
+        if height <= (30 + kDJILimitFlightSpaceBufferHeight) {
+            return 0.0
+        }
         return 1.0
     }
 }

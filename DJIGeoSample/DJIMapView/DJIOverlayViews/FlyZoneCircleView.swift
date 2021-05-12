@@ -12,8 +12,12 @@ class FlyZoneCircleView : MKCircleRenderer {
 
     init(circle: FlyZoneCircle) {
         super.init(circle: circle as MKCircle)
-        // self.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:circle.category isHeightLimit:NO isFill:YES];
-        // self.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:circle.category isHeightLimit:NO isFill:NO];
+        self.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: circle.category,
+                                                                        isHeightLimit: false,
+                                                                        isFill: true)
+        self.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: circle.category,
+                                                                          isHeightLimit: false,
+                                                                          isFill: false)
         self.lineWidth = 1.0
     }
     
