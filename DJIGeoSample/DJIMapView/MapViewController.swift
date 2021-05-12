@@ -23,9 +23,9 @@ let kUpdateTimeStamp = 10.0
 //    @property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
     var aircraftAnnotation : AircraftAnnotation?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
-    var mapOverlays = [DJIMapOverlay]()//TODO: should be DJILimitSpaceOverlay?
+    var mapOverlays = [MapOverlay]()//TODO: should be DJILimitSpaceOverlay?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
-    var customUnlockOverlays : [DJIMapOverlay]?
+    var customUnlockOverlays : [MapOverlay]?
 //    @property (nonatomic, assign) NSTimeInterval lastUpdateTime;
     var lastUpdateTime : TimeInterval?
     
@@ -88,39 +88,28 @@ let kUpdateTimeStamp = 10.0
     }
     //
     @objc func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
-        if let overlay = overlay as? DJIFlyZoneCircle {
-            //       DJIFlyZoneCircleView* circleView = [[DJIFlyZoneCircleView alloc] initWithCircle:overlay];
-            //       return circleView;
-            return DJIFlyZoneCircleView(circle: overlay)
-        } else if let overlay = overlay as? DJIPolygon {
-            //       DJIFlyLimitPolygonView *polygonRender = [[DJIFlyLimitPolygonView alloc] initWithPolygon:(DJIPolygon *)overlay];
-            //       return polygonRender;
-            return DJIFlyLimitPolygonView(overlay: overlay)
+        if let overlay = overlay as? FlyZoneCircle {
+            return FlyZoneCircleView(circle: overlay)
+        } else if let polygon = overlay as? Polygon {
+            return FlyLimitPolygonView(polygon: polygon)
 //        } else if overlay.isKind(of: DJIMapPolygon.self) {
-        } else if let polygon = overlay as? DJIMapPolygon {
-            //       MKPolygonRenderer *polygonRender = [[MKPolygonRenderer alloc] initWithPolygon:(MKPolygon *)overlay];
-            //       DJIMapPolygon *polygon = (DJIMapPolygon *)overlay;
-            //       polygonRender.strokeColor = polygon.strokeColor;
-            //       polygonRender.lineWidth = polygon.lineWidth;
-            //       polygonRender.lineDashPattern = polygon.lineDashPattern;
-            //       polygonRender.lineJoin = polygon.lineJoin;
-            //       polygonRender.lineCap = polygon.lineCap;
-            //       polygonRender.fillColor = polygon.fillColor;
-            //       return polygonRender;
+        } else if let polygon = overlay as? MapPolygon {
             let polygonRender = MKPolygonRenderer(polygon: polygon)
             polygonRender.strokeColor = polygon.strokeColor
-            polygonRender.lineWidth = polygon.lineWidth
+            polygonRender.lineWidth = CGFloat(polygon.lineWidth)
             polygonRender.lineDashPattern = polygon.lineDashPattern
-            polygonRender.lineJoin = polygon.lineJoin
-            polygonRender.lineCap = polygon.lineCap
+            if let polygonLineJoin = polygon.lineJoin {
+                polygonRender.lineJoin = polygonLineJoin
+            }
+            if let polygonLineCap = polygon.lineCap {
+                polygonRender.lineCap = polygonLineCap
+            }
             polygonRender.fillColor = polygon.fillColor
             return polygonRender
-        } else if let circle = overlay as? DJICircle {
-            //       DJICircle *circle = (DJICircle *)overlay;
-            //       MKCircleRenderer *circleRender = [[MKCircleRenderer alloc] initWithCircle:circle];
+        } else if let circle = overlay as? Circle {
             let circleRenderer = MKCircleRenderer(circle: circle)
             circleRenderer.strokeColor = circle.strokeColor
-            circleRenderer.lineWidth = circle.lineWidth
+            circleRenderer.lineWidth = CGFloat(circle.lineWidth)
             circleRenderer.fillColor = circle.fillColor
             return circleRenderer;
         }
@@ -129,13 +118,7 @@ let kUpdateTimeStamp = 10.0
     }
 
     //MARK: - Update Fly Zones in Surrounding Area
-
     @objc func updateFlyZones() {
-    //{
-    //    if ([self canUpdateLimitFlyZoneWithCoordinate]) {
-    //        [self updateFlyZonesInSurroundingArea];
-    //        [self updateCustomUnlockZone];
-    //    }
         if self.canUpdateLimitFlyZoneWithCoordinate() {
             self.updateFlyZonesInSurroundingArea()
             self.updateCustomUnlockZone()
@@ -143,7 +126,6 @@ let kUpdateTimeStamp = 10.0
     }
     
     @objc func forceUpdateFlyZones() {//TODO: unnecessary method?
-        //self.updateFlyZonesInSurroundingArea()
         self.updateFlyZonesInSurroundingArea()
     }
     
@@ -277,7 +259,7 @@ let kUpdateTimeStamp = 10.0
         self.mapView?.mapType = mapType
     }
     
-    @objc func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
+    @objc func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
     //    if (objects.count <= 0) {
     //        return;
     //    }
@@ -305,7 +287,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
+    @objc func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         
@@ -324,7 +306,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func addCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+    @objc func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         
@@ -343,7 +325,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+    @objc func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
 
         let overlays = self.subOverlaysFor(objects)
@@ -363,10 +345,10 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func subOverlaysFor(_ overlays:[DJIMapOverlay]) -> [MKOverlay] {
+    @objc func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
         var subOverlays = [MKOverlay]()
         for aMapOverlay in overlays {
-            for aOverlay in aMapOverlay.subOverlays {
+            for aOverlay in aMapOverlay.subOverlays! {//TODO: force unwrap
                 if let aOverlay = aOverlay as? MKOverlay {
                     subOverlays.append(aOverlay)
                 }
