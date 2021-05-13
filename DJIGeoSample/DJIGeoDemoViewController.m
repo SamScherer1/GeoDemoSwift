@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *pickerContainerView;
 
-@property (nonatomic, strong) MapController* djiMapViewController;
+@property (nonatomic, strong) DJIMapViewController* djiMapViewController;
 @property (nonatomic, strong) NSTimer* updateLoginStateTimer;
 @property (nonatomic, strong) NSTimer* updateFlyZoneDataTimer;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> * unlockFlyZoneIDs;
@@ -450,8 +450,8 @@
 {
     if (CLLocationCoordinate2DIsValid(state.aircraftLocation.coordinate)) {
         double heading = RADIAN(state.attitude.yaw);
-        //[self.djiMapViewController updateAircraftLocation:state.aircraftLocation.coordinate withHeading:heading];
-        [self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];
+        [self.djiMapViewController updateAircraftLocation:state.aircraftLocation.coordinate withHeading:heading];
+        //[self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];
     }
 }
 
