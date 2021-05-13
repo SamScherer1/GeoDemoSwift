@@ -31,14 +31,18 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     //    @property (nonatomic, strong) DJIFlyZoneInformation *selectedFlyZoneInfo;
     //    @property (nonatomic) BOOL isUnlockEnable;
     //    @property(nonatomic, strong) DJIScrollView *flyZoneInfoView;
-    var mapViewController: MapController
-    var updateLoginStateTimer : Timer
-    var updateFlyZoneDataTimer : Timer
-    var unlockFlyZoneIDs : [Int] //TODO: used to be [NSNumber] types... all ints?
-    var unlockedFlyZoneInfos : [DJIFlyZoneInformation]
-    var selectedFlyZoneInfo : DJIFlyZoneInformation
-    var isUnlockEnable : Bool
-    var flyZoneInfoView : DJIScrollView
+    var mapViewController: MapViewController?
+    var updateLoginStateTimer : Timer?
+    var updateFlyZoneDataTimer : Timer?
+    var unlockFlyZoneIDs : [Int] = [] //TODO: used to be [NSNumber] types... all ints?
+    var unlockedFlyZoneInfos : [DJIFlyZoneInformation]?
+    var selectedFlyZoneInfo : DJIFlyZoneInformation?
+    var isUnlockEnable : Bool?
+    var flyZoneInfoView : DJIScrollView?
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
 
 //    - (void)viewDidLoad
@@ -57,7 +61,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
 //    }
     override func viewDidLoad() {
         self.title = "DJI GEO Demo"
-        self.pickerContainerView.s
+        //self.pickerContainerView
     }
 //
 //    - (void)viewWillAppear:(BOOL)animated

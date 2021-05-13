@@ -13,9 +13,9 @@ import MapKit
 let kUpdateTimeStamp = 10.0
 
 
-@objc class MapController : NSObject, MKMapViewDelegate {
+@objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject
     //@property (nonatomic, strong) NSMutableArray *flyZones;
-    @objc public var flyZones = [Any]()//TODO: specify type?
+    @objc public var flyZones = [Any]()//TODO: specify array type?
 //    @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
     var aircraftCoordinate : CLLocationCoordinate2D
 //    @property (weak, nonatomic) MKMapView *mapView;
@@ -50,8 +50,9 @@ let kUpdateTimeStamp = 10.0
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
                 self.aircraftAnnotation?.coordinate = coordinate
-                let annotationView = (self.mapView?.view(for: self.aircraftAnnotation!))! as! AircraftAnnotationView
-                annotationView.update(heading: heading)
+                if let annotationView = (self.mapView?.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView {
+                    annotationView.update(heading: heading)
+                }//TODO: not unwrapping as AircrarftAnnotationView?
             } else {
                 let aircraftAnnotation = AircraftAnnotation(coordinate: coordinate, heading: heading)
                 self.aircraftAnnotation = aircraftAnnotation

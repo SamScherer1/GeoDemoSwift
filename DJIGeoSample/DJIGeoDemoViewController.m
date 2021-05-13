@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *pickerContainerView;
 
-@property (nonatomic, strong) MapController* djiMapViewController;
+@property (nonatomic, strong) MapViewController* djiMapViewController;
 @property (nonatomic, strong) NSTimer* updateLoginStateTimer;
 @property (nonatomic, strong) NSTimer* updateFlyZoneDataTimer;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> * unlockFlyZoneIDs;
@@ -106,7 +106,7 @@
 {
     self.title = @"DJI GEO Demo";
 
-    self.djiMapViewController = [[DJIMapViewController alloc] initWithMap:self.mapView];
+    self.djiMapViewController = [[MapViewController alloc] initWithMap:self.mapView];
     self.unlockFlyZoneIDs = [[NSMutableArray alloc] init];
     self.unlockedFlyZoneInfos = [[NSMutableArray alloc] init];
     self.flyZoneInfoView = [DJIScrollView viewWithViewController:self];

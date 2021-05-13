@@ -13,7 +13,7 @@ import UIKit
 import DJISDK
 
 let kUseBridge = true
-let kBridgeIP = "192.168.128.169"
+let kBridgeIP = "192.168.1.97"
 
 //TODO: consider breaking out Delegate methods in extension
 class RootViewController : UIViewController, DJISDKManagerDelegate {
