@@ -19,7 +19,7 @@ let kUpdateTimeStamp = 10.0
 //    @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
     var aircraftCoordinate : CLLocationCoordinate2D
 //    @property (weak, nonatomic) MKMapView *mapView;
-    var mapView : MKMapView?
+    var mapView : MKMapView
 //    @property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
     var aircraftAnnotation : AircraftAnnotation?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
@@ -35,14 +35,13 @@ let kUpdateTimeStamp = 10.0
         
         super.init()
         
-        self.mapView?.delegate = self
-        //self.forceUpdateFlyZones()
+        self.mapView.delegate = self
+        self.forceUpdateFlyZones()
     }
     
     @objc deinit {
         self.aircraftAnnotation = nil
-        self.mapView?.delegate = nil
-        self.mapView = nil
+        self.mapView.delegate = nil
     }
     
     @objc func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
@@ -50,17 +49,16 @@ let kUpdateTimeStamp = 10.0
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
                 self.aircraftAnnotation?.coordinate = coordinate
-                if let annotationView = (self.mapView?.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView {
+                if let annotationView = (self.mapView.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView {
                     annotationView.update(heading: heading)
                 }//TODO: not unwrapping as AircrarftAnnotationView?
             } else {
                 let aircraftAnnotation = AircraftAnnotation(coordinate: coordinate, heading: heading)
                 self.aircraftAnnotation = aircraftAnnotation
-                self.mapView?.addAnnotation(aircraftAnnotation)
+                self.mapView.addAnnotation(aircraftAnnotation)
                 let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-                if let adjustedRegion = self.mapView?.regionThatFits(viewRegion) {
-                    self.mapView?.setRegion(adjustedRegion, animated: true)
-                }
+                let adjustedRegion = self.mapView.regionThatFits(viewRegion)
+                self.mapView.setRegion(adjustedRegion, animated: true)
             }
             self.updateFlyZones()
         }
@@ -68,7 +66,9 @@ let kUpdateTimeStamp = 10.0
     
     //MARK: - MKMapViewDelegate Methods
     
-    @objc func viewFor(mapView:MKMapView, annotation:MKAnnotation) -> MKAnnotationView? {
+    //@objc func viewFor(mapView:MKMapView, annotation:MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
     //
     //    if ([annotation isKindOfClass:[MKUserLocation class]]) {
     //        return nil;
@@ -81,7 +81,7 @@ let kUpdateTimeStamp = 10.0
             //        }
             //
             //        return aircraftAnno;
-            let aircraftAnno = self.mapView?.dequeueReusableAnnotationView(withIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
+            let aircraftAnno = self.mapView.dequeueReusableAnnotationView(withIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
             return aircraftAnno ?? AircraftAnnotationView(annotation: annotation, reuseIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
             
         }
@@ -257,7 +257,7 @@ let kUpdateTimeStamp = 10.0
     
     //TODO: Turn this into a computed property (set)...
     @objc func set(mapType:MKMapType) {
-        self.mapView?.mapType = mapType
+        self.mapView.mapType = mapType
     }
     
     @objc func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
@@ -284,7 +284,7 @@ let kUpdateTimeStamp = 10.0
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
             self.customUnlockOverlays?.append(contentsOf: objects)
-            self.mapView?.addOverlays(overlays)
+            self.mapView.addOverlays(overlays)
         }
     }
     
@@ -303,7 +303,7 @@ let kUpdateTimeStamp = 10.0
     //    }
         self.performOnMainThread {
             self.mapOverlays.removeAll(where: { objects.contains($0) } )
-            self.mapView?.removeOverlays(overlays)
+            self.mapView.removeOverlays(overlays)
         }
     }
     
@@ -313,16 +313,16 @@ let kUpdateTimeStamp = 10.0
         
 //        if Thread.isMainThread {
 //            self.customUnlockOverlays?.append(contentsOf: objects)
-//            self.mapView?.addOverlays(overlays)
+//            self.mapView.addOverlays(overlays)
 //        } else {
 //            DispatchQueue.main.async {
 //                self.customUnlockOverlays?.append(contentsOf: objects)
-//                self.mapView?.addOverlays(overlays)
+//                self.mapView.addOverlays(overlays)
 //            }
 //        }
         self.performOnMainThread {
             self.customUnlockOverlays?.append(contentsOf: objects)
-            self.mapView?.addOverlays(overlays)
+            self.mapView.addOverlays(overlays)
         }
     }
     
@@ -333,16 +333,16 @@ let kUpdateTimeStamp = 10.0
         
 //        if Thread.isMainThread {
 //            self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
-//            self.mapView?.removeOverlays(overlays)
+//            self.mapView.removeOverlays(overlays)
 //        } else {
 //            DispatchQueue.main.async {
 //                self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
-//                self.mapView?.removeOverlays(overlays)
+//                self.mapView.removeOverlays(overlays)
 //            }
 //        }
         self.performOnMainThread {
             self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
-            self.mapView?.removeOverlays(overlays)
+            self.mapView.removeOverlays(overlays)
         }
     }
     
@@ -370,8 +370,7 @@ let kUpdateTimeStamp = 10.0
 
     @objc func refreshMapViewRegion() {
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        if let adjustedRegion = self.mapView?.regionThatFits(viewRegion) {
-            self.mapView?.setRegion(adjustedRegion, animated: true)
-        }
+        let adjustedRegion = self.mapView.regionThatFits(viewRegion)
+        self.mapView.setRegion(adjustedRegion, animated: true)
     }
 }
