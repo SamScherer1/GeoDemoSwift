@@ -49,9 +49,8 @@ let kUpdateTimeStamp = 10.0
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
                 self.aircraftAnnotation?.coordinate = coordinate
-                if let annotationView = (self.mapView.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView {
-                    annotationView.update(heading: heading)
-                }//TODO: not unwrapping as AircrarftAnnotationView?
+                let annotationView = (self.mapView.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView
+                annotationView?.update(heading: heading)
             } else {
                 let aircraftAnnotation = AircraftAnnotation(coordinate: coordinate, heading: heading)
                 self.aircraftAnnotation = aircraftAnnotation

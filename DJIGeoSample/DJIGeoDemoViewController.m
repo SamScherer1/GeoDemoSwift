@@ -211,6 +211,7 @@
                     //ShowResult(@"Start simulator error:%@", error.description);
                 } else {
                     //ShowResult(@"Start simulator success");
+                    NSLog(@"SS Start Simulator Success");
                     [target.djiMapViewController refreshMapViewRegion];
                 }
             }];
