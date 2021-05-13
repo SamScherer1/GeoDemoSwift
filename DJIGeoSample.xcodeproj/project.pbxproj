@@ -32,6 +32,7 @@
 		3A4FE0762644742300D1E8B9 /* FlyLimitPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0752644742300D1E8B9 /* FlyLimitPolygonView.swift */; };
 		3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */; };
 		3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */; };
+		3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */; };
 		A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3141E7AA50F0089C965 /* DJICircle.m */; };
 		A437B3201E7AA50F0089C965 /* DJIFlyLimitPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */; };
 		A437B3211E7AA50F0089C965 /* DJILimitSpaceOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */; };
@@ -97,6 +98,7 @@
 		3A4FE0752644742300D1E8B9 /* FlyLimitPolygonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyLimitPolygonView.swift; sourceTree = "<group>"; };
 		3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyZoneColorProvider.swift; sourceTree = "<group>"; };
 		3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitSpaceOverlay.swift; sourceTree = "<group>"; };
+		3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDemoViewController.swift; sourceTree = "<group>"; };
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */,
 				A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */,
 				A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */,
+				3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */,
 				246F1AB22047E9640038B95D /* DJIGeoCustomUnlockingViewController.h */,
 				246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */,
 				3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */,
@@ -434,6 +437,7 @@
 				3A4FE0662641B36400D1E8B9 /* MapViewController.swift in Sources */,
 				3A4FE06A2644621500D1E8B9 /* Polygon.swift in Sources */,
 				3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */,
+				3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */,
 				A437B3221E7AA50F0089C965 /* DJIMapOverlay.m in Sources */,
 				A4B87F0F1D2A75B500123466 /* DJIFlyZoneCircle.m in Sources */,
 				246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */,

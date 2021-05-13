@@ -17,9 +17,8 @@ class CustomUnlockOverlay : MapOverlay {
         super.init()
     }
     
-    init(customUnlockInformation:DJICustomUnlockZone, isEnabled:Bool) {
-        self.customUnlockInformation = customUnlockInformation
-        super.init()
+    convenience init(customUnlockInformation:DJICustomUnlockZone, isEnabled:Bool) {
+        self.init(customUnlockInformation:customUnlockInformation)
         self.createOverlays(isEnabled: isEnabled)
     }
     

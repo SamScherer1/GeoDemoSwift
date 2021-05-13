@@ -9,7 +9,7 @@
 import Foundation
 import DJISDK
 
-class DemoUtility: NSObject {//TODO: make DemoUtility a struct?
+class DemoUtility: NSObject {//TODO: make DemoUtility a struct(or at least not NSObject subclass) once unused by objc?
     public class func show(result:String) {//TODO: Should I make this a global function like the objc original?
         DispatchQueue.main.async {
             let alertViewController = UIAlertController(title: nil, message: result as String, preferredStyle: UIAlertController.Style.alert)

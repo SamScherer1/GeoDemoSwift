@@ -368,9 +368,6 @@ let kUpdateTimeStamp = 10.0
     }
 
     @objc func refreshMapViewRegion() {
-    //    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(_aircraftCoordinate, 500, 500);
-    //    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
-    //    [self.mapView setRegion:adjustedRegion animated:YES];
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         if let adjustedRegion = self.mapView?.regionThatFits(viewRegion) {
             self.mapView?.setRegion(adjustedRegion, animated: true)
