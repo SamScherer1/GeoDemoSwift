@@ -49,7 +49,7 @@ let kUpdateTimeStamp = 10.0
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
                 self.aircraftAnnotation?.coordinate = coordinate
-                let annotationView = (self.mapView.view(for: self.aircraftAnnotation!))! as? AircraftAnnotationView
+                let annotationView = (self.mapView.view(for: self.aircraftAnnotation!)) as? AircraftAnnotationView
                 annotationView?.update(heading: heading)
             } else {
                 let aircraftAnnotation = AircraftAnnotation(coordinate: coordinate, heading: heading)
@@ -65,7 +65,6 @@ let kUpdateTimeStamp = 10.0
     
     //MARK: - MKMapViewDelegate Methods
     
-    //@objc func viewFor(mapView:MKMapView, annotation:MKAnnotation) -> MKAnnotationView? {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
     //
@@ -87,7 +86,8 @@ let kUpdateTimeStamp = 10.0
         return nil
     }
     //
-    @objc func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
+    //@objc func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? FlyZoneCircle {
             return FlyZoneCircleView(circle: overlay)
         } else if let polygon = overlay as? Polygon {
@@ -113,8 +113,7 @@ let kUpdateTimeStamp = 10.0
             circleRenderer.fillColor = circle.fillColor
             return circleRenderer;
         }
-        
-        return nil
+        fatalError("error generating overlay renderer")
     }
 
     //MARK: - Update Fly Zones in Surrounding Area
