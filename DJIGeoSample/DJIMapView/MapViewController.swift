@@ -66,27 +66,15 @@ let kUpdateTimeStamp = 10.0
     //MARK: - MKMapViewDelegate Methods
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-    //
-    //    if ([annotation isKindOfClass:[MKUserLocation class]]) {
-    //        return nil;
         if annotation.isKind(of: MKUserLocation.self) { return nil }
         if annotation.isKind(of: AircraftAnnotation.self) {
-            //        static NSString* aircraftReuseIdentifier = @"DJI_AIRCRAFT_ANNOTATION_VIEW";
-            //        AircraftAnnotationView* aircraftAnno = (AircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
-            //        if (aircraftAnno == nil) {
-            //            aircraftAnno = [[AircraftAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:aircraftReuseIdentifier];
-            //        }
-            //
-            //        return aircraftAnno;
             let aircraftAnno = self.mapView.dequeueReusableAnnotationView(withIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
             return aircraftAnno ?? AircraftAnnotationView(annotation: annotation, reuseIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
             
         }
         return nil
     }
-    //
-    //@objc func rendererFor(mapView:MKMapView, overlay:MKOverlay) -> MKOverlayRenderer? {
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? FlyZoneCircle {
             return FlyZoneCircleView(circle: overlay)
