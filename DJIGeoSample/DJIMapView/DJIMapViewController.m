@@ -74,23 +74,18 @@
             MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
             [self.mapView setRegion:adjustedRegion animated:YES];
             [self updateFlyZones];
-        }
-        else
-        {
+        } else {
             [self.aircraftAnnotation setCoordinate:coordinate];
             AircraftAnnotationView *annotationView = (AircraftAnnotationView *)[_mapView viewForAnnotation:self.aircraftAnnotation];
             [annotationView updateWithHeading:heading];
             [self updateFlyZones];
         }
-
     }
 }
 
 #pragma mark - MKMapViewDelegate Methods
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }else if ([annotation isKindOfClass:[AircraftAnnotation class]])

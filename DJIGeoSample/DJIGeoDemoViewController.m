@@ -458,8 +458,7 @@
 
 #pragma mark - UITableViewDelgete
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.djiMapViewController.flyZones.count;
 }
 

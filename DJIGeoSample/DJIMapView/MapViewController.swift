@@ -15,7 +15,7 @@ let kUpdateTimeStamp = 10.0
 
 @objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject
     //@property (nonatomic, strong) NSMutableArray *flyZones;
-    @objc public var flyZones = [Any]()//TODO: specify array type?
+    @objc public var flyZones = [DJIFlyZoneInformation]()
 //    @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
     var aircraftCoordinate : CLLocationCoordinate2D
 //    @property (weak, nonatomic) MKMapView *mapView;
@@ -23,13 +23,13 @@ let kUpdateTimeStamp = 10.0
 //    @property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
     var aircraftAnnotation : AircraftAnnotation?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
-    var mapOverlays = [MapOverlay]()//TODO: should be DJILimitSpaceOverlay?
+    var mapOverlays = [DJIMapOverlay]()//TODO: should be DJILimitSpaceOverlay?
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
-    var customUnlockOverlays : [MapOverlay]?
+    var customUnlockOverlays : [DJIMapOverlay]?
 //    @property (nonatomic, assign) NSTimeInterval lastUpdateTime;
-    var lastUpdateTime : TimeInterval?
+    var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     
-    @objc init(map:MKMapView) {
+    @objc public init(map: MKMapView) {
         self.aircraftCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
         self.mapView = map
         
@@ -44,7 +44,7 @@ let kUpdateTimeStamp = 10.0
         self.mapView.delegate = nil
     }
     
-    @objc func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
+    @objc public func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
         if CLLocationCoordinate2DIsValid(coordinate) {
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
@@ -76,25 +76,22 @@ let kUpdateTimeStamp = 10.0
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? FlyZoneCircle {
-            return FlyZoneCircleView(circle: overlay)
-        } else if let polygon = overlay as? Polygon {
-            return FlyLimitPolygonView(polygon: polygon)
-//        } else if overlay.isKind(of: DJIMapPolygon.self) {
-        } else if let polygon = overlay as? MapPolygon {
+        if let overlay = overlay as? DJIFlyZoneCircle {
+            return DJIFlyZoneCircleView(circle: overlay)
+        } else if let polygon = overlay as? DJIPolygon {
+            return DJIFlyLimitPolygonView(polygon: polygon)
+        } else if let polygon = overlay as? DJIMapPolygon {
             let polygonRender = MKPolygonRenderer(polygon: polygon)
             polygonRender.strokeColor = polygon.strokeColor
             polygonRender.lineWidth = CGFloat(polygon.lineWidth)
             polygonRender.lineDashPattern = polygon.lineDashPattern
-            if let polygonLineJoin = polygon.lineJoin {
-                polygonRender.lineJoin = polygonLineJoin
-            }
-            if let polygonLineCap = polygon.lineCap {
-                polygonRender.lineCap = polygonLineCap
-            }
+            let polygonLineJoin = polygon.lineJoin
+            polygonRender.lineJoin = polygonLineJoin
+            let polygonLineCap = polygon.lineCap
+            polygonRender.lineCap = polygonLineCap
             polygonRender.fillColor = polygon.fillColor
             return polygonRender
-        } else if let circle = overlay as? Circle {
+        } else if let circle = overlay as? DJICircle {
             let circleRenderer = MKCircleRenderer(circle: circle)
             circleRenderer.strokeColor = circle.strokeColor
             circleRenderer.lineWidth = CGFloat(circle.lineWidth)
@@ -117,16 +114,15 @@ let kUpdateTimeStamp = 10.0
     }
     
     @objc func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
-        guard let lastUpdateTime = self.lastUpdateTime else { return false }
         let currentTime = Date.timeIntervalSinceReferenceDate
-        if (currentTime - lastUpdateTime) < kUpdateTimeStamp {
+        if (currentTime - self.lastUpdateTime) < kUpdateTimeStamp {
             return false
         }
         self.lastUpdateTime = currentTime
         return true
     }
     
-    @objc func updateFlyZonesInSurroundingArea() {
+    @objc public func updateFlyZonesInSurroundingArea() {
         DJISDKManager.flyZoneManager()?.getFlyZonesInSurroundingArea(completion: { [weak self] (infos:[DJIFlyZoneInformation]?, error:Error?) in
             if let infos = infos, error == nil {
                 self?.updateFlyZoneOverlayWith(flyZoneInfos: infos)
@@ -146,35 +142,42 @@ let kUpdateTimeStamp = 10.0
     }
     
     @objc func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
-        guard let flyZoneInfos = flyZoneInfos else { return }
-        if flyZoneInfos.count > 0 {
-            //TODO: rename closure something descriptive
-            let closure = {
-                var overlays = [DJILimitSpaceOverlay]()
-                var flyZones = [DJIFlyZoneInformation]()
-                
-                for flyZoneLimitInfo in flyZoneInfos {
-                    var anOverlay : DJILimitSpaceOverlay?
-                    for aMapOverlay in self.mapOverlays as! [DJILimitSpaceOverlay] {
-                        if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
-                            anOverlay = aMapOverlay
-                            break
-                        }
-                    }
-                    if anOverlay == nil {
-                        anOverlay = DJILimitSpaceOverlay(limitSpace: flyZoneLimitInfo)
-                    }
-                    overlays.append(anOverlay!)
-                    flyZones.append(flyZoneLimitInfo)
-                }
-            }
+        if let fz = flyZoneInfos { print("SS flyZoneInfos.count: \(fz.count)")}//TODO: debug message, remove
+        guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
+        //TODO: rename closure something descriptive
+        let closure = {
+            var overlays = [DJILimitSpaceOverlay]()
+            var flyZones = [DJIFlyZoneInformation]()
             
-            if Thread.current.isMainThread {
-                closure()
-            } else {
-                DispatchQueue.main.sync {
-                    closure()
+            for flyZoneLimitInfo in flyZoneInfos {
+                var anOverlay : DJILimitSpaceOverlay?
+                for aMapOverlay in self.mapOverlays as! [DJILimitSpaceOverlay] {
+                    if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
+                        anOverlay = aMapOverlay
+                        break
+                    }
                 }
+                if anOverlay == nil {
+                    anOverlay = DJILimitSpaceOverlay(limitSpace: flyZoneLimitInfo)
+                }
+                overlays.append(anOverlay!)
+                flyZones.append(flyZoneLimitInfo)
+            }
+//                [self removeMapOverlays:self.mapOverlays];
+//                [self.flyZones removeAllObjects];
+//                [self addMapOverlays:overlays];
+//                [self.flyZones addObjectsFromArray:flyZones];
+            self.removeMapOverlays(objects: self.mapOverlays)
+            self.flyZones.removeAll()
+            self.addMapOverlays(objects: overlays)
+            self.flyZones.append(contentsOf: flyZones)
+        }
+        
+        if Thread.current.isMainThread {
+            closure()
+        } else {
+            DispatchQueue.main.sync {
+                closure()
             }
         }
     }
@@ -246,7 +249,7 @@ let kUpdateTimeStamp = 10.0
         self.mapView.mapType = mapType
     }
     
-    @objc func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
+    @objc func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
     //    if (objects.count <= 0) {
     //        return;
     //    }
@@ -274,7 +277,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
+    @objc func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         
@@ -293,7 +296,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
+    @objc func addCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         
@@ -312,7 +315,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
+    @objc func removeCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
 
         let overlays = self.subOverlaysFor(objects)
@@ -332,7 +335,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
+    @objc func subOverlaysFor(_ overlays:[DJIMapOverlay]) -> [MKOverlay] {
         var subOverlays = [MKOverlay]()
         for aMapOverlay in overlays {
             for aOverlay in aMapOverlay.subOverlays! {//TODO: force unwrap
@@ -354,7 +357,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
 
-    @objc func refreshMapViewRegion() {
+    @objc public func refreshMapViewRegion() {
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         let adjustedRegion = self.mapView.regionThatFits(viewRegion)
         self.mapView.setRegion(adjustedRegion, animated: true)
