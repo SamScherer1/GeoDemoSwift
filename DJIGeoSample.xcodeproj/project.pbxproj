@@ -30,7 +30,6 @@
 		A437B3241E7AA50F0089C965 /* DJIPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B31E1E7AA50F0089C965 /* DJIPolygon.m */; };
 		A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3441E7BEF490089C965 /* DJIScrollView.m */; };
 		A437B3471E7BEF490089C965 /* DJIScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A437B3451E7BEF490089C965 /* DJIScrollView.xib */; };
-		A4B87ED41D2A6EB600123466 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87ED31D2A6EB600123466 /* RootViewController.m */; };
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
 		A4B87ED91D2A6EB600123466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED81D2A6EB600123466 /* Assets.xcassets */; };
 		A4B87EDC1D2A6EB600123466 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */; };
@@ -96,8 +95,6 @@
 		A437B3441E7BEF490089C965 /* DJIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIScrollView.m; sourceTree = "<group>"; };
 		A437B3451E7BEF490089C965 /* DJIScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJIScrollView.xib; sourceTree = "<group>"; };
 		A4B87EC91D2A6EB600123466 /* DJIGeoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJIGeoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4B87ED21D2A6EB600123466 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		A4B87ED31D2A6EB600123466 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		A4B87ED61D2A6EB600123466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4B87ED81D2A6EB600123466 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4B87EDB1D2A6EB600123466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -173,8 +170,6 @@
 				3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */,
 				A437B3451E7BEF490089C965 /* DJIScrollView.xib */,
 				3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */,
-				A4B87ED21D2A6EB600123466 /* RootViewController.h */,
-				A4B87ED31D2A6EB600123466 /* RootViewController.m */,
 				3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */,
 				A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */,
 				A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */,
@@ -375,7 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4B87ED41D2A6EB600123466 /* RootViewController.m in Sources */,
 				A4B87F101D2A75B500123466 /* DJIFlyZoneCircleView.m in Sources */,
 				A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */,
 				A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */,
