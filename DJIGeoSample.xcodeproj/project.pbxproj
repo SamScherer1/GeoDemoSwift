@@ -32,14 +32,12 @@
 		3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */; };
 		3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */; };
 		3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */; };
-		A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3441E7BEF490089C965 /* DJIScrollView.m */; };
 		A437B3471E7BEF490089C965 /* DJIScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A437B3451E7BEF490089C965 /* DJIScrollView.xib */; };
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
 		A4B87ED91D2A6EB600123466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED81D2A6EB600123466 /* Assets.xcassets */; };
 		A4B87EDC1D2A6EB600123466 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */; };
 		A4B87EF91D2A754000123466 /* DJIGeoDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */; };
 		A4B87EFB1D2A756F00123466 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B87EFA1D2A756F00123466 /* MapKit.framework */; };
-		A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87F051D2A75B500123466 /* DJIMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -90,8 +88,6 @@
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
-		A437B3431E7BEF490089C965 /* DJIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIScrollView.h; sourceTree = "<group>"; };
-		A437B3441E7BEF490089C965 /* DJIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIScrollView.m; sourceTree = "<group>"; };
 		A437B3451E7BEF490089C965 /* DJIScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJIScrollView.xib; sourceTree = "<group>"; };
 		A4B87EC91D2A6EB600123466 /* DJIGeoSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJIGeoSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B87ED61D2A6EB600123466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,8 +98,6 @@
 		A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIGeoDemoViewController.h; sourceTree = "<group>"; };
 		A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIGeoDemoViewController.m; sourceTree = "<group>"; };
 		A4B87EFA1D2A756F00123466 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		A4B87F041D2A75B500123466 /* DJIMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIMapViewController.h; sourceTree = "<group>"; };
-		A4B87F051D2A75B500123466 /* DJIMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +154,6 @@
 				A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */,
 				A4B87EF41D2A71B200123466 /* DemoUtility.h */,
 				3A4FE05D2640BCAF00D1E8B9 /* DemoUtility.swift */,
-				A437B3431E7BEF490089C965 /* DJIScrollView.h */,
-				A437B3441E7BEF490089C965 /* DJIScrollView.m */,
 				3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */,
 				A437B3451E7BEF490089C965 /* DJIScrollView.xib */,
 				3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */,
@@ -202,8 +194,6 @@
 			children = (
 				A4B87EFD1D2A75B500123466 /* DJIAnnotationViews */,
 				A4B87F061D2A75B500123466 /* DJIOverlayViews */,
-				A4B87F041D2A75B500123466 /* DJIMapViewController.h */,
-				A4B87F051D2A75B500123466 /* DJIMapViewController.m */,
 				3A4FE0652641B36400D1E8B9 /* MapViewController.swift */,
 			);
 			path = DJIMapView;
@@ -358,9 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */,
 				3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */,
-				A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */,
 				3A4FE05E2640BCAF00D1E8B9 /* DemoUtility.swift in Sources */,
 				3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */,
 				146C3C4E217B0327000B589E /* DJICustomUnlockOverlay.m in Sources */,
