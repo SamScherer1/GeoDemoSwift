@@ -9,6 +9,6 @@
 import Foundation
 import MapKit
 
-class Polygon : MKPolygon {
+@objc class Polygon : MKPolygon {
     var level : DJIFlyZoneCategory = DJIFlyZoneCategory.unknown
 }

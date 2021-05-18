@@ -11,17 +11,17 @@ import MapKit
 
 class MapPolygon : MKPolygon {
     //@property (copy, nonatomic) UIColor *strokeColor;
-    public var strokeColor : UIColor?
+    @objc public var strokeColor : UIColor?
     //@property (nonatomic, strong) UIColor *fillColor;
-    var fillColor : UIColor?
+    @objc public var fillColor : UIColor?
     //@property (nonatomic, assign) CGFloat lineWidth;
-    public var lineWidth : Float = 0.0
+    @objc public var lineWidth : Float = 0.0
     //@property (nonatomic, assign) CGFloat lineDashPhase;
-    var lineDashPhase : Float?
+    @objc public var lineDashPhase = 0.0 //TODO: use optional?
     //@property (nonatomic, assign) CGLineCap lineCap;
-    var lineCap : CGLineCap?
+    @objc public var lineCap : CGLineCap = CGLineCap(rawValue: 0)!//TODO: use optional?
     //@property (nonatomic, assign) CGLineJoin lineJoin;
-    var lineJoin : CGLineJoin?
+    @objc public var lineJoin : CGLineJoin = CGLineJoin(rawValue: 0)!//TODO: use optional?
     //@property (nonatomic, strong) NSArray<NSNumber*> *lineDashPattern;
-    var lineDashPattern : [NSNumber]?
+    @objc public var lineDashPattern : [NSNumber]?
 }

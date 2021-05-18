@@ -6,9 +6,6 @@
 //
 
 #import "DJILimitSpaceOverlay.h"
-#import "DJIPolygon.h"
-#import "DJICircle.h"
-#import "DJIMapPolygon.h"
 #import "DJIFlyZoneColorProvider.h"
 #import "DJIGeoSample-Swift.h"
 
@@ -38,7 +35,7 @@
 	BOOL isHeightLimit = aSpace.maximumFlightHeight > 0 && aSpace.maximumFlightHeight < UINT16_MAX;
     if (aSpace.shape == DJISubFlyZoneShapeCylinder) {
         CLLocationCoordinate2D coordinateInMap = aSpace.center;
-        DJICircle *circle = [DJICircle circleWithCenterCoordinate:coordinateInMap
+        Circle *circle = [Circle circleWithCenterCoordinate:coordinateInMap
                                                            radius:aSpace.radius];
         circle.lineWidth = [self strokLineWidthWithHeight:aSpace.maximumFlightHeight];
         circle.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];
@@ -59,7 +56,7 @@
             CLLocationCoordinate2D coordinateInMap = coordinate;
             coordinates[i] = coordinateInMap;
         }
-        DJIMapPolygon *polygon = [DJIMapPolygon polygonWithCoordinates:coordinates count:aSpace.vertices.count];
+        MapPolygon *polygon = [MapPolygon polygonWithCoordinates:coordinates count:aSpace.vertices.count];
         polygon.lineWidth = [self strokLineWidthWithHeight:aSpace.maximumFlightHeight];
         polygon.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:NO];;
         polygon.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];;

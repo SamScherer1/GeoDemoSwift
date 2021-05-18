@@ -447,8 +447,7 @@
 
 #pragma mark - DJIFlightControllerDelegate Method
 
-- (void)flightController:(DJIFlightController *)fc didUpdateState:(DJIFlightControllerState *)state
-{
+- (void)flightController:(DJIFlightController *)fc didUpdateState:(DJIFlightControllerState *)state {
     if (CLLocationCoordinate2DIsValid(state.aircraftLocation.coordinate)) {
         double heading = RADIAN(state.attitude.yaw);
         [self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];

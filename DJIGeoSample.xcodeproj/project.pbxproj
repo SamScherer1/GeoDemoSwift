@@ -33,12 +33,8 @@
 		3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */; };
 		3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */; };
 		3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */; };
-		A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3141E7AA50F0089C965 /* DJICircle.m */; };
-		A437B3201E7AA50F0089C965 /* DJIFlyLimitPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */; };
 		A437B3211E7AA50F0089C965 /* DJILimitSpaceOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */; };
 		A437B3221E7AA50F0089C965 /* DJIMapOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B31A1E7AA50F0089C965 /* DJIMapOverlay.m */; };
-		A437B3231E7AA50F0089C965 /* DJIMapPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B31C1E7AA50F0089C965 /* DJIMapPolygon.m */; };
-		A437B3241E7AA50F0089C965 /* DJIPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B31E1E7AA50F0089C965 /* DJIPolygon.m */; };
 		A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A437B3441E7BEF490089C965 /* DJIScrollView.m */; };
 		A437B3471E7BEF490089C965 /* DJIScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A437B3451E7BEF490089C965 /* DJIScrollView.xib */; };
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
@@ -99,18 +95,10 @@
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
-		A437B3131E7AA50F0089C965 /* DJICircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJICircle.h; sourceTree = "<group>"; };
-		A437B3141E7AA50F0089C965 /* DJICircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJICircle.m; sourceTree = "<group>"; };
-		A437B3151E7AA50F0089C965 /* DJIFlyLimitPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIFlyLimitPolygonView.h; sourceTree = "<group>"; };
-		A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIFlyLimitPolygonView.m; sourceTree = "<group>"; };
 		A437B3171E7AA50F0089C965 /* DJILimitSpaceOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJILimitSpaceOverlay.h; sourceTree = "<group>"; };
 		A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJILimitSpaceOverlay.m; sourceTree = "<group>"; };
 		A437B3191E7AA50F0089C965 /* DJIMapOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIMapOverlay.h; sourceTree = "<group>"; };
 		A437B31A1E7AA50F0089C965 /* DJIMapOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIMapOverlay.m; sourceTree = "<group>"; };
-		A437B31B1E7AA50F0089C965 /* DJIMapPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIMapPolygon.h; sourceTree = "<group>"; };
-		A437B31C1E7AA50F0089C965 /* DJIMapPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIMapPolygon.m; sourceTree = "<group>"; };
-		A437B31D1E7AA50F0089C965 /* DJIPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIPolygon.h; sourceTree = "<group>"; };
-		A437B31E1E7AA50F0089C965 /* DJIPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIPolygon.m; sourceTree = "<group>"; };
 		A437B3431E7BEF490089C965 /* DJIScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIScrollView.h; sourceTree = "<group>"; };
 		A437B3441E7BEF490089C965 /* DJIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIScrollView.m; sourceTree = "<group>"; };
 		A437B3451E7BEF490089C965 /* DJIScrollView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DJIScrollView.xib; sourceTree = "<group>"; };
@@ -245,24 +233,16 @@
 				146C3C4D217B0327000B589E /* DJICustomUnlockOverlay.h */,
 				146C3C4C217B0327000B589E /* DJICustomUnlockOverlay.m */,
 				3A4FE06B264462B700D1E8B9 /* CustomUnlockOverlay.swift */,
-				A437B3131E7AA50F0089C965 /* DJICircle.h */,
-				A437B3141E7AA50F0089C965 /* DJICircle.m */,
 				3A4FE0672644603400D1E8B9 /* Circle.swift */,
-				A437B31D1E7AA50F0089C965 /* DJIPolygon.h */,
-				A437B31E1E7AA50F0089C965 /* DJIPolygon.m */,
-				3A4FE0692644621500D1E8B9 /* Polygon.swift */,
-				A437B3151E7AA50F0089C965 /* DJIFlyLimitPolygonView.h */,
-				A437B3161E7AA50F0089C965 /* DJIFlyLimitPolygonView.m */,
-				3A4FE0752644742300D1E8B9 /* FlyLimitPolygonView.swift */,
 				A437B3171E7AA50F0089C965 /* DJILimitSpaceOverlay.h */,
 				A437B3181E7AA50F0089C965 /* DJILimitSpaceOverlay.m */,
 				3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */,
 				A437B3191E7AA50F0089C965 /* DJIMapOverlay.h */,
 				A437B31A1E7AA50F0089C965 /* DJIMapOverlay.m */,
 				3A4FE06D2644639900D1E8B9 /* MapOverlay.swift */,
-				A437B31B1E7AA50F0089C965 /* DJIMapPolygon.h */,
-				A437B31C1E7AA50F0089C965 /* DJIMapPolygon.m */,
+				3A4FE0692644621500D1E8B9 /* Polygon.swift */,
 				3A4FE06F2644707600D1E8B9 /* MapPolygon.swift */,
+				3A4FE0752644742300D1E8B9 /* FlyLimitPolygonView.swift */,
 				3A4FE0712644718A00D1E8B9 /* FlyZoneCircle.swift */,
 				3A4FE073264472F600D1E8B9 /* FlyZoneCircleView.swift */,
 				144D11BF219C28480085C2A1 /* DJIFlyZoneColorProvider.h */,
@@ -401,16 +381,13 @@
 				146C3C4E217B0327000B589E /* DJICustomUnlockOverlay.m in Sources */,
 				3A4FE0722644718A00D1E8B9 /* FlyZoneCircle.swift in Sources */,
 				144D11C1219C28480085C2A1 /* DJIFlyZoneColorProvider.m in Sources */,
-				A437B31F1E7AA50F0089C965 /* DJICircle.m in Sources */,
 				3A4FE0702644707600D1E8B9 /* MapPolygon.swift in Sources */,
 				1449B32720917944003955AE /* DJIGeoUnlockingGroupViewController.m in Sources */,
 				3A4FE0622641A31600D1E8B9 /* AircraftAnnotation.swift in Sources */,
-				A437B3241E7AA50F0089C965 /* DJIPolygon.m in Sources */,
 				1449B32E2091832D003955AE /* DJIGeoGroupInfoViewController.m in Sources */,
 				3A4FE05A2640B3D900D1E8B9 /* AppDelegate.swift in Sources */,
 				3A4FE05C2640B4DC00D1E8B9 /* RootViewController.swift in Sources */,
 				3A4FE0602640C21700D1E8B9 /* GeoCustomUnlockViewController.swift in Sources */,
-				A437B3231E7AA50F0089C965 /* DJIMapPolygon.m in Sources */,
 				3A4FE0762644742300D1E8B9 /* FlyLimitPolygonView.swift in Sources */,
 				3A4FE06E2644639900D1E8B9 /* MapOverlay.swift in Sources */,
 				3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */,
@@ -426,7 +403,6 @@
 				246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */,
 				3A4FE074264472F600D1E8B9 /* FlyZoneCircleView.swift in Sources */,
 				A4B87EF91D2A754000123466 /* DJIGeoDemoViewController.m in Sources */,
-				A437B3201E7AA50F0089C965 /* DJIFlyLimitPolygonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

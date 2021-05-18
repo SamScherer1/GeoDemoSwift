@@ -6,8 +6,7 @@
 //
 
 #import "DJICustomUnlockOverlay.h"
-#import "DJICircle.h"
-
+#import "DJIGeoSample-Swift.h"
 @implementation DJICustomUnlockOverlay
 
 - (instancetype)initWithCustomUnlockInformation:(DJICustomUnlockZone *)information andEnabled:(BOOL)enabled
@@ -23,7 +22,7 @@
 - (void)createOverlaysWithEnabled:(BOOL)enabled
 {
     CLLocationCoordinate2D coordinateInMap = _customUnlockInformation.center;
-    DJICircle *circle = [DJICircle circleWithCenterCoordinate:coordinateInMap
+    Circle *circle = [Circle circleWithCenterCoordinate:coordinateInMap
                                                        radius:_customUnlockInformation.radius];
     circle.lineWidth = 1;
     circle.fillColor = enabled ? [UIColor colorWithRed:0 green:1 blue:0 alpha:0.2] : [UIColor colorWithRed:0 green:0 blue:1 alpha:.2];

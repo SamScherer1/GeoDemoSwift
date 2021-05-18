@@ -72,9 +72,9 @@ let kUpdateTimeStamp = 10.0
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let overlay = overlay as? FlyZoneCircle {
             return FlyZoneCircleView(circle: overlay)
-        } else if let polygon = overlay as? DJIPolygon {
-            return DJIFlyLimitPolygonView(polygon: polygon)
-        } else if let polygon = overlay as? DJIMapPolygon {
+        } else if let polygon = overlay as? Polygon {
+            return FlyLimitPolygonView(polygon: polygon)
+        } else if let polygon = overlay as? MapPolygon {
             let polygonRender = MKPolygonRenderer(polygon: polygon)
             polygonRender.strokeColor = polygon.strokeColor
             polygonRender.lineWidth = CGFloat(polygon.lineWidth)
@@ -85,7 +85,7 @@ let kUpdateTimeStamp = 10.0
             polygonRender.lineCap = polygonLineCap
             polygonRender.fillColor = polygon.fillColor
             return polygonRender
-        } else if let circle = overlay as? DJICircle {
+        } else if let circle = overlay as? Circle {
             let circleRenderer = MKCircleRenderer(circle: circle)
             circleRenderer.strokeColor = circle.strokeColor
             circleRenderer.lineWidth = CGFloat(circle.lineWidth)
