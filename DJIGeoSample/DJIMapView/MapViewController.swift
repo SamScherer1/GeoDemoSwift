@@ -14,19 +14,13 @@ let kUpdateTimeStamp = 10.0
 
 
 @objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject
-    //@property (nonatomic, strong) NSMutableArray *flyZones;
     @objc public var flyZones = [DJIFlyZoneInformation]()
-//    @property (nonatomic) CLLocationCoordinate2D aircraftCoordinate;
     var aircraftCoordinate : CLLocationCoordinate2D
-//    @property (weak, nonatomic) MKMapView *mapView;
     var mapView : MKMapView
-//    @property (nonatomic, strong) AircraftAnnotation* aircraftAnnotation;
     var aircraftAnnotation : AircraftAnnotation?
-//    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *mapOverlays;
-    var mapOverlays = [DJIMapOverlay]()//TODO: should be DJILimitSpaceOverlay?
+    var mapOverlays = [DJIMapOverlay]()
 //    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
     var customUnlockOverlays : [DJIMapOverlay]?
-//    @property (nonatomic, assign) NSTimeInterval lastUpdateTime;
     var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     
     @objc public init(map: MKMapView) {
@@ -163,10 +157,7 @@ let kUpdateTimeStamp = 10.0
                 overlays.append(anOverlay!)
                 flyZones.append(flyZoneLimitInfo)
             }
-//                [self removeMapOverlays:self.mapOverlays];
-//                [self.flyZones removeAllObjects];
-//                [self addMapOverlays:overlays];
-//                [self.flyZones addObjectsFromArray:flyZones];
+
             self.removeMapOverlays(objects: self.mapOverlays)
             self.flyZones.removeAll()
             self.addMapOverlays(objects: overlays)
@@ -250,49 +241,20 @@ let kUpdateTimeStamp = 10.0
     }
     
     @objc func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
-    //    if (objects.count <= 0) {
-    //        return;
-    //    }
-    //    NSMutableArray *overlays = [NSMutableArray array];
-    //    for (DJIMapOverlay *aMapOverlay in objects) {
-    //        for (id<MKOverlay> aOverlay in aMapOverlay.subOverlays) {
-    //            [overlays addObject:aOverlay];
-    //        }
-    //    }
-    //
-    //    if ([NSThread isMainThread]) {
-    //        [self.mapOverlays addObjectsFromArray:objects];
-    //        [self.mapView addOverlays:overlays];
-    //    } else {
-    //        dispatch_sync(dispatch_get_main_queue(), ^{
-    //            [self.mapOverlays addObjectsFromArray:objects];
-    //            [self.mapView addOverlays:overlays];
-    //        });
-    //    }
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
-            self.customUnlockOverlays?.append(contentsOf: objects)
+            self.mapOverlays.append(contentsOf: objects)
             self.mapView.addOverlays(overlays)
         }
     }
     
     @objc func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
         if objects.count <= 0 { return }
-        let overlays = self.subOverlaysFor(objects)
         
-    //    if ([NSThread isMainThread]) {
-    //        [self.mapOverlays removeObjectsInArray:objects];
-    //        [self.mapView removeOverlays:overlays];
-    //    } else {
-    //        dispatch_sync(dispatch_get_main_queue(), ^{
-    //            [self.mapOverlays removeObjectsInArray:objects];
-    //            [self.mapView removeOverlays:overlays];
-    //        });
-    //    }
         self.performOnMainThread {
             self.mapOverlays.removeAll(where: { objects.contains($0) } )
-            self.mapView.removeOverlays(overlays)
+            self.mapView.removeOverlays(self.subOverlaysFor(objects))
         }
     }
     

@@ -88,8 +88,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
-    }else if ([annotation isKindOfClass:[AircraftAnnotation class]])
-    {
+    } else if ([annotation isKindOfClass:[AircraftAnnotation class]]) {
         
         static NSString* aircraftReuseIdentifier = @"DJI_AIRCRAFT_ANNOTATION_VIEW";
         AircraftAnnotationView* aircraftAnno = (AircraftAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:aircraftReuseIdentifier];
