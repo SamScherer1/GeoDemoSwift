@@ -35,7 +35,6 @@
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
 		A4B87ED91D2A6EB600123466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED81D2A6EB600123466 /* Assets.xcassets */; };
 		A4B87EDC1D2A6EB600123466 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */; };
-		A4B87EF91D2A754000123466 /* DJIGeoDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */; };
 		A4B87EFB1D2A756F00123466 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B87EFA1D2A756F00123466 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +90,6 @@
 		A4B87ED81D2A6EB600123466 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4B87EDB1D2A6EB600123466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4B87EDD1D2A6EB600123466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIGeoDemoViewController.h; sourceTree = "<group>"; };
-		A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIGeoDemoViewController.m; sourceTree = "<group>"; };
 		A4B87EFA1D2A756F00123466 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -153,8 +150,6 @@
 				A437B3451E7BEF490089C965 /* DJIScrollView.xib */,
 				3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */,
 				3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */,
-				A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */,
-				A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */,
 				3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */,
 				246F1AB22047E9640038B95D /* DJIGeoCustomUnlockingViewController.h */,
 				246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */,
@@ -364,7 +359,6 @@
 				246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */,
 				246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */,
 				3A4FE074264472F600D1E8B9 /* FlyZoneCircleView.swift in Sources */,
-				A4B87EF91D2A754000123466 /* DJIGeoDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
