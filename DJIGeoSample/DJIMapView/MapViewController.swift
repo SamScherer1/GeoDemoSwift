@@ -18,9 +18,9 @@ let kUpdateTimeStamp = 10.0
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
     var aircraftAnnotation : AircraftAnnotation?
-    var mapOverlays = [DJIMapOverlay]()
-//    @property (nonatomic, strong) NSMutableArray<DJIMapOverlay *> *customUnlockOverlays;
-    var customUnlockOverlays : [DJIMapOverlay]?
+    var mapOverlays = [MapOverlay]()
+//    @property (nonatomic, strong) NSMutableArray<MapOverlay *> *customUnlockOverlays;
+    var customUnlockOverlays : [MapOverlay]?
     var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     
     @objc public init(map: MKMapView) {
@@ -139,19 +139,19 @@ let kUpdateTimeStamp = 10.0
         guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
         //TODO: rename closure something descriptive
         let closure = {
-            var overlays = [DJILimitSpaceOverlay]()
+            var overlays = [LimitSpaceOverlay]()
             var flyZones = [DJIFlyZoneInformation]()
             
             for flyZoneLimitInfo in flyZoneInfos {
-                var anOverlay : DJILimitSpaceOverlay?
-                for aMapOverlay in self.mapOverlays as! [DJILimitSpaceOverlay] {
-                    if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
+                var anOverlay : LimitSpaceOverlay?
+                for aMapOverlay in self.mapOverlays as! [LimitSpaceOverlay] {
+                    if (aMapOverlay.limitSpaceInfo?.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo?.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
                         anOverlay = aMapOverlay
                         break
                     }
                 }
                 if anOverlay == nil {
-                    anOverlay = DJILimitSpaceOverlay(limitSpace: flyZoneLimitInfo)
+                    anOverlay = LimitSpaceOverlay(limitSpaceInfo: flyZoneLimitInfo)
                 }
                 overlays.append(anOverlay!)
                 flyZones.append(flyZoneLimitInfo)
@@ -239,7 +239,7 @@ let kUpdateTimeStamp = 10.0
         self.mapView.mapType = mapType
     }
     
-    @objc func addMapOverlays(objects:[DJIMapOverlay]) {//TODO: rename to add(mapOverlays:)
+    @objc func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
@@ -248,7 +248,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeMapOverlays(objects:[DJIMapOverlay]) {//TODO:Rename
+    @objc func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
         if objects.count <= 0 { return }
         
         self.performOnMainThread {
@@ -257,7 +257,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func addCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+    @objc func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         
@@ -276,7 +276,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeCustomUnlockOverlays(objects:[DJIMapOverlay]) {//TODO: rename
+    @objc func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
 
         let overlays = self.subOverlaysFor(objects)
@@ -296,12 +296,12 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func subOverlaysFor(_ overlays:[DJIMapOverlay]) -> [MKOverlay] {
+    @objc func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
         var subOverlays = [MKOverlay]()
         for aMapOverlay in overlays {
-            for aOverlay in aMapOverlay.subOverlays! {//TODO: force unwrap
-                if let aOverlay = aOverlay as? MKOverlay {
-                    subOverlays.append(aOverlay)
+            if let subOverlaysToAdd = aMapOverlay.subOverlays {
+                for overlayToAdd in subOverlaysToAdd {//TODO: force unwrap
+                    subOverlays.append(overlayToAdd)
                 }
             }
         }
