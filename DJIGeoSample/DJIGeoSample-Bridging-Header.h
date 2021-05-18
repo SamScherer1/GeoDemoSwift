@@ -3,7 +3,5 @@
 //
 
 #import "DJIGeoCustomZoneDetailViewController.h"
-#import "DJIMapOverlay.h"
-#import "DJILimitSpaceOverlay.h"
 #import "DemoUtility.h"
 

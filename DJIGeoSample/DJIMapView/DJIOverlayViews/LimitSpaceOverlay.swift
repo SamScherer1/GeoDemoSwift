@@ -36,20 +36,12 @@ class LimitSpaceOverlay : MapOverlay {
                                                                                 isFill: false)
             return [circle]
         } else if aSubFlyZoneSpace.shape == .polygon {
-            if aSubFlyZoneSpace.vertices.count <= 0 { return [MKOverlay]() }//TODO: better to return nil here?
-//            CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * aSpace.vertices.count);
-            //TODO: dangling pointer?
-            var coordinates = UnsafePointer<CLLocationCoordinate2D>(OpaquePointer.init(aSubFlyZoneSpace.vertices))
-//
-//            int i = 0;
-//            for (i = 0; i < aSpace.vertices.count; i++) {
-//                NSValue *aPointValue = aSpace.vertices[i];
-//                CLLocationCoordinate2D coordinate = [aPointValue MKCoordinateValue];
-//                CLLocationCoordinate2D coordinateInMap = coordinate;
-//                coordinates[i] = coordinateInMap;
-//            }
+            if aSubFlyZoneSpace.vertices.count <= 0 { return [MKOverlay]() }
             
-            let polygon = MapPolygon(coordinates: coordinates, count: aSubFlyZoneSpace.vertices.count)
+            let coordinates = aSubFlyZoneSpace.vertices as? [CLLocationCoordinate2D]
+            guard var coordinates = coordinates else { return [MKOverlay]() }
+            
+            let polygon = MapPolygon(coordinates: &coordinates, count: aSubFlyZoneSpace.vertices.count)
             polygon.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
             polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: false)//TODO: reconsider force unwrap
             polygon.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: true)
