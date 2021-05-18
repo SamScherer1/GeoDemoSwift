@@ -82,7 +82,7 @@
         <!--Geo Demo View Controller-->
         <scene sceneID="gFj-KI-nIO">
             <objects>
-                <viewController id="ghf-rT-NYf" customClass="DJIGeoDemoViewController" sceneMemberID="viewController">
+                <viewController id="ghf-rT-NYf" customClass="GeoDemoViewController" customModule="DJIGeoSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ALf-Fm-WwO"/>
                         <viewControllerLayoutGuide type="bottom" id="tnX-HZ-TY9"/>
@@ -117,7 +117,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onLogoutButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="Xi4-C2-YMI"/>
+                                    <action selector="onLogoutButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="w3O-Dj-kft"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVD-lW-K4I">
@@ -132,7 +132,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onLoginButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="XQo-GR-97K"/>
+                                    <action selector="onLoginButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="YaI-U5-9sM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FL-zd-hJQ">
@@ -147,7 +147,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onGetUnlockButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="Jkv-Ai-4GH"/>
+                                    <action selector="onGetUnlockButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="hyM-Dd-RVA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JzU-8B-VCb">
@@ -162,7 +162,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onUnlockButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="IET-v8-bi6"/>
+                                    <action selector="onUnlockButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="mT0-nA-6RE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-14-Sdj">
@@ -177,7 +177,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onStartSimulatorButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="cSV-YA-Q1F"/>
+                                    <action selector="onStartSimulatorButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="24n-em-ORJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknow FlyZone Status" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="r8B-oR-C82" userLabel="Fly Zone Status Label">
@@ -210,7 +210,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="enableUnlocking:" destination="ghf-rT-NYf" eventType="touchUpInside" id="DB7-4h-PpT"/>
+                                    <action selector="enableUnlocking:" destination="ghf-rT-NYf" eventType="touchUpInside" id="6QD-RD-F2G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2w2-pn-dla">
@@ -242,14 +242,14 @@
                                         <rect key="frame" x="15" y="8" width="98" height="30"/>
                                         <state key="normal" title="Enable Unlock"/>
                                         <connections>
-                                            <action selector="conformButtonAction:" destination="ghf-rT-NYf" eventType="touchUpInside" id="rbQ-YM-XJj"/>
+                                            <action selector="conformButtonAction:" destination="ghf-rT-NYf" eventType="touchUpInside" id="u2Y-6g-cZw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-1F-j2c">
                                         <rect key="frame" x="659" y="8" width="67" height="30"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
-                                            <action selector="cancelButtonAction:" destination="ghf-rT-NYf" eventType="touchUpInside" id="B6x-Oh-deb"/>
+                                            <action selector="cancelButtonAction:" destination="ghf-rT-NYf" eventType="touchUpInside" id="HG3-JI-Fgc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -277,7 +277,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onStopSimulatorButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="f4u-LC-yaR"/>
+                                    <action selector="onStopSimulatorButtonClicked:" destination="ghf-rT-NYf" eventType="touchUpInside" id="MBR-uo-xfm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jwq-sI-vfa">
@@ -336,17 +336,17 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="customUnlockButton" destination="2w2-pn-dla" id="THj-el-3sq"/>
-                        <outlet property="flyZoneStatusLabel" destination="r8B-oR-C82" id="xMJ-Rk-QFO"/>
-                        <outlet property="getUnlockButton" destination="0FL-zd-hJQ" id="4eh-6Y-bj1"/>
-                        <outlet property="loginBtn" destination="WVD-lW-K4I" id="D2N-jd-Sd8"/>
-                        <outlet property="loginStateLabel" destination="aJb-Q9-VYK" id="HPR-UJ-zuL"/>
-                        <outlet property="logoutBtn" destination="OhE-IU-tlM" id="TN5-yk-u5c"/>
-                        <outlet property="mapView" destination="XXE-Vo-NNx" id="FMF-AI-cAy"/>
-                        <outlet property="pickerContainerView" destination="KvR-vT-goj" id="oXT-XB-U34"/>
-                        <outlet property="pickerView" destination="9zg-Gj-Nw4" id="kWL-EN-aFd"/>
-                        <outlet property="showFlyZoneMessageTableView" destination="X8P-ch-wFT" id="h3B-YZ-ZJE"/>
-                        <outlet property="unlockBtn" destination="JzU-8B-VCb" id="4pS-O7-LjZ"/>
+                        <outlet property="customUnlockButton" destination="2w2-pn-dla" id="xqH-Em-6hJ"/>
+                        <outlet property="flyZoneStatusLabel" destination="r8B-oR-C82" id="tUi-jQ-iVp"/>
+                        <outlet property="getUnlockButton" destination="0FL-zd-hJQ" id="NGR-OY-SMV"/>
+                        <outlet property="loginBtn" destination="WVD-lW-K4I" id="6R7-iG-Vp4"/>
+                        <outlet property="loginStateLabel" destination="aJb-Q9-VYK" id="o2I-Ba-Clc"/>
+                        <outlet property="logoutBtn" destination="OhE-IU-tlM" id="Fqf-RI-kXL"/>
+                        <outlet property="mapView" destination="XXE-Vo-NNx" id="yah-8y-87O"/>
+                        <outlet property="pickerContainerView" destination="KvR-vT-goj" id="ed2-FH-pMs"/>
+                        <outlet property="pickerView" destination="9zg-Gj-Nw4" id="Ebp-oB-UbX"/>
+                        <outlet property="showFlyZoneMessageTableView" destination="X8P-ch-wFT" id="Rq7-2v-EF1"/>
+                        <outlet property="unlockBtn" destination="JzU-8B-VCb" id="3sY-PS-9ff"/>
                         <outlet property="view" destination="Z3T-M5-09o" id="faR-ER-jPS"/>
                     </connections>
                 </viewController>

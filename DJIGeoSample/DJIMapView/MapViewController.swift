@@ -13,7 +13,7 @@ import MapKit
 let kUpdateTimeStamp = 10.0
 
 
-@objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject
+@objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
     @objc public var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
