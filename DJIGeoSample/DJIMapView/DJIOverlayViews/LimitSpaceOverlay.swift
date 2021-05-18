@@ -19,10 +19,11 @@ class LimitSpaceOverlay : MapOverlay {
     init(limitSpaceInfo:DJIFlyZoneInformation) {
         self.limitSpaceInfo = limitSpaceInfo
         super.init()
+        self.createOverlays()
     }
     
     //TODO: if this only ever returns a single value, why have an array?
-    func overlaysFor(aSubFlyZoneSpace:DJISubFlyZoneInformation) -> [MKOverlay]? {
+    func overlaysFor(aSubFlyZoneSpace:DJISubFlyZoneInformation) -> [MKOverlay] {
         let isHeightLimit = aSubFlyZoneSpace.maximumFlightHeight > 0 && aSubFlyZoneSpace.maximumFlightHeight < UINT16_MAX
         if aSubFlyZoneSpace.shape == .cylinder {
             let circle = Circle(center: aSubFlyZoneSpace.center, radius: aSubFlyZoneSpace.radius)
@@ -48,21 +49,16 @@ class LimitSpaceOverlay : MapOverlay {
 //                coordinates[i] = coordinateInMap;
 //            }
             
-        //        DJIMapPolygon *polygon = [DJIMapPolygon polygonWithCoordinates:coordinates count:aSpace.vertices.count];
-            //var polygon = MapPolygon(coordinates: coordinates, count: UInt(aSubFlyZoneSpace.vertices.count))
             let polygon = MapPolygon(coordinates: coordinates, count: aSubFlyZoneSpace.vertices.count)
-        //        polygon.lineWidth = [self strokLineWidthWithHeight:aSpace.maximumFlightHeight];
             polygon.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
-        //        polygon.strokeColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:NO];
             polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: false)//TODO: reconsider force unwrap
-        //        polygon.fillColor = [DJIFlyZoneColorProvider getFlyZoneOverlayColorWithCategory:_limitSpaceInfo.category isHeightLimit:isHeightLimit isFill:YES];
             polygon.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: true)
             return [polygon]
         }
-        return nil
+        return [MKOverlay]()
     }
 
-    func overlaysFor(aFlyZoneSpace:DJIFlyZoneInformation) -> [MKOverlay]? {
+    func overlaysFor(aFlyZoneSpace:DJIFlyZoneInformation) -> [MKOverlay]? {//TODO: instead of optional return type, return empty array?
         guard let subFlyZones = aFlyZoneSpace.subFlyZones else {
             print("subFlyZones Nil- perhaps should enter the <=0 if check?")
             fatalError()
@@ -70,11 +66,6 @@ class LimitSpaceOverlay : MapOverlay {
         
         if subFlyZones.count <= 0 {
             let circle = FlyZoneCircle(center: aFlyZoneSpace.center, radius: aFlyZoneSpace.radius)
-//        circle.category = aSpace.category;
-//        circle.flyZoneID = aSpace.flyZoneID;
-//        circle.name = aSpace.name;
-//        circle.limitHeight = 0;
-//        return @[circle];
             circle.category = aFlyZoneSpace.category
             circle.flyZoneID = aFlyZoneSpace.flyZoneID
             circle.name = aFlyZoneSpace.name
@@ -82,21 +73,18 @@ class LimitSpaceOverlay : MapOverlay {
             return [circle]
         } else {
             //TODO: use map...
-//        NSMutableArray *results = [NSMutableArray array];
-//        for (DJISubFlyZoneInformation *aSubSpace in aSpace.subFlyZones) {
-//            NSArray *subOverlays = [self overlysForSubFlyZoneSpace:aSubSpace];
-//            [results addObjectsFromArray:subOverlays];
-//        }
-//        
-//        return results;
+            var results = [MKOverlay]()
+            for aSubSpace in subFlyZones {
+                results.append(contentsOf: self.overlaysFor(aSubFlyZoneSpace: aSubSpace))
+            }
+            return results
         }
-        return nil//TODO: remove when done
     }
 
     func createOverlays() {
         self.subOverlays = [MKOverlay]()
         if let overlays = self.overlaysFor(aFlyZoneSpace: self.limitSpaceInfo!) {//TODO:force unwrap
-            self.subOverlays?.append(contentsOf: overlays)
+            self.subOverlays.append(contentsOf: overlays)
         }
     }
     

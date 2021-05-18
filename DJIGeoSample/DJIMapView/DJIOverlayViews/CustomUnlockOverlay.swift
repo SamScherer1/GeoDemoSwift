@@ -33,6 +33,6 @@ class CustomUnlockOverlay : MapOverlay {
         circle.strokeColor = isEnabled ? greenColor : blueColor
 
         self.subOverlays = [MKOverlay]()
-        self.subOverlays?.append(circle)
+        self.subOverlays.append(circle)
     }
 }

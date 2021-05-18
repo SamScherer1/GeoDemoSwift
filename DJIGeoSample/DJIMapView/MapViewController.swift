@@ -259,17 +259,8 @@ let kUpdateTimeStamp = 10.0
     
     @objc func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
-        let overlays = self.subOverlaysFor(objects)
         
-//        if Thread.isMainThread {
-//            self.customUnlockOverlays?.append(contentsOf: objects)
-//            self.mapView.addOverlays(overlays)
-//        } else {
-//            DispatchQueue.main.async {
-//                self.customUnlockOverlays?.append(contentsOf: objects)
-//                self.mapView.addOverlays(overlays)
-//            }
-//        }
+        let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
             self.customUnlockOverlays?.append(contentsOf: objects)
             self.mapView.addOverlays(overlays)
@@ -280,16 +271,6 @@ let kUpdateTimeStamp = 10.0
         if objects.count <= 0 { return }
 
         let overlays = self.subOverlaysFor(objects)
-        
-//        if Thread.isMainThread {
-//            self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
-//            self.mapView.removeOverlays(overlays)
-//        } else {
-//            DispatchQueue.main.async {
-//                self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
-//                self.mapView.removeOverlays(overlays)
-//            }
-//        }
         self.performOnMainThread {
             self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
             self.mapView.removeOverlays(overlays)
@@ -299,11 +280,7 @@ let kUpdateTimeStamp = 10.0
     @objc func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
         var subOverlays = [MKOverlay]()
         for aMapOverlay in overlays {
-            if let subOverlaysToAdd = aMapOverlay.subOverlays {
-                for overlayToAdd in subOverlaysToAdd {//TODO: force unwrap
-                    subOverlays.append(overlayToAdd)
-                }
-            }
+            subOverlays.append(contentsOf: aMapOverlay.subOverlays)
         }
         return subOverlays
     }
