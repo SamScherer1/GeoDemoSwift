@@ -94,7 +94,6 @@
 		A4B87ED81D2A6EB600123466 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4B87EDB1D2A6EB600123466 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4B87EDD1D2A6EB600123466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A4B87EF41D2A71B200123466 /* DemoUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoUtility.h; sourceTree = "<group>"; };
 		A4B87EF71D2A754000123466 /* DJIGeoDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIGeoDemoViewController.h; sourceTree = "<group>"; };
 		A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIGeoDemoViewController.m; sourceTree = "<group>"; };
 		A4B87EFA1D2A756F00123466 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -152,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */,
-				A4B87EF41D2A71B200123466 /* DemoUtility.h */,
 				3A4FE05D2640BCAF00D1E8B9 /* DemoUtility.swift */,
 				3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */,
 				A437B3451E7BEF490089C965 /* DJIScrollView.xib */,

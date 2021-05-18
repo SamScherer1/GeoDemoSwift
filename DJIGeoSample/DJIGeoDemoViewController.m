@@ -6,9 +6,7 @@
 //
 
 #import "DJIGeoDemoViewController.h"
-#import "DJIMapViewController.h"
 #import <DJISDK/DJISDK.h>
-#import "DemoUtility.h"
 #import <DJIGeoSample-Swift.h>
 
 @interface DJIGeoDemoViewController ()<DJIFlyZoneDelegate, DJIFlightControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -147,13 +145,12 @@
 
 - (IBAction)onGetUnlockButtonClicked:(id)sender
 {
-    
-	WeakRef(target);
+    __weak typeof(self) target = self;
 	
 	[[DJISDKManager flyZoneManager] getUnlockedFlyZonesForAircraftWithCompletion:^(NSArray<DJIFlyZoneInformation *> * _Nullable infos, NSError * _Nullable error) {
 		
-		WeakReturn(target);
-		if (error) {
+        if (target ==nil) return;
+        if (error) {
 			//ShowResult(@"Get Unlock Error:%@", error.description);
 		} else {
 			NSString* unlockInfo = [NSString stringWithFormat:@"unlock zone count = %lu\n", infos.count];
@@ -203,10 +200,10 @@
         
         if (latitude && longitude) {
             CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
-            WeakRef(target);
+            __weak typeof(self) target = self;
             
             [flightController.simulator startWithLocation:location updateFrequency:20 GPSSatellitesNumber:10 withCompletion:^(NSError * _Nullable error) {
-                WeakReturn(target);
+                if (target ==nil) return;
                 if (error) {
                     //ShowResult(@"Start simulator error:%@", error.description);
                 } else {
@@ -234,9 +231,9 @@
         return;
     }
     
-    WeakRef(target);
+    __weak typeof(self) target = self;
     [flightController.simulator stopWithCompletion:^(NSError * _Nullable error) {
-        WeakReturn(target);
+        if (target ==nil) return;
         if (error) {
             //ShowResult(@"Stop simulator error:%@", error.description);
         }else
@@ -325,9 +322,8 @@
     }
 }
 
-- (void)showFlyZoneIDInputView
-{
-    WeakRef(target);
+- (void)showFlyZoneIDInputView {
+    __weak typeof(self) target = self;
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Input ID" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -449,7 +445,9 @@
 
 - (void)flightController:(DJIFlightController *)fc didUpdateState:(DJIFlightControllerState *)state {
     if (CLLocationCoordinate2DIsValid(state.aircraftLocation.coordinate)) {
-        double heading = RADIAN(state.attitude.yaw);
+        //double heading = RADIAN(state.attitude.yaw);
+        double heading = state.attitude.yaw * M_PI / 180.0;
+
         [self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];
     }
 }

@@ -7,7 +7,6 @@
 
 #import "DJIGeoCustomUnlockingViewController.h"
 #import <DJISDK/DJISDK.h>
-#import "DemoUtility.h"
 #import "DJIGeoCustomZoneDetailViewController.h"
 
 @interface DJIGeoCustomUnlockingViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -31,7 +30,7 @@
 }
 
 - (void)loadCustomUnlockInfo {
-	WeakRef(target);
+    __weak typeof(self) target = self;
 	NSString* modeName = [DJISDKManager product].model;
 	if ([modeName isEqualToString:DJIAircraftModelNameInspire1] ||
 		[modeName isEqualToString:DJIAircraftModelNamePhantom3Professional] ||
@@ -40,8 +39,8 @@
 		[target.customUnlockedZonesTableView reloadData];
 	} else {
 		[[DJISDKManager flyZoneManager] syncUnlockedZoneGroupToAircraftWithCompletion:^(NSError * _Nullable error) {
-			WeakReturn(target);
-			if (!error) {
+            if (target ==nil) return;
+            if (!error) {
 				target.customUnlockZones = [[DJISDKManager flyZoneManager] getCustomUnlockZonesFromAircraft];
 				[target.customUnlockedZonesTableView reloadData];
             } else {

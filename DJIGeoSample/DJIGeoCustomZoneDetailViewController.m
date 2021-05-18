@@ -6,7 +6,6 @@
 //
 
 #import "DJIGeoCustomZoneDetailViewController.h"
-#import "DemoUtility.h"
 
 @interface DJIGeoCustomZoneDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -38,9 +37,9 @@
         self.enableZoneButton.enabled = NO;
     } else {
         self.expiredLabel.text = @"No";
-        WeakRef(target);
+        __weak typeof(self) target = self;
         [[DJISDKManager flyZoneManager] getEnabledCustomUnlockZoneWithCompletion:^(DJICustomUnlockZone * _Nullable zone, NSError * _Nullable error) {
-            WeakReturn(target);
+            if (target ==nil) return;
             if (!error) {
                 if (zone && zone.ID == target.customUnlockZone.ID) {
 					[target.enableZoneButton setTitle:@"Disable" forState:UIControlStateNormal];
@@ -62,7 +61,7 @@
 }
 
 - (IBAction)enableZoneButtonPressed:(id)sender {
-    WeakRef(target);
+    __weak typeof(self) target = self;
     if (self.enabledCustomUnlockZone) {
         [[DJISDKManager flyZoneManager] enableCustomUnlockZone:nil withCompletion:^(NSError * _Nullable error) {
             if (error) {
@@ -75,7 +74,7 @@
         }];
     } else {
         [[DJISDKManager flyZoneManager] enableCustomUnlockZone:self.customUnlockZone withCompletion:^(NSError * _Nullable error) {
-            WeakReturn(target);
+            if (target ==nil) return;
             if (!error) {
 				[target.enableZoneButton setTitle:@"Disable" forState:UIControlStateNormal];
                 target.enabledCustomUnlockZone = self.customUnlockZone;

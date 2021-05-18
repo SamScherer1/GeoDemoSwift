@@ -8,7 +8,6 @@
 #import "DJIGeoUnlockingGroupViewController.h"
 #import "DJIGeoGroupInfoViewController.h"
 #import <DJISDK/DJISDK.h>
-#import "DemoUtility.h"
 
 @interface DJIGeoUnlockingGroupViewController ()
 
@@ -25,10 +24,9 @@
 }
 
 - (void)loadUserUnlockGroupInfo {
-	WeakRef(target);
-	
+    __weak typeof(self) target = self;
 	[[DJISDKManager flyZoneManager] reloadUnlockedZoneGroupsFromServerWithCompletion:^(NSError * _Nullable error) {
-		WeakReturn(target);
+        if (target ==nil) return;
 		if (!error) {
 			[[DJISDKManager flyZoneManager] getLoadedUnlockedZoneGroupsWithCompletion:^(NSArray<DJIUnlockedZoneGroup *> * _Nullable groups, NSError * _Nullable error) {
 				if (!error) {
