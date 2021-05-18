@@ -9,7 +9,6 @@
 #import "DJIPolygon.h"
 #import "DJICircle.h"
 #import "DJIMapPolygon.h"
-#import "DJIFlyZoneCircle.h"
 #import "DJIFlyZoneColorProvider.h"
 #import "DJIGeoSample-Swift.h"
 

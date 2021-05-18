@@ -451,8 +451,7 @@
 {
     if (CLLocationCoordinate2DIsValid(state.aircraftLocation.coordinate)) {
         double heading = RADIAN(state.attitude.yaw);
-        [self.djiMapViewController updateAircraftLocation:state.aircraftLocation.coordinate withHeading:heading];
-        //[self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];
+        [self.djiMapViewController updateAircraftWithCoordinate:state.aircraftLocation.coordinate heading:heading];
     }
 }
 
