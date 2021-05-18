@@ -6,6 +6,8 @@
 //  Copyright © 2021 DJI. All rights reserved.
 //
 
+//TODO: how to test Custom unlock overlays when I don't have authorization??
+
 import Foundation
 import DJISDK
 

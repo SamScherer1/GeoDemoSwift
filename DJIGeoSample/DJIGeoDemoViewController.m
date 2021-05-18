@@ -181,12 +181,14 @@
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         //textField.placeholder = @"latitude";
-        textField.text = @"27.7736";
+        //textField.text = @"27.7736";
+        textField.text = @"28.0373219";
     }];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         //textField.placeholder = @"longitude";
-        textField.text = @"-82.6222";
+        //textField.text = @"-82.6222";
+        textField.text = @"-82.7851948";
     }];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
