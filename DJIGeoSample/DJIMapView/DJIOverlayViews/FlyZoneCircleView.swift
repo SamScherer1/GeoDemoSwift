@@ -1,0 +1,24 @@
+//
+//  FlyZoneCircleView.swift
+//  DJIGeoSample
+//
+//  Created by Samuel Scherer on 5/6/21.
+//  Copyright © 2021 DJI. All rights reserved.
+//
+
+import Foundation
+
+class FlyZoneCircleView : MKCircleRenderer {
+
+    init(circle: FlyZoneCircle) {
+        super.init(circle: circle as MKCircle)
+        self.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: circle.category,
+                                                                        isHeightLimit: false,
+                                                                        isFill: true)
+        self.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: circle.category,
+                                                                          isHeightLimit: false,
+                                                                          isFill: false)
+        self.lineWidth = 1.0
+    }
+    
+}

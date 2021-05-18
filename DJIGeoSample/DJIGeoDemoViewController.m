@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *pickerContainerView;
 
-@property (nonatomic, strong) DJIMapViewController* djiMapViewController;
+@property (nonatomic, strong) MapViewController* djiMapViewController;
 @property (nonatomic, strong) NSTimer* updateLoginStateTimer;
 @property (nonatomic, strong) NSTimer* updateFlyZoneDataTimer;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> * unlockFlyZoneIDs;
@@ -106,7 +106,7 @@
 {
     self.title = @"DJI GEO Demo";
 
-    self.djiMapViewController = [[DJIMapViewController alloc] initWithMap:self.mapView];
+    self.djiMapViewController = [[MapViewController alloc] initWithMap:self.mapView];
     self.unlockFlyZoneIDs = [[NSMutableArray alloc] init];
     self.unlockedFlyZoneInfos = [[NSMutableArray alloc] init];
     self.flyZoneInfoView = [DJIScrollView viewWithViewController:self];
@@ -211,6 +211,7 @@
                     //ShowResult(@"Start simulator error:%@", error.description);
                 } else {
                     //ShowResult(@"Start simulator success");
+                    NSLog(@"SS Start Simulator Success");
                     [target.djiMapViewController refreshMapViewRegion];
                 }
             }];
@@ -457,8 +458,7 @@
 
 #pragma mark - UITableViewDelgete
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.djiMapViewController.flyZones.count;
 }
 
