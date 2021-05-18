@@ -6,7 +6,7 @@
 #import "DJIMapOverlay.h"
 #import "DJILimitSpaceOverlay.h"
 #import "DJIFlyZoneCircle.h"
-#import "DJIFlyZoneCircleView.h"
+//#import "DJIFlyZoneCircleView.h"
 #import "DJIPolygon.h"
 #import "DJIMapPolygon.h"
 #import "DJICircle.h"

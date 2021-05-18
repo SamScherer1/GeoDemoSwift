@@ -47,8 +47,6 @@
 		A4B87EF91D2A754000123466 /* DJIGeoDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87EF81D2A754000123466 /* DJIGeoDemoViewController.m */; };
 		A4B87EFB1D2A756F00123466 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4B87EFA1D2A756F00123466 /* MapKit.framework */; };
 		A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87F051D2A75B500123466 /* DJIMapViewController.m */; };
-		A4B87F0F1D2A75B500123466 /* DJIFlyZoneCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87F081D2A75B500123466 /* DJIFlyZoneCircle.m */; };
-		A4B87F101D2A75B500123466 /* DJIFlyZoneCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B87F0A1D2A75B500123466 /* DJIFlyZoneCircleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -127,10 +125,6 @@
 		A4B87EFA1D2A756F00123466 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A4B87F041D2A75B500123466 /* DJIMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIMapViewController.h; sourceTree = "<group>"; };
 		A4B87F051D2A75B500123466 /* DJIMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIMapViewController.m; sourceTree = "<group>"; };
-		A4B87F071D2A75B500123466 /* DJIFlyZoneCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIFlyZoneCircle.h; sourceTree = "<group>"; };
-		A4B87F081D2A75B500123466 /* DJIFlyZoneCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIFlyZoneCircle.m; sourceTree = "<group>"; };
-		A4B87F091D2A75B500123466 /* DJIFlyZoneCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJIFlyZoneCircleView.h; sourceTree = "<group>"; };
-		A4B87F0A1D2A75B500123466 /* DJIFlyZoneCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJIFlyZoneCircleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,11 +263,7 @@
 				A437B31B1E7AA50F0089C965 /* DJIMapPolygon.h */,
 				A437B31C1E7AA50F0089C965 /* DJIMapPolygon.m */,
 				3A4FE06F2644707600D1E8B9 /* MapPolygon.swift */,
-				A4B87F071D2A75B500123466 /* DJIFlyZoneCircle.h */,
-				A4B87F081D2A75B500123466 /* DJIFlyZoneCircle.m */,
 				3A4FE0712644718A00D1E8B9 /* FlyZoneCircle.swift */,
-				A4B87F091D2A75B500123466 /* DJIFlyZoneCircleView.h */,
-				A4B87F0A1D2A75B500123466 /* DJIFlyZoneCircleView.m */,
 				3A4FE073264472F600D1E8B9 /* FlyZoneCircleView.swift */,
 				144D11BF219C28480085C2A1 /* DJIFlyZoneColorProvider.h */,
 				144D11C0219C28480085C2A1 /* DJIFlyZoneColorProvider.m */,
@@ -403,7 +393,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4B87F101D2A75B500123466 /* DJIFlyZoneCircleView.m in Sources */,
 				A437B3461E7BEF490089C965 /* DJIScrollView.m in Sources */,
 				3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */,
 				A4B87F0E1D2A75B500123466 /* DJIMapViewController.m in Sources */,
@@ -433,7 +422,6 @@
 				3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */,
 				3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */,
 				A437B3221E7AA50F0089C965 /* DJIMapOverlay.m in Sources */,
-				A4B87F0F1D2A75B500123466 /* DJIFlyZoneCircle.m in Sources */,
 				246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */,
 				246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */,
 				3A4FE074264472F600D1E8B9 /* FlyZoneCircleView.swift in Sources */,

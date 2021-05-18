@@ -70,8 +70,8 @@ let kUpdateTimeStamp = 10.0
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = overlay as? DJIFlyZoneCircle {
-            return DJIFlyZoneCircleView(circle: overlay)
+        if let overlay = overlay as? FlyZoneCircle {
+            return FlyZoneCircleView(circle: overlay)
         } else if let polygon = overlay as? DJIPolygon {
             return DJIFlyLimitPolygonView(polygon: polygon)
         } else if let polygon = overlay as? DJIMapPolygon {
@@ -136,7 +136,6 @@ let kUpdateTimeStamp = 10.0
     }
     
     @objc func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
-        if let fz = flyZoneInfos { print("SS flyZoneInfos.count: \(fz.count)")}//TODO: debug message, remove
         guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
         //TODO: rename closure something descriptive
         let closure = {

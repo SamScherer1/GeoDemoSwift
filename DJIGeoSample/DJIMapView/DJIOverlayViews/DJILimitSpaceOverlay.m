@@ -11,6 +11,8 @@
 #import "DJIMapPolygon.h"
 #import "DJIFlyZoneCircle.h"
 #import "DJIFlyZoneColorProvider.h"
+#import "DJIGeoSample-Swift.h"
+
 #define kDJILimitFlightSpaceBufferHeight (5)
 
 @interface DJILimitSpaceOverlay()
@@ -77,7 +79,7 @@
         CLLocationCoordinate2D coordinateInMap = aSpace.center;
         CGFloat radius = aSpace.radius;
         
-        DJIFlyZoneCircle* circle = [DJIFlyZoneCircle circleWithCenterCoordinate:coordinateInMap radius:radius];
+        FlyZoneCircle* circle = [FlyZoneCircle circleWithCenterCoordinate:coordinateInMap radius:radius];
         circle.category = aSpace.category;
         circle.flyZoneID = aSpace.flyZoneID;
         circle.name = aSpace.name;

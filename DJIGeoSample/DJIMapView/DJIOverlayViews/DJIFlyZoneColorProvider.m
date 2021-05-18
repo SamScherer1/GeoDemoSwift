@@ -35,11 +35,11 @@
 @implementation DJIFlyZoneColorProvider
 
 + (UIColor*)getFlyZoneOverlayColorWithCategory:(uint8_t)category isHeightLimit:(BOOL)isHeightLimit isFill:(BOOL)isFill {
-	
+
 	if (isHeightLimit) {
 		return isFill ? DJI_FS_HEIGHT_LIMIT_GRAY_01 : DJI_FS_HEIGHT_LIMIT_GRAY_1;
 	}
-	
+
 	if (category == DJIFlyZoneCategoryAuthorization) {
 		return (isFill ? DJI_FS_AUTH_BLUE_01 : DJI_FS_AUTH_BLUE_1);
 	} else if (category == DJIFlyZoneCategoryRestricted) {
