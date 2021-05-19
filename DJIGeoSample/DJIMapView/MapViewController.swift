@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import DJISDK
 
 let kUpdateTimeStamp = 10.0
 

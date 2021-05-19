@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1449B32720917944003955AE /* DJIGeoUnlockingGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449B32620917944003955AE /* DJIGeoUnlockingGroupViewController.m */; };
-		1449B32E2091832D003955AE /* DJIGeoGroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449B32D2091832D003955AE /* DJIGeoGroupInfoViewController.m */; };
 		166D6BA2D6E9D4FC33F80FDD /* libPods-DJIGeoSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */; };
-		246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */; };
-		246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */; };
 		3A4FE0562640AC5E00D1E8B9 /* DJIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */; };
 		3A4FE05A2640B3D900D1E8B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */; };
 		3A4FE05C2640B4DC00D1E8B9 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */; };
@@ -55,16 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1449B32520917944003955AE /* DJIGeoUnlockingGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJIGeoUnlockingGroupViewController.h; sourceTree = "<group>"; };
-		1449B32620917944003955AE /* DJIGeoUnlockingGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoUnlockingGroupViewController.m; sourceTree = "<group>"; };
-		1449B32C2091832D003955AE /* DJIGeoGroupInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJIGeoGroupInfoViewController.h; sourceTree = "<group>"; };
-		1449B32D2091832D003955AE /* DJIGeoGroupInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoGroupInfoViewController.m; sourceTree = "<group>"; };
 		1E337176DA7FBD1E2C722E3D /* Pods-DJIGeoSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.debug.xcconfig"; sourceTree = "<group>"; };
-		246F1AB22047E9640038B95D /* DJIGeoCustomUnlockingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJIGeoCustomUnlockingViewController.h; sourceTree = "<group>"; };
-		246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoCustomUnlockingViewController.m; sourceTree = "<group>"; };
-		246F1AB72047F2870038B95D /* DJIGeoCustomZoneDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJIGeoCustomZoneDetailViewController.h; sourceTree = "<group>"; };
-		246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DJIGeoCustomZoneDetailViewController.m; sourceTree = "<group>"; };
-		3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DJIGeoSample-Bridging-Header.h"; sourceTree = "<group>"; };
 		3A4FE0552640AC5E00D1E8B9 /* DJIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIScrollView.swift; sourceTree = "<group>"; };
 		3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -157,21 +144,12 @@
 				3A4FE0592640B3D900D1E8B9 /* AppDelegate.swift */,
 				3A4FE05B2640B4DC00D1E8B9 /* RootViewController.swift */,
 				3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */,
-				246F1AB22047E9640038B95D /* DJIGeoCustomUnlockingViewController.h */,
-				246F1AB32047E9640038B95D /* DJIGeoCustomUnlockingViewController.m */,
 				3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */,
-				1449B32520917944003955AE /* DJIGeoUnlockingGroupViewController.h */,
-				1449B32620917944003955AE /* DJIGeoUnlockingGroupViewController.m */,
 				3AAFB50026547F4C00E7CC23 /* GeoUnlockGroupViewController.swift */,
-				1449B32C2091832D003955AE /* DJIGeoGroupInfoViewController.h */,
-				1449B32D2091832D003955AE /* DJIGeoGroupInfoViewController.m */,
 				3AAFB50226547F7500E7CC23 /* GeoGroupInfoViewController.swift */,
-				246F1AB72047F2870038B95D /* DJIGeoCustomZoneDetailViewController.h */,
-				246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */,
 				3AAFB50426547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift */,
 				A4B87ED51D2A6EB600123466 /* Main.storyboard */,
 				A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */,
-				3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */,
 				A4B87EDD1D2A6EB600123466 /* Info.plist */,
 				A4B87ED81D2A6EB600123466 /* Assets.xcassets */,
 				A4B87EFC1D2A75B500123466 /* DJIMapView */,
@@ -351,9 +329,7 @@
 				3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */,
 				3A4FE0722644718A00D1E8B9 /* FlyZoneCircle.swift in Sources */,
 				3A4FE0702644707600D1E8B9 /* MapPolygon.swift in Sources */,
-				1449B32720917944003955AE /* DJIGeoUnlockingGroupViewController.m in Sources */,
 				3A4FE0622641A31600D1E8B9 /* AircraftAnnotation.swift in Sources */,
-				1449B32E2091832D003955AE /* DJIGeoGroupInfoViewController.m in Sources */,
 				3A4FE05A2640B3D900D1E8B9 /* AppDelegate.swift in Sources */,
 				3A4FE05C2640B4DC00D1E8B9 /* RootViewController.swift in Sources */,
 				3A4FE0602640C21700D1E8B9 /* GeoCustomUnlockViewController.swift in Sources */,
@@ -368,8 +344,6 @@
 				3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */,
 				3AAFB50326547F7500E7CC23 /* GeoGroupInfoViewController.swift in Sources */,
 				3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */,
-				246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */,
-				246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */,
 				3A4FE074264472F600D1E8B9 /* FlyZoneCircleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,7 +469,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = DJISwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DJIGeoSample/DJIGeoSample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -518,7 +491,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = DJISwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DJIGeoSample/DJIGeoSample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

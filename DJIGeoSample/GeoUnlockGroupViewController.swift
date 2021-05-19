@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import DJISDK
 
 class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 //    @property (weak, nonatomic) IBOutlet UITableView *userUnlockingTableView;
-//    @property (strong, nonatomic) NSArray <DJIUnlockedZoneGroup *> *unlockedZoneGroups;
+    @IBOutlet weak var userUnlockingTableView: UITableView!
+    //    @property (strong, nonatomic) NSArray <DJIUnlockedZoneGroup *> *unlockedZoneGroups;
     var unlockedZoneGroups = [DJIUnlockedZoneGroup]() //TODO: use optional?
 
     override func viewDidLoad() {

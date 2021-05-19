@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import MapKit
+import DJISDK
 
 class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     

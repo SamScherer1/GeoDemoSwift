@@ -354,10 +354,10 @@
             </objects>
             <point key="canvasLocation" x="2060.8695652173915" y="589.85507246376812"/>
         </scene>
-        <!--Geo Custom Unlocking View Controller-->
+        <!--Geo Custom Unlock View Controller-->
         <scene sceneID="NLX-E2-p3m">
             <objects>
-                <viewController id="4Qd-EF-fWT" customClass="DJIGeoCustomUnlockingViewController" sceneMemberID="viewController">
+                <viewController id="4Qd-EF-fWT" customClass="GeoCustomUnlockViewController" customModule="DJIGeoSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9JQ-hM-tld"/>
                         <viewControllerLayoutGuide type="bottom" id="48v-H2-Vgp"/>
@@ -384,17 +384,17 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="customUnlockedZonesTableView" destination="hU8-bs-7zf" id="mSy-hO-dIk"/>
+                        <outlet property="customUnlockedZonesTableView" destination="hU8-bs-7zf" id="X6e-KP-bf4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cDR-7f-483" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2784.7826086956525" y="589.85507246376812"/>
         </scene>
-        <!--Geo Unlocking Group View Controller-->
+        <!--Geo Unlock Group View Controller-->
         <scene sceneID="frr-Of-ptF">
             <objects>
-                <viewController id="c5z-zK-g4t" customClass="DJIGeoUnlockingGroupViewController" sceneMemberID="viewController">
+                <viewController id="c5z-zK-g4t" customClass="GeoUnlockGroupViewController" customModule="DJIGeoSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6v3-m8-XtL"/>
                         <viewControllerLayoutGuide type="bottom" id="att-Bx-nmd"/>
@@ -421,7 +421,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="userUnlockingTableView" destination="wPK-4J-FVF" id="kA0-en-hE1"/>
+                        <outlet property="userUnlockingTableView" destination="wPK-4J-FVF" id="5FQ-kb-WBs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eZJ-c2-Z9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -431,7 +431,7 @@
         <!--Geo Custom Zone Detail View Controller-->
         <scene sceneID="0Ok-dU-4oh">
             <objects>
-                <viewController storyboardIdentifier="DJIGeoCustomZoneDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4CK-dL-HtO" customClass="DJIGeoCustomZoneDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DJIGeoCustomZoneDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4CK-dL-HtO" customClass="GeoCustomZoneDetailViewController" customModule="DJIGeoSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lu1-T3-ski"/>
                         <viewControllerLayoutGuide type="bottom" id="zmo-BR-uGC"/>
@@ -575,7 +575,7 @@
                                 </constraints>
                                 <state key="normal" title="Enable Zone"/>
                                 <connections>
-                                    <action selector="enableZoneButtonPressed:" destination="4CK-dL-HtO" eventType="touchUpInside" id="rXP-5O-KOV"/>
+                                    <action selector="enableZoneButtonPressed:" destination="4CK-dL-HtO" eventType="touchUpInside" id="7Do-K9-XqQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -626,15 +626,15 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="enableZoneButton" destination="mpi-dA-b4A" id="ZBm-Zv-G4R"/>
-                        <outlet property="endLabel" destination="auH-1F-4C3" id="LIS-b3-nDV"/>
-                        <outlet property="expiredLabel" destination="5hu-Hq-gn5" id="gX9-Oc-BPa"/>
-                        <outlet property="idLabel" destination="hGu-pw-taL" id="vSL-vS-tFd"/>
-                        <outlet property="latitudeLabel" destination="TfI-WL-Ue1" id="Zjm-sj-RYZ"/>
-                        <outlet property="longitudeLabel" destination="KBD-Xx-RKm" id="UpE-fS-ke2"/>
-                        <outlet property="nameLabel" destination="pvX-UW-miI" id="SaA-l5-2vc"/>
-                        <outlet property="radiusLabel" destination="p0Z-iV-ZBf" id="6Py-hk-jSV"/>
-                        <outlet property="startLabel" destination="xO8-OK-Dyx" id="Sgm-uI-9DE"/>
+                        <outlet property="enableZoneButton" destination="mpi-dA-b4A" id="PCv-5z-rll"/>
+                        <outlet property="endLabel" destination="auH-1F-4C3" id="dn0-wP-OsI"/>
+                        <outlet property="expiredLabel" destination="5hu-Hq-gn5" id="kX5-bP-PhH"/>
+                        <outlet property="idLabel" destination="hGu-pw-taL" id="1eR-Ma-gnA"/>
+                        <outlet property="latitudeLabel" destination="TfI-WL-Ue1" id="X6U-gd-1j0"/>
+                        <outlet property="longitudeLabel" destination="KBD-Xx-RKm" id="rMv-sc-DG6"/>
+                        <outlet property="nameLabel" destination="pvX-UW-miI" id="RWq-UX-Rl8"/>
+                        <outlet property="radiusLabel" destination="p0Z-iV-ZBf" id="M1H-LY-DIp"/>
+                        <outlet property="startLabel" destination="xO8-OK-Dyx" id="dYa-Jm-UzK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DvY-Q9-5mE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -644,7 +644,7 @@
         <!--Geo Group Info View Controller-->
         <scene sceneID="fsG-7f-1cl">
             <objects>
-                <viewController storyboardIdentifier="DJIGeoGroupInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Wk-oU-fey" customClass="DJIGeoGroupInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DJIGeoGroupInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Wk-oU-fey" customClass="GeoGroupInfoViewController" customModule="DJIGeoSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c7i-Tc-rNG"/>
                         <viewControllerLayoutGuide type="bottom" id="5Ki-9p-ui6"/>
@@ -732,8 +732,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="customUnlockingTable" destination="zrx-AD-5og" id="ljt-b1-M0Y"/>
-                        <outlet property="selfUnlockingTable" destination="aSN-9b-NQe" id="Ppm-lG-udj"/>
+                        <outlet property="customUnlockingTable" destination="zrx-AD-5og" id="kFs-LZ-kjB"/>
+                        <outlet property="selfUnlockingTable" destination="aSN-9b-NQe" id="809-z2-TpK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cia-s6-DnP" userLabel="First Responder" sceneMemberID="firstResponder"/>

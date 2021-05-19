@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import DJISDK
 
 @objc class Polygon : MKPolygon {
     var level : DJIFlyZoneCategory = DJIFlyZoneCategory.unknown

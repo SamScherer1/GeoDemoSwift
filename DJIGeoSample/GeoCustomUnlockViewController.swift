@@ -14,13 +14,13 @@ import DJISDK
 class GeoCustomUnlockViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 //    @property (weak, nonatomic) IBOutlet UITableView *customUnlockedZonesTableView;
-    //IBOutlet customUnlockedZonesTableView : UITableView!
+    @IBOutlet weak var customUnlockedZonesTableView: UITableView!
     
 //    @property (strong, nonatomic) NSArray <DJICustomUnlockZone *> *customUnlockZones;
     var customUnlockZones : [DJICustomUnlockZone]?
     
     required init?(coder: NSCoder) {
-        //customUnlockZones = [DJICustomUnlockZone]()
+        //customUnlockZones = [DJICustomUnlockZone]()//TODO: uncomment? why's this here?
         super.init(coder: coder)
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 import MapKit
-
+import DJISDK
 
 class FlyZoneCircle : MKCircle {
     //@property (nonatomic, assign) CLLocationCoordinate2D flyZoneCoordinate;

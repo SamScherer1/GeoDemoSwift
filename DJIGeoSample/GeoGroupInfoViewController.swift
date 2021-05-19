@@ -7,16 +7,14 @@
 //
 
 import Foundation
+import UIKit
+import DJISDK
 
 class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     public var unlockedZoneGroup : DJIUnlockedZoneGroup?
     
-    //Private vars
-//    @property (weak, nonatomic) IBOutlet UITableView *selfUnlockingTable;
-    var selfUnlockingTable = UITableView()//TODO: replace with IBOutlet
-//    @property (weak, nonatomic) IBOutlet UITableView *customUnlockingTable;
-    var customUnlockingTable = UITableView()//TODO: replace with IBOutlet
+    @IBOutlet weak var selfUnlockingTable: UITableView!
+    @IBOutlet weak var customUnlockingTable: UITableView!
     fileprivate var flyZoneInfoView : DJIScrollView?
     
     override func viewDidLoad() {
