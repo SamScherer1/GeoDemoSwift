@@ -33,12 +33,23 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
 //                }];
 //            }
 //        }];
+        
+        //TODO: need weak self in both closure declarations when only used in the inner one?
+        DJISDKManager.flyZoneManager()?.reloadUnlockedZoneGroupsFromServer(completion: { [weak self] (error:Error?) in
+            if let error = error {
+                print("reloadUnlockedZoneGroupsFromServer error: \(error.localizedDescription)")
+                return
+            }
+            DJISDKManager.flyZoneManager()?.getLoadedUnlockedZoneGroups(completion: { [weak self](groups: [DJIUnlockedZoneGroup]?, error: Error?) in
+                if let groups = groups, error == nil {
+                    self?.unlockedZoneGroups = groups
+                    //self?.userUnlockingTableView.reloadData()//TODO: uncomment once IBOutlet connected...
+                }
+            })
+        })
     }
     
     //TODO: class conforms to UITableView Delegate, DataSource protocols but doesn't declare it? Remove declaration when done?
-//    - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-
-//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserUnlockingGroup"];
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "UserUnlockingGroup")
