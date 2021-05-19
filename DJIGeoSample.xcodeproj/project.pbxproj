@@ -31,6 +31,9 @@
 		3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */; };
 		3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */; };
 		3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */; };
+		3AAFB50126547F4C00E7CC23 /* GeoUnlockGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAFB50026547F4C00E7CC23 /* GeoUnlockGroupViewController.swift */; };
+		3AAFB50326547F7500E7CC23 /* GeoGroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAFB50226547F7500E7CC23 /* GeoGroupInfoViewController.swift */; };
+		3AAFB50526547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAFB50426547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift */; };
 		A437B3471E7BEF490089C965 /* DJIScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A437B3451E7BEF490089C965 /* DJIScrollView.xib */; };
 		A4B87ED71D2A6EB600123466 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED51D2A6EB600123466 /* Main.storyboard */; };
 		A4B87ED91D2A6EB600123466 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B87ED81D2A6EB600123466 /* Assets.xcassets */; };
@@ -81,6 +84,9 @@
 		3A4FE0772644761400D1E8B9 /* FlyZoneColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyZoneColorProvider.swift; sourceTree = "<group>"; };
 		3A4FE0792644B46300D1E8B9 /* LimitSpaceOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitSpaceOverlay.swift; sourceTree = "<group>"; };
 		3A51A9A0264C369900B82A8D /* GeoDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDemoViewController.swift; sourceTree = "<group>"; };
+		3AAFB50026547F4C00E7CC23 /* GeoUnlockGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUnlockGroupViewController.swift; sourceTree = "<group>"; };
+		3AAFB50226547F7500E7CC23 /* GeoGroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoGroupInfoViewController.swift; sourceTree = "<group>"; };
+		3AAFB50426547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCustomZoneDetailViewController.swift; sourceTree = "<group>"; };
 		775EE19841AAF3FB2E90EA53 /* Pods-DJIGeoSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJIGeoSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJIGeoSample/Pods-DJIGeoSample.release.xcconfig"; sourceTree = "<group>"; };
 		7F55FA2AEF9EEEB631917769 /* libPods-DJIGeoSample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJIGeoSample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A41255AA1DCB172C002DF91B /* DJIGeoSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DJIGeoSample.entitlements; sourceTree = "<group>"; };
@@ -156,10 +162,13 @@
 				3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */,
 				1449B32520917944003955AE /* DJIGeoUnlockingGroupViewController.h */,
 				1449B32620917944003955AE /* DJIGeoUnlockingGroupViewController.m */,
+				3AAFB50026547F4C00E7CC23 /* GeoUnlockGroupViewController.swift */,
 				1449B32C2091832D003955AE /* DJIGeoGroupInfoViewController.h */,
 				1449B32D2091832D003955AE /* DJIGeoGroupInfoViewController.m */,
+				3AAFB50226547F7500E7CC23 /* GeoGroupInfoViewController.swift */,
 				246F1AB72047F2870038B95D /* DJIGeoCustomZoneDetailViewController.h */,
 				246F1AB82047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m */,
+				3AAFB50426547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift */,
 				A4B87ED51D2A6EB600123466 /* Main.storyboard */,
 				A4B87EDA1D2A6EB600123466 /* LaunchScreen.storyboard */,
 				3A4FE0542640AC5D00D1E8B9 /* DJIGeoSample-Bridging-Header.h */,
@@ -336,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AAFB50126547F4C00E7CC23 /* GeoUnlockGroupViewController.swift in Sources */,
 				3A4FE07A2644B46300D1E8B9 /* LimitSpaceOverlay.swift in Sources */,
 				3A4FE05E2640BCAF00D1E8B9 /* DemoUtility.swift in Sources */,
 				3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */,
@@ -349,12 +359,14 @@
 				3A4FE0602640C21700D1E8B9 /* GeoCustomUnlockViewController.swift in Sources */,
 				3A4FE0762644742300D1E8B9 /* FlyLimitPolygonView.swift in Sources */,
 				3A4FE06E2644639900D1E8B9 /* MapOverlay.swift in Sources */,
+				3AAFB50526547FB800E7CC23 /* GeoCustomZoneDetailViewController.swift in Sources */,
 				3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */,
 				3A4FE06C264462B700D1E8B9 /* CustomUnlockOverlay.swift in Sources */,
 				3A4FE0562640AC5E00D1E8B9 /* DJIScrollView.swift in Sources */,
 				3A4FE0662641B36400D1E8B9 /* MapViewController.swift in Sources */,
 				3A4FE06A2644621500D1E8B9 /* Polygon.swift in Sources */,
 				3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */,
+				3AAFB50326547F7500E7CC23 /* GeoGroupInfoViewController.swift in Sources */,
 				3A51A9A1264C369900B82A8D /* GeoDemoViewController.swift in Sources */,
 				246F1AB42047E9640038B95D /* DJIGeoCustomUnlockingViewController.m in Sources */,
 				246F1AB92047F2870038B95D /* DJIGeoCustomZoneDetailViewController.m in Sources */,
