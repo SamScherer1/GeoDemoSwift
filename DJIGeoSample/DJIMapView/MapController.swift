@@ -30,7 +30,7 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
         super.init()
         
         self.mapView.delegate = self
-        self.forceUpdateFlyZones()
+        self.updateFlyZonesInSurroundingArea()
     }
     
     deinit {
@@ -101,10 +101,6 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
             self.updateFlyZonesInSurroundingArea()
             self.updateCustomUnlockZone()
         }
-    }
-    
-    func forceUpdateFlyZones() {//TODO: unnecessary method?
-        self.updateFlyZonesInSurroundingArea()
     }
     
     func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
