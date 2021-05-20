@@ -34,8 +34,6 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
     }
     
     public func setup() {
-        //Bundle.main.loadNibNamed(NSStringFromClass(type(of: self.self)), owner: self, options: nil)
-        //TODO: use type(of:) to get class type
         Bundle.main.loadNibNamed("DJIScrollView", owner: self, options: nil)
         self.addSubview(self.view)
         
@@ -68,12 +66,12 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         self.scrollView.isPagingEnabled = false
     }
     
-    public func write(status:NSString) {//TODO: once usages are swift, use String not NSString
-        self.statusTextView?.text = status as String
+    public func write(status: String) {//TODO: once usages are swift, use String not NSString
+        self.statusTextView?.text = status
     }
     
     public func show() {
-        self.superview?.bringSubviewToFront(self)//TODO: unnecessary?
+        self.superview?.bringSubviewToFront(self)
         UIView.animate(withDuration: 0.25) {
             self.alpha = 1.0
             self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
@@ -89,7 +87,6 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
     public func setDefaultSize() {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
-        //TODO: still have to use CGFloats/rects?
         let heightOffset = CGFloat(UIDevice().userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 120.0 : 60.0)
         
         let screenRect = UIScreen.main.bounds
@@ -101,10 +98,10 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         
         self.view.widthAnchor.constraint(equalToConstant: width).isActive = true
         self.widthAnchor.constraint(equalToConstant: width).isActive = true
-        //TODO: unwrap these more appropriately?
-        self.statusTextView?.translatesAutoresizingMaskIntoConstraints = false
         
         self.statusLabel.rightAnchor.constraint(equalTo: self.scrollView.leftAnchor).isActive = true
+        
+        self.statusTextView?.translatesAutoresizingMaskIntoConstraints = false
         self.statusTextView?.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor).isActive = true
         self.statusTextView?.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
     }

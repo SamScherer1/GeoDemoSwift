@@ -10,12 +10,25 @@ import Foundation
 import DJISDK
 
 func showAlertWith(result:String) {
-    DispatchQueue.main.async {
-        let alertViewController = UIAlertController(title: nil, message: result as String, preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-        alertViewController.addAction(okAction)
-        let navController = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
-        navController.present(alertViewController, animated: true, completion: nil)
+    showAlertWith(title: nil, message: result, cancelAction: nil, defaultAction: okAction, presentingViewController: nil)
+}
+
+func showAlertWith(title: String?, message: String, cancelAction:UIAlertAction?, defaultAction:UIAlertAction?, presentingViewController:UIViewController?) {
+    DispatchQueue.main.async {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if let defaultAction = defaultAction {
+            alertController.addAction(defaultAction)
+        }
+        if let cancelAction = cancelAction {
+            alertController.addAction(cancelAction)
+        }
+        if let presentingViewController = presentingViewController {
+            presentingViewController.present(alertController, animated: true, completion: nil)
+        } else {
+            let navController = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
+            navController.present(alertController, animated: true, completion: nil)
+        }
     }
 }
 

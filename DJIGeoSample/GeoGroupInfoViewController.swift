@@ -110,11 +110,11 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         
         if tableView === self.selfUnlockingTable {
             if let information = self.unlockedZoneGroup?.selfUnlockedFlyZones[indexPath.row] {
-                self.flyZoneInfoView?.write(status: self.formatFlyZoneInformtionString(for: information) as NSString)
+                self.flyZoneInfoView?.write(status: self.formatFlyZoneInformtionString(for: information))
             }
         } else if tableView === self.customUnlockingTable {
             if let customUnlockZone = self.unlockedZoneGroup?.customUnlockZones[indexPath.row] {
-                self.flyZoneInfoView?.write(status: self.formatCustomUnlockZoneInformtionString(customUnlockZone: customUnlockZone) as NSString)
+                self.flyZoneInfoView?.write(status: self.formatCustomUnlockZoneInformtionString(customUnlockZone: customUnlockZone))
             }
         }
     }

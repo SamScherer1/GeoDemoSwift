@@ -446,7 +446,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.flyZoneInfoView?.isHidden = false
         self.flyZoneInfoView?.show()
         if let selectedFlyZone = self.mapController?.flyZones[indexPath.row] {
-            self.flyZoneInfoView?.write(status: NSString(string:self.string(for: selectedFlyZone)))
+            self.flyZoneInfoView?.write(status:self.string(for: selectedFlyZone))
         }
     }
 

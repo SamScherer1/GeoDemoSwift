@@ -97,14 +97,12 @@ class RootViewController : UIViewController, DJISDKManagerDelegate {
                 }
             }
         }
-        //DJIGeoSample.showAlertWith(title: nil, message: message, cancelAction: cancelAction, defaultAction: backAction, presentingViewController: self)
+        showAlertWith(title: nil, message: message, cancelAction: cancelAction, defaultAction: backAction, presentingViewController: self)
         self.connectButton.isEnabled = false
         self.product = nil
         
         self.updateStatusFor(nil)
     }
     
-    func didUpdateDatabaseDownloadProgress(_ progress: Progress) {
-        //TODO: Unused?
-    }
+    func didUpdateDatabaseDownloadProgress(_ progress: Progress) {}
 }
