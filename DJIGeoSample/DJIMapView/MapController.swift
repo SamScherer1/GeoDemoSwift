@@ -14,8 +14,8 @@ import DJISDK
 let kUpdateTimeStamp = 10.0
 
 
-@objc class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
-    @objc public var flyZones = [DJIFlyZoneInformation]()
+class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
+    public var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
     var aircraftAnnotation : AircraftAnnotation?
@@ -24,7 +24,7 @@ let kUpdateTimeStamp = 10.0
     var customUnlockOverlays : [MapOverlay]?
     var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     
-    @objc public init(map: MKMapView) {
+    public init(map: MKMapView) {
         self.aircraftCoordinate = CLLocationCoordinate2DMake(0.0, 0.0)
         self.mapView = map
         
@@ -34,12 +34,12 @@ let kUpdateTimeStamp = 10.0
         self.forceUpdateFlyZones()
     }
     
-    @objc deinit {
+    deinit {
         self.aircraftAnnotation = nil
         self.mapView.delegate = nil
     }
     
-    @objc public func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
+    public func updateAircraft(coordinate:CLLocationCoordinate2D, heading:Float) {
         if CLLocationCoordinate2DIsValid(coordinate) {
             self.aircraftCoordinate = coordinate
             if let _ = self.aircraftAnnotation {
@@ -97,18 +97,18 @@ let kUpdateTimeStamp = 10.0
     }
 
     //MARK: - Update Fly Zones in Surrounding Area
-    @objc func updateFlyZones() {
+    func updateFlyZones() {
         if self.canUpdateLimitFlyZoneWithCoordinate() {
             self.updateFlyZonesInSurroundingArea()
             self.updateCustomUnlockZone()
         }
     }
     
-    @objc func forceUpdateFlyZones() {//TODO: unnecessary method?
+    func forceUpdateFlyZones() {//TODO: unnecessary method?
         self.updateFlyZonesInSurroundingArea()
     }
     
-    @objc func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
+    func canUpdateLimitFlyZoneWithCoordinate() -> Bool {
         let currentTime = Date.timeIntervalSinceReferenceDate
         if (currentTime - self.lastUpdateTime) < kUpdateTimeStamp {
             return false
@@ -117,7 +117,7 @@ let kUpdateTimeStamp = 10.0
         return true
     }
     
-    @objc public func updateFlyZonesInSurroundingArea() {
+    public func updateFlyZonesInSurroundingArea() {
         DJISDKManager.flyZoneManager()?.getFlyZonesInSurroundingArea(completion: { [weak self] (infos:[DJIFlyZoneInformation]?, error:Error?) in
             if let infos = infos, error == nil {
                 self?.updateFlyZoneOverlayWith(flyZoneInfos: infos)
@@ -136,7 +136,7 @@ let kUpdateTimeStamp = 10.0
         })
     }
     
-    @objc func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
+    func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
         guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
         //TODO: rename closure something descriptive
         let updateOverlaysClosure = {
@@ -173,7 +173,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func updateCustomUnlockZone() { //TODO: test this method... it's a mess!
+    func updateCustomUnlockZone() { //TODO: test this method... it's a mess!
 //        WeakRef(target);
 //        NSArray* zones = [[DJISDKManager flyZoneManager] getCustomUnlockZonesFromAircraft];
 //
@@ -202,14 +202,14 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeCustomUnlocks() {
+    func removeCustomUnlocks() {
         guard let _ = self.customUnlockOverlays else { return }
         if self.customUnlockOverlays!.count > 0 {
             self.removeMapOverlays(objects: self.customUnlockOverlays!)
         }
     }
     
-    @objc func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {//TODO: how to test this?
+    func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {//TODO: test this... but how?
 //        if (spaceInfos && spaceInfos.count > 0) {
 //            NSMutableArray *overlays = [NSMutableArray array];
 //
@@ -258,11 +258,11 @@ let kUpdateTimeStamp = 10.0
     }
     
     //TODO: Turn this into a computed property (set)...
-    @objc func set(mapType:MKMapType) {
+    func set(mapType:MKMapType) {
         self.mapView.mapType = mapType
     }
     
-    @objc func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
+    func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
         if objects.count <= 0 { return }
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
@@ -271,7 +271,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
+    func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
         if objects.count <= 0 { return }
         
         self.performOnMainThread {
@@ -280,7 +280,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
+    func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
         
         let overlays = self.subOverlaysFor(objects)
@@ -290,7 +290,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
+    func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
         if objects.count <= 0 { return }
 
         let overlays = self.subOverlaysFor(objects)
@@ -300,7 +300,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
+    func subOverlaysFor(_ overlays:[MapOverlay]) -> [MKOverlay] {
         var subOverlays = [MKOverlay]()
         for aMapOverlay in overlays {
             subOverlays.append(contentsOf: aMapOverlay.subOverlays)
@@ -308,7 +308,7 @@ let kUpdateTimeStamp = 10.0
         return subOverlays
     }
     
-    @objc func performOnMainThread(closure: @escaping () -> ()) {
+    func performOnMainThread(closure: @escaping () -> ()) {
         if Thread.isMainThread {
             closure()
         } else {
@@ -318,7 +318,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
 
-    @objc public func refreshMapViewRegion() {
+    public func refreshMapViewRegion() {
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         let adjustedRegion = self.mapView.regionThatFits(viewRegion)
         self.mapView.setRegion(adjustedRegion, animated: true)

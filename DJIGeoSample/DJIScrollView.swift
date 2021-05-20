@@ -19,7 +19,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @objc public class func viewWith(viewController:UIViewController) -> DJIScrollView {
+    public class func viewWith(viewController:UIViewController) -> DJIScrollView {
         let scrollView = DJIScrollView()
         viewController.view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         return scrollView
     }
     
-    @objc public func setup() { //TODO: remove all @objc tags
+    public func setup() {
         //Bundle.main.loadNibNamed(NSStringFromClass(type(of: self.self)), owner: self, options: nil)
         //TODO: use type(of:) to get class type
         Bundle.main.loadNibNamed("DJIScrollView", owner: self, options: nil)
@@ -68,11 +68,11 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         self.scrollView.isPagingEnabled = false
     }
     
-    @objc public func write(status:NSString) {//TODO: once usages are swift, use String not NSString
+    public func write(status:NSString) {//TODO: once usages are swift, use String not NSString
         self.statusTextView?.text = status as String
     }
     
-    @objc public func show() {
+    public func show() {
         self.superview?.bringSubviewToFront(self)//TODO: unnecessary?
         UIView.animate(withDuration: 0.25) {
             self.alpha = 1.0
@@ -86,7 +86,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         }
     }
     
-    @objc public func setDefaultSize() {
+    public func setDefaultSize() {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         
         //TODO: still have to use CGFloats/rects?

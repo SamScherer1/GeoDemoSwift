@@ -13,7 +13,7 @@ class AircraftAnnotation : NSObject, MKAnnotation {
     var coordinate : CLLocationCoordinate2D//TODO: readonly vars in swift? public but not open?
     var annotationView : AircraftAnnotationView?
     
-    @objc init(coordinate:CLLocationCoordinate2D, heading:Float) {
+    init(coordinate:CLLocationCoordinate2D, heading:Float) {
         self.coordinate = coordinate
         self.annotationView?.update(heading: heading)
         super.init()

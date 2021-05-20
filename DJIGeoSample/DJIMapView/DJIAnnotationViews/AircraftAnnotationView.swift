@@ -23,7 +23,7 @@ class AircraftAnnotationView: MKAnnotationView {
         //TODO: need to setup instance variables? is this ever called?
     }
     
-    @objc public func update(heading:Float) {
+    public func update(heading:Float) {
         self.transform = CGAffineTransform.identity
         self.transform = CGAffineTransform(rotationAngle: CGFloat(heading))
     }

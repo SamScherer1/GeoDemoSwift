@@ -10,5 +10,5 @@ import Foundation
 import MapKit
 
 class MapOverlay : NSObject {//TODO: alternatives to subclassing NSObject?
-    @objc var subOverlays = [MKOverlay]()
+    var subOverlays = [MKOverlay]()
 }

@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 class Circle : MKCircle {
-    @objc var strokeColor : UIColor?
-    @objc var fillColor : UIColor?
-    @objc var lineWidth : Float = 1.0 //TODO: Reconsider initial value
+     var strokeColor : UIColor?
+     var fillColor : UIColor?
+     var lineWidth : Float = 1.0 //TODO: Reconsider initial value
 }
