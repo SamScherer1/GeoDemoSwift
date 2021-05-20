@@ -19,18 +19,21 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    public class func viewWith(viewController:UIViewController) -> DJIScrollView {
-        let scrollView = DJIScrollView()
-        viewController.view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.setup()
-        scrollView.setDefaultSize()
-        
-        scrollView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor).isActive = true
-        scrollView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor).isActive = true
-        
-        scrollView.isHidden = true
-        return scrollView
+    init(parentViewController: UIViewController) {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        parentViewController.view.addSubview(self)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.setup()
+        self.setDefaultSize()
+
+        self.centerXAnchor.constraint(equalTo: parentViewController.view.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: parentViewController.view.centerYAnchor).isActive = true
+
+        self.isHidden = true
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     public func setup() {
@@ -66,7 +69,7 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         self.scrollView.isPagingEnabled = false
     }
     
-    public func write(status: String) {//TODO: once usages are swift, use String not NSString
+    public func write(status: String) {
         self.statusTextView?.text = status
     }
     

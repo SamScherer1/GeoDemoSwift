@@ -20,7 +20,7 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.flyZoneView = DJIScrollView.viewWith(viewController: self)//TODO: init method is more swifty
+        self.flyZoneView = DJIScrollView(parentViewController: self)
         self.flyZoneView?.isHidden = true
         self.flyZoneView?.setDefaultSize()
         

@@ -15,7 +15,6 @@ import DJISDK
 let kUseBridge = true
 let kBridgeIP = "192.168.128.169"
 
-//TODO: consider breaking out Delegate methods in extension
 class RootViewController : UIViewController, DJISDKManagerDelegate {
     var product : DJIBaseProduct?
     @IBOutlet weak var connectStatusLabel: UILabel!

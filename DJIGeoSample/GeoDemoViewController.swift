@@ -30,7 +30,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     var unlockFlyZoneIDs = [NSNumber]()
     var unlockedFlyZones : [DJIFlyZoneInformation]?
     var selectedFlyZone : DJIFlyZoneInformation?
-    var isUnlockEnable = false //TODO: consider initial value...
+    var isUnlockEnable = false
     var flyZoneView : DJIScrollView?
     
     required init?(coder: NSCoder) {
@@ -89,7 +89,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.mapController = MapController(map: self.mapView)
         self.unlockFlyZoneIDs = [NSNumber]()
         self.unlockedFlyZones = [DJIFlyZoneInformation]()
-        self.flyZoneView = DJIScrollView.viewWith(viewController: self)//TODO: make this an init method?
+        self.flyZoneView = DJIScrollView(parentViewController: self)
         self.flyZoneView?.isHidden = true
         self.flyZoneView?.setDefaultSize()
     }
