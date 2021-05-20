@@ -50,9 +50,7 @@ class GeoCustomUnlockViewController : UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let optionalCell = tableView.dequeueReusableCell(withIdentifier: "CustomUnlock")
-        let cell = optionalCell ?? UITableViewCell(style: UITableViewCell.CellStyle.subtitle,
-                                                   reuseIdentifier: "CustomUnlock")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomUnlock", for:indexPath)
         
         if let zone = self.customUnlockZones?[indexPath.row] {
             cell.textLabel?.text = zone.name

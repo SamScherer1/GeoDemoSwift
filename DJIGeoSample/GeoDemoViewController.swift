@@ -374,8 +374,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let nullableCell = tableView.dequeueReusableCell(withIdentifier: "flyzone-id")
-        let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "flyzone-id")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "flyzone-id", for:indexPath)
 
         if let flyZone = self.mapController?.flyZones[indexPath.row] {
             cell.textLabel?.text = "\(flyZone.flyZoneID):\(flyZone.category):\(flyZone.name)"

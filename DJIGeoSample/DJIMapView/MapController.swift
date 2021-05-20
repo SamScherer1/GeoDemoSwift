@@ -64,7 +64,6 @@ class MapController : NSObject, MKMapViewDelegate {
         if annotation.isKind(of: AircraftAnnotation.self) {
             let aircraftAnno = self.mapView.dequeueReusableAnnotationView(withIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
             return aircraftAnno ?? AircraftAnnotationView(annotation: annotation, reuseIdentifier: "DJI_AIRCRAFT_ANNOTATION_VIEW")
-            
         }
         return nil
     }
