@@ -14,7 +14,7 @@ import DJISDK
 let kUpdateTimeStamp = 10.0
 
 
-class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
+class MapController : NSObject, MKMapViewDelegate {
     public var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
@@ -135,27 +135,27 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
         guard let flyZones = flyZones, flyZones.count > 0 else { return }
         let updateOverlaysClosure = {
             var overlays = [LimitSpaceOverlay]()
-            var flyZones = [DJIFlyZoneInformation]()
+            var limitFlyZones = [DJIFlyZoneInformation]()
             
-            for flyZoneLimitInfo in flyZones {
+            for flyZone in flyZones {
                 var anOverlay : LimitSpaceOverlay?
                 for aMapOverlay in self.mapOverlays as! [LimitSpaceOverlay] {
-                    if (aMapOverlay.limitSpaceInfo?.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo?.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {
+                    if (aMapOverlay.limitSpaceInfo?.flyZoneID == flyZone.flyZoneID) && (aMapOverlay.limitSpaceInfo?.subFlyZones?.count == flyZone.subFlyZones?.count) {
                         anOverlay = aMapOverlay
                         break
                     }
                 }
                 if anOverlay == nil {
-                    anOverlay = LimitSpaceOverlay(limitSpaceInfo: flyZoneLimitInfo)
+                    anOverlay = LimitSpaceOverlay(limitSpaceInfo: flyZone)
                 }
                 overlays.append(anOverlay!)
-                flyZones.append(flyZoneLimitInfo)
+                limitFlyZones.append(flyZone)
             }
 
             self.removeMapOverlays(objects: self.mapOverlays)
             self.flyZones.removeAll()
             self.addMapOverlays(objects: overlays)
-            self.flyZones.append(contentsOf: flyZones)
+            self.flyZones.append(contentsOf: limitFlyZones)
         }
         
         if Thread.current.isMainThread {
