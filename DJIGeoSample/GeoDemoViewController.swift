@@ -28,10 +28,10 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     var updateLoginStateTimer : Timer?
     var updateFlyZoneDataTimer : Timer?
     var unlockFlyZoneIDs = [NSNumber]()
-    var unlockedFlyZoneInfos : [DJIFlyZoneInformation]?
-    var selectedFlyZoneInfo : DJIFlyZoneInformation?
+    var unlockedFlyZones : [DJIFlyZoneInformation]?
+    var selectedFlyZone : DJIFlyZoneInformation?
     var isUnlockEnable = false //TODO: consider initial value...
-    var flyZoneInfoView : DJIScrollView?
+    var flyZoneView : DJIScrollView?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -62,7 +62,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         }
 
         self.updateLoginStateTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateLoginState), userInfo: nil, repeats: true)
-        self.updateFlyZoneDataTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateFlyZoneInfo), userInfo: nil, repeats: true)
+        self.updateFlyZoneDataTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateFlyZone), userInfo: nil, repeats: true)
         
         self.mapController?.updateFlyZonesInSurroundingArea()
     }
@@ -88,10 +88,10 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         
         self.mapController = MapController(map: self.mapView)
         self.unlockFlyZoneIDs = [NSNumber]()
-        self.unlockedFlyZoneInfos = [DJIFlyZoneInformation]()
-        self.flyZoneInfoView = DJIScrollView.viewWith(viewController: self)//TODO: make this an init method?
-        self.flyZoneInfoView?.isHidden = true
-        self.flyZoneInfoView?.setDefaultSize()
+        self.unlockedFlyZones = [DJIFlyZoneInformation]()
+        self.flyZoneView = DJIScrollView.viewWith(viewController: self)//TODO: make this an init method?
+        self.flyZoneView?.isHidden = true
+        self.flyZoneView?.setDefaultSize()
     }
 
     //MARK: IBAction Methods
@@ -127,8 +127,8 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 guard let infos = infos else { fatalError() }
                 guard let self = self else { return }
                 var unlockInfo = "unlock zone count = \(infos.count) \n"
-                self.unlockedFlyZoneInfos?.removeAll()
-                self.unlockedFlyZoneInfos?.append(contentsOf: infos)
+                self.unlockedFlyZones?.removeAll()
+                self.unlockedFlyZones?.append(contentsOf: infos)
                 for info in infos {
                     unlockInfo = unlockInfo + "ID:\(info.flyZoneID) Name:\(info.name) Begin:\(info.unlockStartTime) end:\(info.unlockEndTime)\n"
                 }
@@ -202,7 +202,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
 
     @IBAction func conformButtonAction(_ sender: Any) {//TODO: rename appropriately... enableUnlockConfirmAction?
-        guard let selectedInfo = self.selectedFlyZoneInfo else { return }
+        guard let selectedInfo = self.selectedFlyZone else { return }
         
         selectedInfo.setUnlockingEnabled(self.isUnlockEnable) { (error:Error?) in
             if let error = error {
@@ -224,8 +224,8 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
-            if let unlockedFlyZoneInfoCount = self.unlockedFlyZoneInfos?.count {
-                return unlockedFlyZoneInfoCount
+            if let unlockedFlyZoneCount = self.unlockedFlyZones?.count {
+                return unlockedFlyZoneCount
             }
         } else if component == 1 {
             return 2
@@ -237,7 +237,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         var title = ""
         
         if component == 0 {
-            if let infoObject = self.unlockedFlyZoneInfos?[row] {
+            if let infoObject = self.unlockedFlyZones?[row] {
                 title = "\(infoObject.flyZoneID)"
             }
         } else if component == 1 {
@@ -245,13 +245,13 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         }
         return title
     }
-//
+
     //MARK: - UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            if self.unlockedFlyZoneInfos?.count ?? 0 > row {
-                if let flyZoneInfoToSelect = self.unlockedFlyZoneInfos?[row] {
-                    self.selectedFlyZoneInfo = flyZoneInfoToSelect
+            if self.unlockedFlyZones?.count ?? 0 > row {
+                if let flyZoneToSelect = self.unlockedFlyZones?[row] {
+                    self.selectedFlyZone = flyZoneToSelect
                 }
             }
         } else if component == 1 {
@@ -332,7 +332,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.loginStateLabel.text = stateString
     }
     
-    @objc func onUpdateFlyZoneInfo() {
+    @objc func onUpdateFlyZone() {
         self.showFlyZoneMessageTableView.reloadData()
     }
     //MARK: - DJIFlyZoneDelegate Method
@@ -377,14 +377,14 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "flyzone-id")
         let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "flyzone-id")//TODO: I like this pattern for unwrapping all tableView cells
 
-        if let flyZoneInfo = self.mapController?.flyZones[indexPath.row] {
-            cell.textLabel?.text = "\(flyZoneInfo.flyZoneID):\(flyZoneInfo.category):\(flyZoneInfo.name)"
+        if let flyZone = self.mapController?.flyZones[indexPath.row] {
+            cell.textLabel?.text = "\(flyZone.flyZoneID):\(flyZone.category):\(flyZone.name)"
             cell.textLabel?.adjustsFontSizeToFitWidth = true
         }
         return cell
     }
 
-    func getFlyZoneString(for category: DJIFlyZoneCategory) -> String {
+    func getFlyZoneStringFor(_ category: DJIFlyZoneCategory) -> String {
         switch category {
         case .warning:
             return "Warning"
@@ -401,17 +401,17 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         }
     }
 
-    func string(for subFlyZoneInformations: [DJISubFlyZoneInformation]?) -> String? {//TODO: rename all names containing info, information
-        guard let subFlyZoneInformations = subFlyZoneInformations else { return nil }
+    func stringFor(_ subFlyZones: [DJISubFlyZoneInformation]?) -> String? {//TODO: rename all names containing info, information
+        guard let subFlyZones = subFlyZones else { return nil }
         var subInfoString = ""
-        for subInformation in subFlyZoneInformations {
+        for subZone in subFlyZones {
             subInfoString.append("-----------------\n")
-            subInfoString.append("SubAreaID:\(subInformation.areaID)")
-            subInfoString.append("Graphic:\( subInformation.shape == .cylinder ? "Circle": "Polygon")")
-            subInfoString.append("MaximumFlightHeight:\(subInformation.maximumFlightHeight)")
-            subInfoString.append("Radius:\(subInformation.radius)")
-            subInfoString.append("Coordinate:\(subInformation.center.latitude),\(subInformation.center.longitude)")
-            for point in subInformation.vertices {
+            subInfoString.append("SubAreaID:\(subZone.areaID)")
+            subInfoString.append("Graphic:\( subZone.shape == .cylinder ? "Circle": "Polygon")")
+            subInfoString.append("MaximumFlightHeight:\(subZone.maximumFlightHeight)")
+            subInfoString.append("Radius:\(subZone.radius)")
+            subInfoString.append("Coordinate:\(subZone.center.latitude),\(subZone.center.longitude)")
+            for point in subZone.vertices {
                 if let coordinate = point as? CLLocationCoordinate2D {
                     subInfoString.append("     \(coordinate.latitude),\(coordinate.longitude)\n")
                 }
@@ -421,20 +421,20 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         return subInfoString;
     }
 
-    func string(for flyZoneInfo:DJIFlyZoneInformation) -> String {
+    func stringFor(_ flyZone:DJIFlyZoneInformation) -> String {
         var infoString = ""
-        infoString.append("ID:\(flyZoneInfo.flyZoneID)n")
-        infoString.append("Name:\(flyZoneInfo.name)\n")
-        infoString.append("Coordinate:(\(flyZoneInfo.center.latitude),\(flyZoneInfo.center.longitude)\n")
-        infoString.append("Radius:\(flyZoneInfo.radius)\n")
-        infoString.append("StartTime:\(flyZoneInfo.startTime), EndTime:\(flyZoneInfo.endTime)\n")
-        infoString.append("unlockStartTime:\(flyZoneInfo.unlockStartTime), unlockEndTime:\(flyZoneInfo.unlockEndTime)\n")
-        infoString.append("GEOZoneType:\(flyZoneInfo.type)")
-        infoString.append("FlyZoneType:\(flyZoneInfo.shape == .cylinder ? "Cylinder" : "Cone")")
-        infoString.append("FlyZoneCategory:\(self.getFlyZoneString(for: flyZoneInfo.category))\n")
+        infoString.append("ID:\(flyZone.flyZoneID)n")
+        infoString.append("Name:\(flyZone.name)\n")
+        infoString.append("Coordinate:(\(flyZone.center.latitude),\(flyZone.center.longitude)\n")
+        infoString.append("Radius:\(flyZone.radius)\n")
+        infoString.append("StartTime:\(flyZone.startTime), EndTime:\(flyZone.endTime)\n")
+        infoString.append("unlockStartTime:\(flyZone.unlockStartTime), unlockEndTime:\(flyZone.unlockEndTime)\n")
+        infoString.append("GEOZoneType:\(flyZone.type)")
+        infoString.append("FlyZoneType:\(flyZone.shape == .cylinder ? "Cylinder" : "Cone")")
+        infoString.append("FlyZoneCategory:\(self.getFlyZoneStringFor(flyZone.category))\n")
 
-        if flyZoneInfo.subFlyZones?.count ?? -1 > 0 {
-            if let subInfoString = self.string(for: flyZoneInfo.subFlyZones) {
+        if flyZone.subFlyZones?.count ?? -1 > 0 {
+            if let subInfoString = self.stringFor(flyZone.subFlyZones) {
                 infoString.append(subInfoString)
             }
         }
@@ -443,10 +443,10 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.flyZoneInfoView?.isHidden = false
-        self.flyZoneInfoView?.show()
+        self.flyZoneView?.isHidden = false
+        self.flyZoneView?.show()
         if let selectedFlyZone = self.mapController?.flyZones[indexPath.row] {
-            self.flyZoneInfoView?.write(status:self.string(for: selectedFlyZone))
+            self.flyZoneView?.write(status:self.stringFor(selectedFlyZone))
         }
     }
 

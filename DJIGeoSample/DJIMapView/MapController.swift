@@ -117,9 +117,9 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
     }
     
     public func updateFlyZonesInSurroundingArea() {
-        DJISDKManager.flyZoneManager()?.getFlyZonesInSurroundingArea(completion: { [weak self] (infos:[DJIFlyZoneInformation]?, error:Error?) in
-            if let infos = infos, error == nil {
-                self?.updateFlyZoneOverlayWith(flyZoneInfos: infos)
+        DJISDKManager.flyZoneManager()?.getFlyZonesInSurroundingArea(completion: { [weak self] (flyZones:[DJIFlyZoneInformation]?, error:Error?) in
+            if let flyZones = flyZones, error == nil {
+                self?.updateFlyZoneOverlayWith(flyZones)
             } else {
                 if let mapOverlays = self?.mapOverlays {
                     if mapOverlays.count > 0 {
@@ -135,14 +135,13 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
         })
     }
     
-    func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
-        guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
-        //TODO: rename closure something descriptive
+    func updateFlyZoneOverlayWith(_ flyZones:[DJIFlyZoneInformation]?) {
+        guard let flyZones = flyZones, flyZones.count > 0 else { return }
         let updateOverlaysClosure = {
             var overlays = [LimitSpaceOverlay]()
             var flyZones = [DJIFlyZoneInformation]()
             
-            for flyZoneLimitInfo in flyZoneInfos {
+            for flyZoneLimitInfo in flyZones {
                 var anOverlay : LimitSpaceOverlay?
                 for aMapOverlay in self.mapOverlays as! [LimitSpaceOverlay] {
                     if (aMapOverlay.limitSpaceInfo?.flyZoneID == flyZoneLimitInfo.flyZoneID) && (aMapOverlay.limitSpaceInfo?.subFlyZones?.count == flyZoneLimitInfo.subFlyZones?.count) {

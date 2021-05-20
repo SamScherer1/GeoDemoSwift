@@ -15,41 +15,20 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var selfUnlockingTable: UITableView!
     @IBOutlet weak var customUnlockingTable: UITableView!
-    fileprivate var flyZoneInfoView : DJIScrollView?
+    fileprivate var flyZoneView : DJIScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.flyZoneInfoView = DJIScrollView.viewWith(viewController: self)//TODO: init method is more swifty
-        self.flyZoneInfoView?.isHidden = true
-        self.flyZoneInfoView?.setDefaultSize()
+        self.flyZoneView = DJIScrollView.viewWith(viewController: self)//TODO: init method is more swifty
+        self.flyZoneView?.isHidden = true
+        self.flyZoneView?.setDefaultSize()
         
         self.selfUnlockingTable.reloadData()
         self.customUnlockingTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if ([tableView isEqual:self.selfUnlockingTable]) {
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelfUnlockingCell"];
-//            if (cell == nil) {
-//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SelfUnlockingCell"];
-//            }
-//            DJIFlyZoneInformation *zone = self.unlockedZoneGroup.selfUnlockedFlyZones[indexPath.row];
-//            cell.textLabel.text = zone.name;
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"AreaID:%tu, Lat: %f, Long: %f",zone.flyZoneID, zone.center.latitude, zone.center.longitude];
-//            return cell;
-//
-//        } else if ([tableView isEqual:self.customUnlockingTable]) {
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomUnlockCell"];
-//            if (cell == nil) {
-//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CustomUnlockCell"];
-//            }
-//            DJICustomUnlockZone *zone = self.unlockedZoneGroup.customUnlockZones[indexPath.row];
-//            cell.textLabel.text = zone.name;
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"UnlockID:%tu, Lat: %f, Long: %f",zone.ID, zone.center.latitude, zone.center.longitude];
-//            return cell;
-//        }
-//        return nil;
         if tableView === self.selfUnlockingTable {
             let nullableCell = tableView.dequeueReusableCell(withIdentifier: "SelfUnlockingCell")
             let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "SelfUnlockingCell")
@@ -79,12 +58,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if ([tableView isEqual:self.selfUnlockingTable]) {
-//            return self.unlockedZoneGroup.selfUnlockedFlyZones.count;
-//        } else if ([tableView isEqual:self.customUnlockingTable]) {
-//            return self.unlockedZoneGroup.customUnlockZones.count;
-//        }
-//        return 0;
         if tableView === self.selfUnlockingTable {
             return self.unlockedZoneGroup?.selfUnlockedFlyZones.count ?? 0
         } else if tableView.isEqual(self.customUnlockingTable) {
@@ -92,46 +65,22 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         }
         return 0
     }
-//
-//    - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//        self.flyZoneInfoView.hidden = NO;
-//        [self.flyZoneInfoView show];
-//
-//        if ([tableView isEqual:self.selfUnlockingTable]) {
-//            DJIFlyZoneInformation *information = self.unlockedZoneGroup.selfUnlockedFlyZones[indexPath.row];
-//
-//        } else if ([tableView isEqual:self.customUnlockingTable]) {
-//            DJICustomUnlockZone *customUnlockZone = self.unlockedZoneGroup.customUnlockZones[indexPath.row];
-//        }
-//    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.flyZoneInfoView?.isHidden = true
-        self.flyZoneInfoView?.show()
+        self.flyZoneView?.isHidden = true
+        self.flyZoneView?.show()
         
         if tableView === self.selfUnlockingTable {
-            if let information = self.unlockedZoneGroup?.selfUnlockedFlyZones[indexPath.row] {
-                self.flyZoneInfoView?.write(status: self.formatFlyZoneInformtionString(for: information))
+            if let unlockedFlyZone = self.unlockedZoneGroup?.selfUnlockedFlyZones[indexPath.row] {
+                self.flyZoneView?.write(status: self.formatFlyZoneInformtionString(for: unlockedFlyZone))
             }
         } else if tableView === self.customUnlockingTable {
             if let customUnlockZone = self.unlockedZoneGroup?.customUnlockZones[indexPath.row] {
-                self.flyZoneInfoView?.write(status: self.formatCustomUnlockZoneInformtionString(customUnlockZone: customUnlockZone))
+                self.flyZoneView?.write(status: self.formatCustomUnlockZoneInformtionString(customUnlockZone: customUnlockZone))
             }
         }
     }
-//
-//    - (NSString*)formatCustomUnlockZoneInformtionString:(DJICustomUnlockZone*)customUnlockZone
-//    {
-//        NSMutableString* infoString = [[NSMutableString alloc] init];
-//        if (customUnlockZone) {
-//            [infoString appendString:[NSString stringWithFormat:@"ID:%lu\n", (unsigned long)customUnlockZone.ID]];
-//            [infoString appendString:[NSString stringWithFormat:@"Name:%@\n", customUnlockZone.name]];
-//            [infoString appendString:[NSString stringWithFormat:@"Coordinate:(%f,%f)\n", customUnlockZone.center.latitude, customUnlockZone.center.longitude]];
-//            [infoString appendString:[NSString stringWithFormat:@"Radius:%f\n", customUnlockZone.radius]];
-//            [infoString appendString:[NSString stringWithFormat:@"StartTime:%@, EndTime:%@\n", customUnlockZone.startTime, customUnlockZone.endTime]];
-//        }
-//        NSString *result = [NSString stringWithString:infoString];
-//        return result;
-//    }
+
     func formatCustomUnlockZoneInformtionString(customUnlockZone:DJICustomUnlockZone) -> String {
         var infoString = ""
         infoString.append("ID:\(customUnlockZone.id)\n")
@@ -144,28 +93,9 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         infoString.append("isExpired:\(customUnlockZone.isExpired)\n")//TODO: test boolean string interpolation
         return infoString
     }
-//
-//    - (NSString*)formatFlyZoneInformtionString:(DJIFlyZoneInformation*)information {
+
     func formatFlyZoneInformtionString(for information:DJIFlyZoneInformation) -> String {
-//        NSMutableString* infoString = [[NSMutableString alloc] init];
         var infoString = ""
-//        if (information) {
-//            [infoString appendString:[NSString stringWithFormat:@"ID:%lu\n", (unsigned long)information.flyZoneID]];
-//            [infoString appendString:[NSString stringWithFormat:@"Name:%@\n", information.name]];
-//            [infoString appendString:[NSString stringWithFormat:@"Coordinate:(%f,%f)\n", information.center.latitude, information.center.longitude]];
-//            [infoString appendString:[NSString stringWithFormat:@"Radius:%f\n", information.radius]];
-//            [infoString appendString:[NSString stringWithFormat:@"StartTime:%@, EndTime:%@\n", information.startTime, information.endTime]];
-//            [infoString appendString:[NSString stringWithFormat:@"unlockStartTime:%@, unlockEndTime:%@\n", information.unlockStartTime, information.unlockEndTime]];
-//            [infoString appendString:[NSString stringWithFormat:@"GEOZoneType:%d\n", information.type]];
-//            [infoString appendString:[NSString stringWithFormat:@"FlyZoneType:%@\n", information.shape == DJIFlyZoneShapeCylinder ? @"Cylinder" : @"Cone"]];
-//            [infoString appendString:[NSString stringWithFormat:@"FlyZoneCategory:%@\n",[self getFlyZoneCategoryString:information.category]]];
-//
-//            if (information.subFlyZones.count > 0) {
-//                NSString* subInfoString = [self formatSubFlyZoneInformtionString:information.subFlyZones];
-//                [infoString appendString:subInfoString];
-//            }
-//        }
-//        NSString *result = [NSString stringWithString:infoString];
         infoString.append("ID:\(information.flyZoneID)\n")
         infoString.append("Name:\(information.name)\n")
         infoString.append("Coordinate:(\(information.center.latitude),\(information.center.longitude)")
@@ -187,27 +117,19 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
     }
 
     func formatSubFlyZoneInformtionString(for subFlyZoneInformations: [DJISubFlyZoneInformation]) -> String {
-        //        NSMutableString *subInfoString = [NSMutableString string];
         var subInfoString = ""
         for subInformation in subFlyZoneInformations {
             subInfoString.append("-----------------\n")
-//            [subInfoString appendString:[NSString stringWithFormat:@"SubAreaID:%@\n", @(subInformation.areaID)]];
             subInfoString.append("SubAreaID:\(subInformation.areaID)\n")
-//            [subInfoString appendString:[NSString stringWithFormat:@"Graphic:%@\n", DJISubFlyZoneShapeCylinder == subInformation.shape ? @"Circle": @"Polygon"]];
             subInfoString.append("Graphic:\(subInformation.shape == .cylinder ? "Circle" : "Polygon")")
-//            [subInfoString appendString:[NSString stringWithFormat:@"MaximumFlightHeight:%ld\n", (long)subInformation.maximumFlightHeight]];
             subInfoString.append("MaximumFlightHeight:\(subInformation.maximumFlightHeight)")
-//            [subInfoString appendString:[NSString stringWithFormat:@"Radius:%f\n", subInformation.radius]];
             subInfoString.append("Radius:\(subInformation.radius)\n")
-            
-//            [subInfoString appendString:[NSString stringWithFormat:@"Coordinate:(%f,%f)\n", subInformation.center.latitude, subInformation.center.longitude]];
             subInfoString.append("Coordinate:(\(subInformation.center.latitude),\(subInformation.center.longitude)")
-//            for (NSValue* point in subInformation.vertices) {
-//                CLLocationCoordinate2D coordinate = [point MKCoordinateValue];
-//                [subInfoString appendString:[NSString stringWithFormat:@"     (%f,%f)\n", coordinate.latitude, coordinate.longitude]];
-//            }
+            
             for point in subInformation.vertices {
                 if let coordinate = point as? CLLocationCoordinate2D {
+                    //TODO: test this, probably need to use format string...
+//                [subInfoString appendString:[NSString stringWithFormat:@"     (%f,%f)\n", coordinate.latitude, coordinate.longitude]];
                     subInfoString.append("    (\(coordinate.latitude),\(coordinate.longitude)\n")
                 }
             }
