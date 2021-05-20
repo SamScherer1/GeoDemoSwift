@@ -20,7 +20,6 @@ class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclass
     var mapView : MKMapView
     var aircraftAnnotation : AircraftAnnotation?
     var mapOverlays = [MapOverlay]()
-//    @property (nonatomic, strong) NSMutableArray<MapOverlay *> *customUnlockOverlays;
     var customUnlockOverlays : [MapOverlay]?
     var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     

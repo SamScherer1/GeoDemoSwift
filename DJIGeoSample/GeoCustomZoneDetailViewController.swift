@@ -83,7 +83,7 @@ class GeoCustomZoneDetailViewController : UIViewController {
             self.expiredLabel.text = "No"
             DJISDKManager.flyZoneManager()?.getEnabledCustomUnlockZone(completion: { [weak self] (zone:DJICustomUnlockZone?, error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "get enabled custom ulock zone failed:\(error.localizedDescription)")
+                    showAlertWith(result: "get enabled custom ulock zone failed:\(error.localizedDescription)")
                     return
                 }
                 guard let self = self else { return }
@@ -114,12 +114,12 @@ class GeoCustomZoneDetailViewController : UIViewController {
 //            }];
             DJISDKManager.flyZoneManager()?.enable(nil, withCompletion: { [weak self](error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "Disable custom unlock zone failed:\( error.localizedDescription)")
+                    showAlertWith(result: "Disable custom unlock zone failed:\( error.localizedDescription)")
                     return
                 }
                 self?.enableZoneButton.setTitle("Enable Zone", for: .normal)
                 self?.enabledCustomUnlockZone = nil
-                DemoUtility.show(result: "Disable custom unlock zone success")
+                showAlertWith(result: "Disable custom unlock zone success")
             })
         } else {
 //            [[DJISDKManager flyZoneManager] enableCustomUnlockZone:self.customUnlockZone withCompletion:^(NSError * _Nullable error) {
@@ -134,12 +134,12 @@ class GeoCustomZoneDetailViewController : UIViewController {
 //            }];
             DJISDKManager.flyZoneManager()?.enable(self.customUnlockZone!, withCompletion: { [weak self](error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "Enable custom unlock zone failed:\(error.localizedDescription)")
+                    showAlertWith(result: "Enable custom unlock zone failed:\(error.localizedDescription)")
                     return
                 }
                 self?.enableZoneButton.setTitle("Disable", for: .normal)
                 self?.enabledCustomUnlockZone = self?.customUnlockZone
-                DemoUtility.show(result: "Enable custom unlock zone success")
+                showAlertWith(result: "Enable custom unlock zone success")
             })
         }
 

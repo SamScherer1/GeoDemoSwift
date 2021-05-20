@@ -43,7 +43,7 @@ class GeoCustomUnlockViewController : UIViewController, UITableViewDelegate, UIT
         } else {
             DJISDKManager.flyZoneManager()?.syncUnlockedZoneGroupToAircraft(completion: { [weak self] (error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "Sync custom unlock zones to aircraft failed: \(error.localizedDescription)")
+                    DJIGeoSample.showAlertWith(result: "Sync custom unlock zones to aircraft failed: \(error.localizedDescription)")
                 } else {
                     self?.customUnlockZones = DJISDKManager.flyZoneManager()?.getCustomUnlockZonesFromAircraft()
                     // [target.customUnlockedZonesTableView reloadData];//TODO: implement

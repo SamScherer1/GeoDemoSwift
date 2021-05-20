@@ -41,8 +41,8 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.title = "DJI GEO Demo"
         self.pickerContainerView.isHidden = true
         
-        guard let aircraft = DemoUtility.fetchAircraft() else { return }
-        
+        guard let aircraft = fetchAircraft() else { return }
+
         aircraft.flightController?.delegate = self
         DJISDKManager.flyZoneManager()?.delegate = self
         self.initUI()
@@ -51,10 +51,10 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let aircraft = DemoUtility.fetchAircraft() {
+        if let aircraft = fetchAircraft() {
             aircraft.flightController?.simulator?.setFlyZoneLimitationEnabled(true, withCompletion: { (error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "setFlyZoneLimitationEnabled failed:\(error.localizedDescription)")
+                    DJIGeoSample.showAlertWith(result: "setFlyZoneLimitationEnabled failed:\(error.localizedDescription)")
                 } else {
                     print("setFlyZoneLimitationEnabled success")
                 }
@@ -70,10 +70,10 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let aircraft = DemoUtility.fetchAircraft() {
+        if let aircraft = fetchAircraft() {
             aircraft.flightController?.simulator?.setFlyZoneLimitationEnabled(false, withCompletion: { (error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "setFlyZoneLimitationEnabled failed:\(error.localizedDescription)")
+                    DJIGeoSample.showAlertWith(result: "setFlyZoneLimitationEnabled failed:\(error.localizedDescription)")
                 } else {
                     print("setFlyZoneLimitationEnabled success")
                 }
@@ -98,9 +98,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     @IBAction func onLoginButtonClicked(_ sender: Any) {
         DJISDKManager.userAccountManager().logIntoDJIUserAccount(withAuthorizationRequired: true) { (_:DJIUserAccountState, error:Error?) in
             if let error = error {
-                DemoUtility.show(result: "GEO Login Error: \(error.localizedDescription)")
+                DJIGeoSample.showAlertWith(result: "GEO Login Error: \(error.localizedDescription)")
             } else {
-                DemoUtility.show(result: "GEO Login Success")
+                DJIGeoSample.showAlertWith(result: "GEO Login Success")
             }
         }
     }
@@ -108,9 +108,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     @IBAction func onLogoutButtonClicked(_ sender: Any) {
         DJISDKManager.userAccountManager().logOutOfDJIUserAccount { (error:Error?) in
             if let error = error {
-                DemoUtility.show(result: "Logout error: \(error.localizedDescription)")
+                DJIGeoSample.showAlertWith(result: "Logout error: \(error.localizedDescription)")
             } else {
-                DemoUtility.show(result: "Logout success")
+                DJIGeoSample.showAlertWith(result: "Logout success")
             }
         }
     }
@@ -122,7 +122,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     @IBAction func onGetUnlockButtonClicked(_ sender: Any) {
         DJISDKManager.flyZoneManager()?.getUnlockedFlyZonesForAircraft(completion: { [weak self] (infos:[DJIFlyZoneInformation]?, error:Error?) in
             if let error = error {
-                DemoUtility.show(result: "Get Unlock Error: \(error.localizedDescription)")
+                DJIGeoSample.showAlertWith(result: "Get Unlock Error: \(error.localizedDescription)")
             } else {
                 guard let infos = infos else { fatalError() }
                 guard let self = self else { return }
@@ -132,13 +132,13 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 for info in infos {
                     unlockInfo = unlockInfo + "ID:\(info.flyZoneID) Name:\(info.name) Begin:\(info.unlockStartTime) end:\(info.unlockEndTime)\n"
                 }
-                DemoUtility.show(result: unlockInfo)
+                DJIGeoSample.showAlertWith(result: unlockInfo)
             }
         })
     }
     
     @IBAction func onStartSimulatorButtonClicked(_ sender: Any) {
-        guard let flightController = DemoUtility.fetchFlightController() else { return }
+        guard let flightController = DJIGeoSample.fetchFlightController() else { return }
 
         let alertController = UIAlertController(title: "", message: "Input coordinate", preferredStyle: .alert)
         alertController.addTextField { (textField:UITextField) in
@@ -171,9 +171,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                                               gpsSatellitesNumber: 10,
                                               withCompletion: { [weak self] (error:Error?) in
                 if let error = error {
-                    DemoUtility.show(result: "Start simulator error: \(error.localizedDescription)")
+                    DJIGeoSample.showAlertWith(result: "Start simulator error: \(error.localizedDescription)")
                 } else {
-                    DemoUtility.show(result: "Start simulator success")
+                    DJIGeoSample.showAlertWith(result: "Start simulator success")
                     self?.mapController?.refreshMapViewRegion()
                 }
             })
@@ -185,13 +185,13 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
     
     @IBAction func onStopSimulatorButtonClicked(_ sender: Any) {
-        guard let flightController = DemoUtility.fetchFlightController() else { return }
+        guard let flightController = DJIGeoSample.fetchFlightController() else { return }
         
         flightController.simulator?.stop(completion: { (error:Error?) in
             if let error = error {
-                DemoUtility.show(result: "Stop simulator error:\(error.localizedDescription)")
+                DJIGeoSample.showAlertWith(result: "Stop simulator error:\(error.localizedDescription)")
             } else {
-                DemoUtility.show(result: "Stop simulator success")
+                DJIGeoSample.showAlertWith(result: "Stop simulator success")
             }
         })
     }
@@ -206,9 +206,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         
         selectedInfo.setUnlockingEnabled(self.isUnlockEnable) { (error:Error?) in
             if let error = error {
-                DemoUtility.show(result: "Set unlocking enabled failed: \(error.localizedDescription)")
+                DJIGeoSample.showAlertWith(result: "Set unlocking enabled failed: \(error.localizedDescription)")
             } else {
-                DemoUtility.show(result: "Set unlocking enabled success")
+                DJIGeoSample.showAlertWith(result: "Set unlocking enabled success")
             }
         }
     }
@@ -285,12 +285,12 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 self.unlockFlyZoneIDs.removeAll()
                 
                 if let error = error {
-                    DemoUtility.show(result: "unlock fly zones failed: \(error.localizedDescription)")
+                    DJIGeoSample.showAlertWith(result: "unlock fly zones failed: \(error.localizedDescription)")
                     return
                 }
                 DJISDKManager.flyZoneManager()?.getUnlockedFlyZonesForAircraft(completion: { (infos:[DJIFlyZoneInformation]?, error:Error?) in
                     if let error = error {
-                        DemoUtility.show(result: "get unlocked fly zones failed: \(error.localizedDescription)")
+                        DJIGeoSample.showAlertWith(result: "get unlocked fly zones failed: \(error.localizedDescription)")
                         return
                     }
                     guard let infos = infos else { fatalError() } //Should return at least an empty array if no error
@@ -298,7 +298,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                     for info in infos {
                         resultMessage = resultMessage + "\n ID:\(info.flyZoneID) Name:\(info.name) Begin:\(info.unlockStartTime) End:\(info.unlockEndTime)\n"
                     }
-                    DemoUtility.show(result: resultMessage)
+                    DJIGeoSample.showAlertWith(result: resultMessage)
                 })
 
             })

@@ -58,7 +58,7 @@ class RootViewController : UIViewController, DJISDKManagerDelegate {
 //MARK: - DJISDKManager Delegate Methods
     func appRegisteredWithError(_ error: Error?) {
         if let error = error {
-            //DemoUtility.show(result: "Registration Error: \(error)")
+            showAlertWith(result: "Registration Error: \(error)")
             self.connectButton.isEnabled = false
             return
         }
@@ -97,7 +97,7 @@ class RootViewController : UIViewController, DJISDKManagerDelegate {
                 }
             }
         }
-        //DemoUtility.showAlertWith(title: nil, message: message, cancelAction: cancelAction, defaultAction: backAction, presentingViewController: self)
+        //DJIGeoSample.showAlertWith(title: nil, message: message, cancelAction: cancelAction, defaultAction: backAction, presentingViewController: self)
         self.connectButton.isEnabled = false
         self.product = nil
         
