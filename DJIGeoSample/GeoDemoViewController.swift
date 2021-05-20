@@ -183,7 +183,6 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
     
     @IBAction func onUnlockButtonClicked(_ sender: Any) {
-//        [self showFlyZoneIDInputView];
         self.showFlyZoneIDInputView()
     }
     
@@ -227,31 +226,22 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
 //        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Input coordinate" preferredStyle:UIAlertControllerStyleAlert];
 //
         let alertController = UIAlertController(title: "", message: "Input coordinate", preferredStyle: .alert)
-//        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//            //textField.placeholder = @"latitude";
-//            textField.text = @"27.7736";
-//        }];
         alertController.addTextField { (textField:UITextField) in
-            //textField.placeholder = "latitude"
-            textField.text = "27.7736" //TODO: revert to placeholder when done testing...
+            textField.placeholder = "latitude"
+            //TODO: remove when done testing...
+            //textField.text = "27.7736" //Pier
+            //textField.text = "28.0373219" //Another st.pete authorization zone
+            textField.text = "37.841586" //Oakland
         }
-//
-//        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        alertController.addTextField { (textField:UITextField) in
+            textField.placeholder = "longitude"
+            //textField.text = "-82.6222" //TODO: remove when done testing...
+            //textField.text = "-82.7851948"
+            textField.text = "-122.236164"
+        }
 
-//        }];
-        alertController.addTextField { (textField:UITextField) in
-//            //textField.placeholder = @"longitude";
-//            textField.text = @"-82.6222";
-            textField.text = "-82.6222"
-        }
-//
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        UIAlertAction *startAction = [UIAlertAction actionWithTitle:@"Start" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//
-//
-//        }];
+
         let startAction = UIAlertAction(title: "Start", style: .default) { (action:UIAlertAction) in
 //            UITextField* latTextField = alertController.textFields[0];
 //            UITextField* lngTextField = alertController.textFields[1];
@@ -259,19 +249,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
             guard let longitudeString = alertController.textFields?[1].text else { return }
             guard let latitude = Double(latitudeString) else { return }
             guard let longitude = Double(longitudeString) else { return }
-//
-//            CLLocationCoordinate2D location = CLLocationCoordinate2DMake(latitude, longitude);
-//            WeakRef(target);
-//
-//            [flightController.simulator startWithLocation:location updateFrequency:20 GPSSatellitesNumber:10 withCompletion:^(NSError * _Nullable error) {
-//                WeakReturn(target);
-//                if (error) {
-//                    //ShowResult(@"Start simulator error:%@", error.description);
-//                } else {
-//                    //ShowResult(@"Start simulator success");
-//                    [target.djiMapViewController refreshMapViewRegion];
-//                }
-//            }];
+
             let location = CLLocationCoordinate2DMake(latitude, longitude)
             
             flightController.simulator?.start(withLocation: location,
@@ -302,7 +280,6 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 DemoUtility.show(result: "Stop simulator success")
             }
         })
-        
     }
 
     @IBAction func enableUnlocking(_ sender: Any) {
@@ -371,11 +348,6 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 title = "\(infoObject.flyZoneID)"
             }
         } else if component == 1 {
-//            if (row == 0) {
-//                title = @"YES";
-//            } else {
-//                title = @"NO";
-//            }
             title = row == 0 ? "YES" : "NO"
         }
         return title
@@ -403,12 +375,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
 
     func showFlyZoneIDInputView() {//TODO: super long method, break up...
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Input ID" preferredStyle:UIAlertControllerStyleAlert];
         let alertController = UIAlertController(title: "", message: "Input ID", preferredStyle: .alert)
-//
-//        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//            textField.placeholder = @"Input";
-//        }];
         alertController.addTextField { (textField:UITextField) in
             textField.placeholder = "Input"
         }
@@ -426,7 +393,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
             if let content = alertController.textFields?[0].text {
 //                int flyZoneID = [content intValue];
 //                [target.unlockFlyZoneIDs addObject:@(flyZoneID)];
-                self.unlockFlyZoneIDs.append(NSNumber(nonretainedObject: Int(content)))//TODO: kinda messy...
+                if let idToUnlock = Int(content) {
+                    self.unlockFlyZoneIDs.append(NSNumber(value: idToUnlock))
+                }
             }
             
 //            [[DJISDKManager flyZoneManager] unlockFlyZones:target.unlockFlyZoneIDs withCompletion:^(NSError * _Nullable error) {
@@ -463,7 +432,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                         return
                     }
                     guard let infos = infos else { fatalError() } //Should return at least an empty array if no error
-                    var resultMessage = "unlock zone: \(infos.count)"
+                    var resultMessage = "Unlock Zones: \(infos.count)"
                     for info in infos {
                         resultMessage = resultMessage + "\n ID:\(info.flyZoneID) Name:\(info.name) Begin:\(info.unlockStartTime) End:\(info.unlockEndTime)\n"
                     }
