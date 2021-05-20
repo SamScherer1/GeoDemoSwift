@@ -14,7 +14,7 @@ import DJISDK
 let kUpdateTimeStamp = 10.0
 
 
-@objc class MapViewController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
+@objc class MapController : NSObject, MKMapViewDelegate {//TODO: consider not subclassing NSObject //Also rename to not indicate VC subclass
     @objc public var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
@@ -139,7 +139,7 @@ let kUpdateTimeStamp = 10.0
     @objc func updateFlyZoneOverlayWith(flyZoneInfos:[DJIFlyZoneInformation]?) {
         guard let flyZoneInfos = flyZoneInfos, flyZoneInfos.count > 0 else { return }
         //TODO: rename closure something descriptive
-        let closure = {
+        let updateOverlaysClosure = {
             var overlays = [LimitSpaceOverlay]()
             var flyZones = [DJIFlyZoneInformation]()
             
@@ -165,10 +165,10 @@ let kUpdateTimeStamp = 10.0
         }
         
         if Thread.current.isMainThread {
-            closure()
+            updateOverlaysClosure()
         } else {
             DispatchQueue.main.sync {
-                closure()
+                updateOverlaysClosure()
             }
         }
     }
@@ -209,7 +209,7 @@ let kUpdateTimeStamp = 10.0
         }
     }
     
-    @objc func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {
+    @objc func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {//TODO: how to test this?
 //        if (spaceInfos && spaceInfos.count > 0) {
 //            NSMutableArray *overlays = [NSMutableArray array];
 //
@@ -233,6 +233,28 @@ let kUpdateTimeStamp = 10.0
 //            [self removeCustomUnlockOverlays:self.customUnlockOverlays];
 //            [self addCustomUnlockOverlays:overlays];
 //        }
+        guard let spaceInfos = spaceInfos, spaceInfos.count <= 0 else { return }
+        var overlays = [CustomUnlockOverlay]()
+        for spaceInfo in spaceInfos {
+            var aOverlay : CustomUnlockOverlay?
+            for aCustomUnlockOverlay in self.customUnlockOverlays! {//TODO: force unwrap
+                if let aCustomUnlockOverlay = aCustomUnlockOverlay as? CustomUnlockOverlay {
+                    if aCustomUnlockOverlay.customUnlockInformation == spaceInfo {
+                        aOverlay = aCustomUnlockOverlay
+                        break
+                    }
+                }
+                if aOverlay == nil {
+                    let enabled = (spaceInfo === enabledZone)
+                    aOverlay = CustomUnlockOverlay(customUnlockInformation: spaceInfo, isEnabled: enabled)
+                }
+                overlays.append(aOverlay!)//TODO: force unwrap
+            }
+            if let oldOverlays = self.customUnlockOverlays {
+                self.removeCustomUnlockOverlays(objects: oldOverlays)
+            }
+            self.addCustomUnlockOverlays(objects: overlays)
+        }
     }
     
     //TODO: Turn this into a computed property (set)...

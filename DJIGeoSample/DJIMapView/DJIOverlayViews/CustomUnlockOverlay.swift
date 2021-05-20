@@ -12,7 +12,7 @@ import Foundation
 import DJISDK
 
 class CustomUnlockOverlay : MapOverlay {
-    var customUnlockInformation : DJICustomUnlockZone
+    public var customUnlockInformation : DJICustomUnlockZone
     
     init(customUnlockInformation:DJICustomUnlockZone) {
         self.customUnlockInformation = customUnlockInformation

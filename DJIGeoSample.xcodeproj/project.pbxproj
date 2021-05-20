@@ -15,7 +15,7 @@
 		3A4FE0602640C21700D1E8B9 /* GeoCustomUnlockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */; };
 		3A4FE0622641A31600D1E8B9 /* AircraftAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0612641A31600D1E8B9 /* AircraftAnnotation.swift */; };
 		3A4FE0642641A32500D1E8B9 /* AircraftAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0632641A32500D1E8B9 /* AircraftAnnotationView.swift */; };
-		3A4FE0662641B36400D1E8B9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0652641B36400D1E8B9 /* MapViewController.swift */; };
+		3A4FE0662641B36400D1E8B9 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0652641B36400D1E8B9 /* MapController.swift */; };
 		3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0672644603400D1E8B9 /* Circle.swift */; };
 		3A4FE06A2644621500D1E8B9 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE0692644621500D1E8B9 /* Polygon.swift */; };
 		3A4FE06C264462B700D1E8B9 /* CustomUnlockOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FE06B264462B700D1E8B9 /* CustomUnlockOverlay.swift */; };
@@ -59,7 +59,7 @@
 		3A4FE05F2640C21700D1E8B9 /* GeoCustomUnlockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCustomUnlockViewController.swift; sourceTree = "<group>"; };
 		3A4FE0612641A31600D1E8B9 /* AircraftAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftAnnotation.swift; sourceTree = "<group>"; };
 		3A4FE0632641A32500D1E8B9 /* AircraftAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftAnnotationView.swift; sourceTree = "<group>"; };
-		3A4FE0652641B36400D1E8B9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		3A4FE0652641B36400D1E8B9 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		3A4FE0672644603400D1E8B9 /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		3A4FE0692644621500D1E8B9 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		3A4FE06B264462B700D1E8B9 /* CustomUnlockOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnlockOverlay.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 			children = (
 				A4B87EFD1D2A75B500123466 /* DJIAnnotationViews */,
 				A4B87F061D2A75B500123466 /* DJIOverlayViews */,
-				3A4FE0652641B36400D1E8B9 /* MapViewController.swift */,
+				3A4FE0652641B36400D1E8B9 /* MapController.swift */,
 			);
 			path = DJIMapView;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 				3A4FE0782644761400D1E8B9 /* FlyZoneColorProvider.swift in Sources */,
 				3A4FE06C264462B700D1E8B9 /* CustomUnlockOverlay.swift in Sources */,
 				3A4FE0562640AC5E00D1E8B9 /* DJIScrollView.swift in Sources */,
-				3A4FE0662641B36400D1E8B9 /* MapViewController.swift in Sources */,
+				3A4FE0662641B36400D1E8B9 /* MapController.swift in Sources */,
 				3A4FE06A2644621500D1E8B9 /* Polygon.swift in Sources */,
 				3A4FE0682644603400D1E8B9 /* Circle.swift in Sources */,
 				3AAFB50326547F7500E7CC23 /* GeoGroupInfoViewController.swift in Sources */,

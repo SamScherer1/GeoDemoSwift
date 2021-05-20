@@ -24,7 +24,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     @IBOutlet weak var customUnlockButton: UIButton!
     @IBOutlet weak var showFlyZoneMessageTableView: UITableView!
 
-    var mapViewController: MapViewController?//TODO: rename to mapController
+    var mapController: MapController?
     var updateLoginStateTimer : Timer?
     var updateFlyZoneDataTimer : Timer?
     var unlockFlyZoneIDs = [NSNumber]()
@@ -64,7 +64,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.updateLoginStateTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateLoginState), userInfo: nil, repeats: true)
         self.updateFlyZoneDataTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateFlyZoneInfo), userInfo: nil, repeats: true)
         
-        self.mapViewController?.updateFlyZonesInSurroundingArea()
+        self.mapController?.updateFlyZonesInSurroundingArea()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,7 +86,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     func initUI() {
         self.title = "DJI GEO Demo"
         
-        self.mapViewController = MapViewController(map: self.mapView)
+        self.mapController = MapController(map: self.mapView)
         self.unlockFlyZoneIDs = [NSNumber]()
         self.unlockedFlyZoneInfos = [DJIFlyZoneInformation]()
         self.flyZoneInfoView = DJIScrollView.viewWith(viewController: self)//TODO: make this an init method?
@@ -174,7 +174,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                     DemoUtility.show(result: "Start simulator error: \(error.localizedDescription)")
                 } else {
                     DemoUtility.show(result: "Start simulator success")
-                    self?.mapViewController?.refreshMapViewRegion()
+                    self?.mapController?.refreshMapViewRegion()
                 }
             })
         }
@@ -363,21 +363,21 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         if CLLocationCoordinate2DIsValid(aircraftCoordinate) {
             // Convert degrees to radians
             let heading = Float(state.attitude.yaw * Double.pi / 180.0)
-            self.mapViewController?.updateAircraft(coordinate: aircraftCoordinate,
+            self.mapController?.updateAircraft(coordinate: aircraftCoordinate,
                                                    heading: heading)
         }
     }
 
     //MARK: - UITableViewDelgete
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mapViewController?.flyZones.count ?? 0
+        return self.mapController?.flyZones.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "flyzone-id")
         let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "flyzone-id")//TODO: I like this pattern for unwrapping all tableView cells
 
-        if let flyZoneInfo = self.mapViewController?.flyZones[indexPath.row] {
+        if let flyZoneInfo = self.mapController?.flyZones[indexPath.row] {
             cell.textLabel?.text = "\(flyZoneInfo.flyZoneID):\(flyZoneInfo.category):\(flyZoneInfo.name)"
             cell.textLabel?.adjustsFontSizeToFitWidth = true
         }
@@ -445,7 +445,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.flyZoneInfoView?.isHidden = false
         self.flyZoneInfoView?.show()
-        if let selectedFlyZone = self.mapViewController?.flyZones[indexPath.row] {
+        if let selectedFlyZone = self.mapController?.flyZones[indexPath.row] {
             self.flyZoneInfoView?.write(status: NSString(string:self.string(for: selectedFlyZone)))
         }
     }
