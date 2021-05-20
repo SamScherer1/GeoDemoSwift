@@ -242,7 +242,7 @@
                                         <rect key="frame" x="15" y="8" width="98" height="30"/>
                                         <state key="normal" title="Enable Unlock"/>
                                         <connections>
-                                            <action selector="conformButtonAction:" destination="ghf-rT-NYf" eventType="touchUpInside" id="u2Y-6g-cZw"/>
+                                            <action selector="setSelectedUnlockEnabled:" destination="ghf-rT-NYf" eventType="touchUpInside" id="u2Y-6g-cZw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-1F-j2c">

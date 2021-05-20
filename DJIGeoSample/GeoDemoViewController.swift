@@ -201,7 +201,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         self.pickerView.reloadAllComponents()
     }
 
-    @IBAction func conformButtonAction(_ sender: Any) {//TODO: rename appropriately... enableUnlockConfirmAction?
+    @IBAction func setSelectedUnlockEnabled(_ sender: Any) {
         guard let selectedInfo = self.selectedFlyZone else { return }
         
         selectedInfo.setUnlockingEnabled(self.isUnlockEnable) { (error:Error?) in
@@ -259,7 +259,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         }
     }
 
-    func showFlyZoneIDInputView() {//TODO: super long method, break up...
+    func showFlyZoneIDInputView() {
         let alertController = UIAlertController(title: "", message: "Input ID", preferredStyle: .alert)
         alertController.addTextField { (textField:UITextField) in
             textField.placeholder = "Input"
@@ -375,7 +375,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "flyzone-id")
-        let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "flyzone-id")//TODO: I like this pattern for unwrapping all tableView cells
+        let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "flyzone-id")
 
         if let flyZone = self.mapController?.flyZones[indexPath.row] {
             cell.textLabel?.text = "\(flyZone.flyZoneID):\(flyZone.category):\(flyZone.name)"

@@ -11,10 +11,8 @@ import UIKit
 import DJISDK
 
 class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-//    @property (weak, nonatomic) IBOutlet UITableView *userUnlockingTableView;
+
     @IBOutlet weak var userUnlockingTableView: UITableView!
-    //    @property (strong, nonatomic) NSArray <DJIUnlockedZoneGroup *> *unlockedZoneGroups;
     var unlockedZoneGroups = [DJIUnlockedZoneGroup]() //TODO: use optional?
 
     override func viewDidLoad() {
@@ -51,15 +49,10 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
         })
     }
     
-    //TODO: class conforms to UITableView Delegate, DataSource protocols but doesn't declare it? Remove declaration when done?
+    //TODO: test method, compare vs objc version...
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserUnlockingGroup"];
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "UserUnlockingGroup")
         let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "UserUnlockingGroup")
-        //        DJIUnlockedZoneGroup *group = self.unlockZoneGroups[indexPath.row];
-        //        cell.textLabel.text = group.SN;
-        //        cell.detailTextLabel.text = [NSString stringWithFormat:@"self-unlocking: %tu, custom-unlocking: %tu", group.selfUnlockedFlyZones.count, group.customUnlockZones.count];
-        //
         let group = self.unlockedZoneGroups[indexPath.row]
         cell.textLabel?.text = group.sn
         cell.detailTextLabel?.text = "self-unlocking: \(group.selfUnlockedFlyZones.count), custom-unlocking: \(group.customUnlockZones.count)"
