@@ -51,7 +51,8 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
     
     //TODO: test method, compare vs objc version...
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserUnlockingGroup", for:indexPath)
+        let nullableCell = tableView.dequeueReusableCell(withIdentifier: "UserUnlockingGroup")
+        let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "UserUnlockingGroup")
         let group = self.unlockedZoneGroups[indexPath.row]
         cell.textLabel?.text = group.sn
         cell.detailTextLabel?.text = "self-unlocking: \(group.selfUnlockedFlyZones.count), custom-unlocking: \(group.customUnlockZones.count)"
