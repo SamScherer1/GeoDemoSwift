@@ -34,7 +34,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
             let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "SelfUnlockingCell")
             if let zone = self.unlockedZoneGroup?.selfUnlockedFlyZones[indexPath.row] {
                 cell.textLabel?.text = zone.name
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"AreaID:%tu, Lat: %f, Long: %f",zone.flyZoneID, zone.center.latitude, zone.center.longitude];
                 cell.detailTextLabel?.text = "AreaID:\(zone.flyZoneID), Lat: \(zone.center.latitude), Long: \(zone.center.longitude)"
             }
             return cell
@@ -44,7 +43,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
             let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "CustomUnlockingCell")
             if let zone = self.unlockedZoneGroup?.customUnlockZones[indexPath.row] {
                 cell.textLabel?.text = zone.name
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"UnlockID:%tu, Lat: %f, Long: %f",zone.ID, zone.center.latitude, zone.center.longitude];
                 cell.detailTextLabel?.text = "AreaID:\(zone.id), Lat: \(zone.center.latitude), Long: \(zone.center.longitude)"
             }
             return cell
@@ -85,7 +83,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         var infoString = ""
         infoString.append("ID:\(customUnlockZone.id)\n")
         infoString.append("Name\(customUnlockZone.name)\n")
-//            [infoString appendString:[NSString stringWithFormat:@"Coordinate:(%f,%f)\n", customUnlockZone.center.latitude, customUnlockZone.center.longitude]];
         infoString.append("Coordinate:\(customUnlockZone.center.latitude),\(customUnlockZone.center.longitude)\n")
         infoString.append("Radius:\(customUnlockZone.radius)\n")
         infoString.append("StartTime:\(customUnlockZone.startTime), EndTime\(customUnlockZone.endTime)\n")
