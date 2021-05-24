@@ -141,7 +141,7 @@ class MapController : NSObject, MKMapViewDelegate {
             for flyZone in flyZones {
                 var anOverlay : LimitSpaceOverlay?
                 for aMapOverlay in self.mapOverlays as! [LimitSpaceOverlay] {
-                    if (aMapOverlay.limitSpaceInfo?.flyZoneID == flyZone.flyZoneID) && (aMapOverlay.limitSpaceInfo?.subFlyZones?.count == flyZone.subFlyZones?.count) {
+                    if (aMapOverlay.limitSpaceInfo.flyZoneID == flyZone.flyZoneID) && (aMapOverlay.limitSpaceInfo.subFlyZones?.count == flyZone.subFlyZones?.count) {
                         anOverlay = aMapOverlay
                         break
                     }

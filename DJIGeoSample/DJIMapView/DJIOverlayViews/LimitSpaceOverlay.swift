@@ -14,7 +14,7 @@ let kDJILimitFlightSpaceBufferHeight = 5
 
 class LimitSpaceOverlay : MapOverlay {
     
-    var limitSpaceInfo : DJIFlyZoneInformation?
+    var limitSpaceInfo : DJIFlyZoneInformation
     
     init(limitSpaceInfo:DJIFlyZoneInformation) {
         self.limitSpaceInfo = limitSpaceInfo
@@ -22,16 +22,15 @@ class LimitSpaceOverlay : MapOverlay {
         self.createOverlays()
     }
     
-    //TODO: if this only ever returns a single value, why have an array?
     func overlaysFor(aSubFlyZoneSpace:DJISubFlyZoneInformation) -> [MKOverlay] {
         let isHeightLimit = aSubFlyZoneSpace.maximumFlightHeight > 0 && aSubFlyZoneSpace.maximumFlightHeight < UINT16_MAX
         if aSubFlyZoneSpace.shape == .cylinder {
             let circle = Circle(center: aSubFlyZoneSpace.center, radius: aSubFlyZoneSpace.radius)
             circle.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
-            circle.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category,
+            circle.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo.category,
                                                                               isHeightLimit: isHeightLimit,
-                                                                              isFill: true)//TODO: reconsider force unwrap
-            circle.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category,
+                                                                              isFill: true)
+            circle.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo.category,
                                                                                 isHeightLimit: isHeightLimit,
                                                                                 isFill: false)
             return [circle]
@@ -43,14 +42,14 @@ class LimitSpaceOverlay : MapOverlay {
             
             let polygon = MapPolygon(coordinates: &coordinates, count: aSubFlyZoneSpace.vertices.count)
             polygon.lineWidth = self.strokeLineWidthWith(height: aSubFlyZoneSpace.maximumFlightHeight)
-            polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: false)//TODO: reconsider force unwrap
-            polygon.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo!.category, isHeightLimit: isHeightLimit, isFill: true)
+            polygon.strokeColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo.category, isHeightLimit: isHeightLimit, isFill: false)
+            polygon.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: self.limitSpaceInfo.category, isHeightLimit: isHeightLimit, isFill: true)
             return [polygon]
         }
         return [MKOverlay]()
     }
 
-    func overlaysFor(aFlyZoneSpace:DJIFlyZoneInformation) -> [MKOverlay]? {//TODO: instead of optional return type, return empty array?
+    func overlaysFor(aFlyZoneSpace:DJIFlyZoneInformation) -> [MKOverlay] {
         guard let subFlyZones = aFlyZoneSpace.subFlyZones else {
             print("subFlyZones Nil- perhaps should enter the <=0 if check?")
             fatalError()
@@ -64,7 +63,6 @@ class LimitSpaceOverlay : MapOverlay {
             circle.limitHeight = 0
             return [circle]
         } else {
-            //TODO: use map...
             var results = [MKOverlay]()
             for aSubSpace in subFlyZones {
                 results.append(contentsOf: self.overlaysFor(aSubFlyZoneSpace: aSubSpace))
@@ -75,9 +73,7 @@ class LimitSpaceOverlay : MapOverlay {
 
     func createOverlays() {
         self.subOverlays = [MKOverlay]()
-        if let overlays = self.overlaysFor(aFlyZoneSpace: self.limitSpaceInfo!) {//TODO:force unwrap
-            self.subOverlays.append(contentsOf: overlays)
-        }
+        self.subOverlays.append(contentsOf: self.overlaysFor(aFlyZoneSpace: self.limitSpaceInfo))
     }
     
     func strokeLineWidthWith(height:NSInteger) -> Float {

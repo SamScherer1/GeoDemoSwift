@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 
-class MapOverlay : NSObject {//TODO: alternatives to subclassing NSObject?
+//Subclass NSObject to make MapOverlay Equatable
+class MapOverlay: NSObject {
     var subOverlays = [MKOverlay]()
 }

@@ -21,7 +21,6 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
     }
 
     func loadUserUnlockGroupInfo() {
-        //TODO: need weak self in both closure declarations when only used in the inner one?
         DJISDKManager.flyZoneManager()?.reloadUnlockedZoneGroupsFromServer(completion: { [weak self] (error:Error?) in
             if let error = error {
                 print("reloadUnlockedZoneGroupsFromServer error: \(error.localizedDescription)")
@@ -57,12 +56,10 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let unlockedZoneGroup = self.unlockedZoneGroups[indexPath.row]
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if #available(iOS 13.0, *) {
-            let vc : GeoGroupInfoViewController = mainStoryboard.instantiateViewController(identifier: "GeoGroupInfoViewController")
+        if let vc : GeoGroupInfoViewController = mainStoryboard.instantiateViewController(withIdentifier: "GeoGroupInfoViewController") as? GeoGroupInfoViewController {
             vc.unlockedZoneGroup = unlockedZoneGroup
             self.navigationController?.pushViewController(vc, animated: true)
-        } else {
-            print("TODO")//TODO: docs say instantiateViewController is iOS 5.0+ not 13
         }
+
     }
 }

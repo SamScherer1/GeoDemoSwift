@@ -86,8 +86,7 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         infoString.append("Coordinate:\(customUnlockZone.center.latitude),\(customUnlockZone.center.longitude)\n")
         infoString.append("Radius:\(customUnlockZone.radius)\n")
         infoString.append("StartTime:\(customUnlockZone.startTime), EndTime\(customUnlockZone.endTime)\n")
-//            [infoString appendString:[NSString stringWithFormat:@"isExpired:%@\n", customUnlockZone.isExpired ? @"YES":@"NO"]];
-        infoString.append("isExpired:\(customUnlockZone.isExpired)\n")//TODO: test boolean string interpolation
+        infoString.append("isExpired:\(customUnlockZone.isExpired)\n")
         return infoString
     }
 
@@ -97,7 +96,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
         infoString.append("Name:\(information.name)\n")
         infoString.append("Coordinate:(\(information.center.latitude),\(information.center.longitude)")
         infoString.append("Radius:\(information.radius)\n")
-        //TODO: difference between startTime and unlockStartTime?
         infoString.append("StartTime:\(information.startTime), EndTime:\(information.endTime)\n")
         infoString.append("unlockStartTime:\(information.unlockStartTime), unlockEndTime:\(information.unlockEndTime)\n")
         infoString.append("GEOZoneType:\(information.type)")
@@ -125,8 +123,6 @@ class GeoGroupInfoViewController : UIViewController, UITableViewDataSource, UITa
             
             for point in subInformation.vertices {
                 if let coordinate = point as? CLLocationCoordinate2D {
-                    //TODO: test this, probably need to use format string...
-//                [subInfoString appendString:[NSString stringWithFormat:@"     (%f,%f)\n", coordinate.latitude, coordinate.longitude]];
                     subInfoString.append("    (\(coordinate.latitude),\(coordinate.longitude)\n")
                 }
             }

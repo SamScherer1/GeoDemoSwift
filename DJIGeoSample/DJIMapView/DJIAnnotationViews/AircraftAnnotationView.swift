@@ -20,7 +20,6 @@ class AircraftAnnotationView: MKAnnotationView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        //TODO: need to setup instance variables? is this ever called?
     }
     
     public func update(heading:Float) {
