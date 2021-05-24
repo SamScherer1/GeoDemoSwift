@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 class AircraftAnnotation : NSObject, MKAnnotation {
-    var coordinate : CLLocationCoordinate2D//TODO: readonly vars in swift? public but not open?
+    var coordinate: CLLocationCoordinate2D
     var annotationView : AircraftAnnotationView?
     
     init(coordinate:CLLocationCoordinate2D, heading:Float) {
