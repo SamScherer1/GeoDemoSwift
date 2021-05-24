@@ -11,7 +11,7 @@ import DJISDK
 import UIKit
 
 class GeoCustomZoneDetailViewController : UIViewController {
-    var customUnlockZone : DJICustomUnlockZone? //TODO: make an initializer that uses the customUnlockZone
+    var customUnlockZone : DJICustomUnlockZone?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
