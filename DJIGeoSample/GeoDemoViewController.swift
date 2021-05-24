@@ -401,7 +401,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         }
     }
 
-    func stringFor(_ subFlyZones: [DJISubFlyZoneInformation]?) -> String? {//TODO: rename all names containing info, information
+    func stringFor(_ subFlyZones: [DJISubFlyZoneInformation]?) -> String? {
         guard let subFlyZones = subFlyZones else { return nil }
         var subInfoString = ""
         for subZone in subFlyZones {

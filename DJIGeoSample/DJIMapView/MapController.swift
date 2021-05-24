@@ -120,7 +120,7 @@ class MapController : NSObject, MKMapViewDelegate {
             } else {
                 if let mapOverlays = self?.mapOverlays {
                     if mapOverlays.count > 0 {
-                        self?.removeMapOverlays(objects: mapOverlays)
+                        self?.remove(mapOverlays)
                     }
                 }
                 if let flyZones = self?.flyZones {
@@ -153,9 +153,9 @@ class MapController : NSObject, MKMapViewDelegate {
                 limitFlyZones.append(flyZone)
             }
 
-            self.removeMapOverlays(objects: self.mapOverlays)
+            self.remove(self.mapOverlays)
             self.flyZones.removeAll()
-            self.addMapOverlays(objects: overlays)
+            self.add(overlays)
             self.flyZones.append(contentsOf: limitFlyZones)
         }
         
@@ -184,7 +184,7 @@ class MapController : NSObject, MKMapViewDelegate {
     
     func removeCustomUnlocks() {
         if self.customUnlockOverlays.count > 0 {
-            self.removeMapOverlays(objects: self.customUnlockOverlays)
+            self.remove(self.customUnlockOverlays)
         }
     }
     
@@ -208,45 +208,45 @@ class MapController : NSObject, MKMapViewDelegate {
                                                         isEnabled: enabled))
                 }
             }
-            self.removeCustomUnlockOverlays(objects: self.customUnlockOverlays)
-            self.addCustomUnlockOverlays(objects: overlays)
+            self.remove(customUnlockOverlays: self.customUnlockOverlays)
+            self.add(customUnlockOverlays: overlays)
         }
     }
     
-    func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
-        if objects.count <= 0 { return }
-        let overlays = self.subOverlaysFor(objects)
+    func add(_ mapOverlays:[MapOverlay]) {
+        if mapOverlays.count <= 0 { return }
+        let overlays = self.subOverlaysFor(mapOverlays)
         self.performOnMainThread {
-            self.mapOverlays.append(contentsOf: objects)
+            self.mapOverlays.append(contentsOf: mapOverlays)
             self.mapView.addOverlays(overlays)
         }
     }
     
-    func removeMapOverlays(objects:[MapOverlay]) {//TODO:Rename
-        if objects.count <= 0 { return }
+    func remove(_ mapOverlays:[MapOverlay]) {
+        if mapOverlays.count <= 0 { return }
         
         self.performOnMainThread {
-            self.mapOverlays.removeAll(where: { objects.contains($0) } )
-            self.mapView.removeOverlays(self.subOverlaysFor(objects))
+            self.mapOverlays.removeAll(where: { mapOverlays.contains($0) } )
+            self.mapView.removeOverlays(self.subOverlaysFor(mapOverlays))
         }
     }
     
-    func addCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
-        if objects.count <= 0 { return }
+    func add(customUnlockOverlays:[MapOverlay]) {
+        if customUnlockOverlays.count <= 0 { return }
         
-        let overlays = self.subOverlaysFor(objects)
+        let overlays = self.subOverlaysFor(customUnlockOverlays)
         self.performOnMainThread {
-            self.customUnlockOverlays.append(contentsOf: objects)
+            self.customUnlockOverlays.append(contentsOf: customUnlockOverlays)
             self.mapView.addOverlays(overlays)
         }
     }
     
-    func removeCustomUnlockOverlays(objects:[MapOverlay]) {//TODO: rename
-        if objects.count <= 0 { return }
+    func remove(customUnlockOverlays:[MapOverlay]) {
+        if customUnlockOverlays.count <= 0 { return }
 
-        let overlays = self.subOverlaysFor(objects)
+        let overlays = self.subOverlaysFor(customUnlockOverlays)
         self.performOnMainThread {
-            self.customUnlockOverlays.removeAll(where: { objects.contains($0) })
+            self.customUnlockOverlays.removeAll(where: { customUnlockOverlays.contains($0) })
             self.mapView.removeOverlays(overlays)
         }
     }
