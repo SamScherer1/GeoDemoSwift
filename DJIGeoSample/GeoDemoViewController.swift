@@ -175,6 +175,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 } else {
                     DJIGeoSample.showAlertWith(result: "Start simulator success")
                     self?.mapController?.refreshMapViewRegion()
+                    self?.mapController?.aircraftAnnotation = nil
                 }
             })
         }

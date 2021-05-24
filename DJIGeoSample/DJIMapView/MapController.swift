@@ -273,6 +273,5 @@ class MapController : NSObject, MKMapViewDelegate {
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         let adjustedRegion = self.mapView.regionThatFits(viewRegion)
         self.mapView.setRegion(adjustedRegion, animated: true)
-        self.aircraftAnnotation = nil
     }
 }
