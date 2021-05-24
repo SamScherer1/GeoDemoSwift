@@ -59,6 +59,15 @@ For this demo's tutorial: **DJI GEO System Tutorial**, please refer to <https://
 
 The tutorial is currently only available in Objective C, but there are plans to create a swift version.
 
+
+## Feedback
+When reporting bugs, at a minimum please let us know:
+
+* Which DJI Product you are using
+* Which iOS Device and iOS version you are using
+* A short description of your problem includes debug logs or screenshots.
+* Any bugs or typos you come across.
+
 ## License
 
 GEODemoSwift is property of RIIS, all rights reserved.
