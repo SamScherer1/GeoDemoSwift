@@ -15,12 +15,13 @@ let kUpdateTimeStamp = 10.0
 
 
 class MapController : NSObject, MKMapViewDelegate {
+    
     public var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
     var aircraftAnnotation : AircraftAnnotation?
     var mapOverlays = [MapOverlay]()
-    var customUnlockOverlays : [MapOverlay]?
+    var customUnlockOverlays = [MapOverlay]()
     var lastUpdateTime = Date.timeIntervalSinceReferenceDate
     
     public init(map: MKMapView) {
@@ -167,27 +168,12 @@ class MapController : NSObject, MKMapViewDelegate {
         }
     }
     
-    func updateCustomUnlockZone() { //TODO: test this method... it's a mess!
-//        WeakRef(target);
-//        NSArray* zones = [[DJISDKManager flyZoneManager] getCustomUnlockZonesFromAircraft];
-//
-//        if (zones.count > 0) {
-
-//        } else {
-//            if (target.customUnlockOverlays.count > 0) {
-//                [target removeMapOverlays:self.customUnlockOverlays];
-//            }
-//        }
+    func updateCustomUnlockZone() {
         if let zones = DJISDKManager.flyZoneManager()?.getCustomUnlockZonesFromAircraft() {
             if zones.count > 0 {
-                //            [[DJISDKManager flyZoneManager] getEnabledCustomUnlockZoneWithCompletion:^(DJICustomUnlockZone * _Nullable zone, NSError * _Nullable error) {
-                //                if (!error && zone) {
-                //                    [target updateCustomUnlockWithSpaces:@[zone] andEnabledZone:zone];
-                //                }
-                //            }];
                 DJISDKManager.flyZoneManager()?.getEnabledCustomUnlockZone(completion: { [weak self] (zone:DJICustomUnlockZone?, error:Error?) in
-                    if (error == nil) && (zone != nil) {
-                        self?.updateCustomUnlockWith(spaceInfos: [zone!], enabledZone: zone!)//TODO: reconsider force unwrap
+                    if let zone = zone, error == nil {
+                        self?.updateCustomUnlockWith(spaceInfos: [zone], enabledZone: zone)
                     }
                 })
             } else {
@@ -197,63 +183,34 @@ class MapController : NSObject, MKMapViewDelegate {
     }
     
     func removeCustomUnlocks() {
-        guard let _ = self.customUnlockOverlays else { return }
-        if self.customUnlockOverlays!.count > 0 {
-            self.removeMapOverlays(objects: self.customUnlockOverlays!)
+        if self.customUnlockOverlays.count > 0 {
+            self.removeMapOverlays(objects: self.customUnlockOverlays)
         }
     }
     
-    func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {//TODO: test this... but how?
-//        if (spaceInfos && spaceInfos.count > 0) {
-//            NSMutableArray *overlays = [NSMutableArray array];
-//
-//            for (int i = 0; i < spaceInfos.count; i++) {
-//                DJICustomUnlockZone *flyZoneLimitInfo = [spaceInfos objectAtIndex:i];
-//                DJICustomUnlockOverlay *aOverlay = nil;
-//                for (DJICustomUnlockOverlay *aCustomUnlockOverlay in _customUnlockOverlays) {
-//                    if (aCustomUnlockOverlay.customUnlockInformation.ID == flyZoneLimitInfo.ID) {
-//                        //&& aCustomUnlockOverlay.CustomUnlockInformation.license.enabled == flyZoneLimitInfo.license.enabled) {
-//                        aOverlay = aCustomUnlockOverlay;
-//                        break;
-//                    }
-//                }
-//                if (!aOverlay) {
-//                    //TODO
-//                    BOOL enabled = [flyZoneLimitInfo isEqual:enabledZone];
-//                    aOverlay = [[DJICustomUnlockOverlay alloc] initWithCustomUnlockInformation:flyZoneLimitInfo andEnabled:enabled];
-//                }
-//                [overlays addObject:aOverlay];
-//            }
-//            [self removeCustomUnlockOverlays:self.customUnlockOverlays];
-//            [self addCustomUnlockOverlays:overlays];
-//        }
+    func updateCustomUnlockWith(spaceInfos:[DJICustomUnlockZone]?, enabledZone:DJICustomUnlockZone) {
         guard let spaceInfos = spaceInfos, spaceInfos.count <= 0 else { return }
         var overlays = [CustomUnlockOverlay]()
         for spaceInfo in spaceInfos {
-            var aOverlay : CustomUnlockOverlay?
-            for aCustomUnlockOverlay in self.customUnlockOverlays! {//TODO: force unwrap
+            var anOverlay : CustomUnlockOverlay?
+            for aCustomUnlockOverlay in self.customUnlockOverlays {
                 if let aCustomUnlockOverlay = aCustomUnlockOverlay as? CustomUnlockOverlay {
                     if aCustomUnlockOverlay.customUnlockInformation == spaceInfo {
-                        aOverlay = aCustomUnlockOverlay
+                        anOverlay = aCustomUnlockOverlay
                         break
                     }
                 }
-                if aOverlay == nil {
+                if let anOverlay = anOverlay {
+                    overlays.append(anOverlay)
+                } else {
                     let enabled = (spaceInfo === enabledZone)
-                    aOverlay = CustomUnlockOverlay(customUnlockInformation: spaceInfo, isEnabled: enabled)
+                    overlays.append(CustomUnlockOverlay(customUnlockInformation: spaceInfo,
+                                                        isEnabled: enabled))
                 }
-                overlays.append(aOverlay!)//TODO: force unwrap
             }
-            if let oldOverlays = self.customUnlockOverlays {
-                self.removeCustomUnlockOverlays(objects: oldOverlays)
-            }
+            self.removeCustomUnlockOverlays(objects: self.customUnlockOverlays)
             self.addCustomUnlockOverlays(objects: overlays)
         }
-    }
-    
-    //TODO: Turn this into a computed property (set)...
-    func set(mapType:MKMapType) {
-        self.mapView.mapType = mapType
     }
     
     func addMapOverlays(objects:[MapOverlay]) {//TODO: rename to add(mapOverlays:)
@@ -279,7 +236,7 @@ class MapController : NSObject, MKMapViewDelegate {
         
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
-            self.customUnlockOverlays?.append(contentsOf: objects)
+            self.customUnlockOverlays.append(contentsOf: objects)
             self.mapView.addOverlays(overlays)
         }
     }
@@ -289,7 +246,7 @@ class MapController : NSObject, MKMapViewDelegate {
 
         let overlays = self.subOverlaysFor(objects)
         self.performOnMainThread {
-            self.customUnlockOverlays?.removeAll(where: { objects.contains($0) })
+            self.customUnlockOverlays.removeAll(where: { objects.contains($0) })
             self.mapView.removeOverlays(overlays)
         }
     }
