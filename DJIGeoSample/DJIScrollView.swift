@@ -59,9 +59,10 @@ class DJIScrollView : UIView, UIScrollViewDelegate {
         self.statusTextView?.backgroundColor = UIColor.clear
         self.statusTextView?.textColor = UIColor.white
         
-        //TODO: revisit these force unwraps, check how cristina did UXSDK UIKit autolayout unwrapping
-        self.scrollView.contentSize = (self.statusTextView?.bounds.size)!
-        self.scrollView.addSubview(self.statusTextView!)
+        if let statusTextView = self.statusTextView {
+            self.scrollView.contentSize = statusTextView.bounds.size
+            self.scrollView.addSubview(statusTextView)
+        }
         self.scrollView.layer.borderColor = UIColor.black.cgColor
         self.scrollView.layer.borderWidth = 1.3
         self.scrollView.layer.cornerRadius = 3.0

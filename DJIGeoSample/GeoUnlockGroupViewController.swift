@@ -13,7 +13,7 @@ import DJISDK
 class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var userUnlockingTableView: UITableView!
-    var unlockedZoneGroups = [DJIUnlockedZoneGroup]() //TODO: use optional?
+    var unlockedZoneGroups = [DJIUnlockedZoneGroup]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,19 +21,6 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
     }
 
     func loadUserUnlockGroupInfo() {
-//        __weak typeof(self) target = self;
-//        [[DJISDKManager flyZoneManager] reloadUnlockedZoneGroupsFromServerWithCompletion:^(NSError * _Nullable error) {
-//            if (target ==nil) return;
-//            if (!error) {
-//                [[DJISDKManager flyZoneManager] getLoadedUnlockedZoneGroupsWithCompletion:^(NSArray<DJIUnlockedZoneGroup *> * _Nullable groups, NSError * _Nullable error) {
-//                    if (!error) {
-//                        target.unlockZoneGroups = groups;
-//                        [target.userUnlockingTableView reloadData];
-//                    }
-//                }];
-//            }
-//        }];
-        
         //TODO: need weak self in both closure declarations when only used in the inner one?
         DJISDKManager.flyZoneManager()?.reloadUnlockedZoneGroupsFromServer(completion: { [weak self] (error:Error?) in
             if let error = error {
@@ -43,13 +30,12 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
             DJISDKManager.flyZoneManager()?.getLoadedUnlockedZoneGroups(completion: { [weak self](groups: [DJIUnlockedZoneGroup]?, error: Error?) in
                 if let groups = groups, error == nil {
                     self?.unlockedZoneGroups = groups
-                    //self?.userUnlockingTableView.reloadData()//TODO: uncomment once IBOutlet connected...
+                    self?.userUnlockingTableView.reloadData()
                 }
             })
         })
     }
     
-    //TODO: test method, compare vs objc version...
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nullableCell = tableView.dequeueReusableCell(withIdentifier: "UserUnlockingGroup")
         let cell = nullableCell ?? UITableViewCell(style: .subtitle, reuseIdentifier: "UserUnlockingGroup")
@@ -69,11 +55,6 @@ class GeoUnlockGroupViewController : UIViewController, UITableViewDataSource, UI
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        DJIUnlockedZoneGroup *unlockedZoneGroup = self.unlockZoneGroups[indexPath.row];
-        //        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        //        DJIGeoGroupInfoViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"DJIGeoGroupInfoViewController"];
-        //        vc.unlockedZoneGroup = unlockedZoneGroup;
-        //        [self.navigationController pushViewController:vc animated:YES];
         let unlockedZoneGroup = self.unlockedZoneGroups[indexPath.row]
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if #available(iOS 13.0, *) {
