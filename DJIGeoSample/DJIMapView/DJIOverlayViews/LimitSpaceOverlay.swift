@@ -60,7 +60,7 @@ class LimitSpaceOverlay : MapOverlay {
             circle.category = aFlyZoneSpace.category
             circle.flyZoneID = aFlyZoneSpace.flyZoneID
             circle.name = aFlyZoneSpace.name
-            circle.limitHeight = 0
+            circle.heightLimit = 0
             return [circle]
         } else {
             var results = [MKOverlay]()

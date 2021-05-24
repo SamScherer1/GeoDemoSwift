@@ -35,7 +35,7 @@ fileprivate let flySafeWarningYellowColorSolid = UIColor(r: 255, g: 204, b: 0, a
 fileprivate let flysafeWarningColorYellowClear = UIColor(r: 238, g: 238, b: 136, a: 0.1)
 fileprivate let flysafeWarningColorYellowSolid = UIColor(r: 238, g: 238, b: 136, a: 1)
 
-class FlyZoneColorProvider : NSObject { //TODO: how to avoid subclassing nsobject
+class FlyZoneColorProvider {
     
     class func getFlyZoneOverlayColorFor(category: DJIFlyZoneCategory, isHeightLimit: Bool, isFill:Bool) -> UIColor {
         if isHeightLimit {

@@ -143,17 +143,9 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         let alertController = UIAlertController(title: "", message: "Input coordinate", preferredStyle: .alert)
         alertController.addTextField { (textField:UITextField) in
             textField.placeholder = "latitude"
-            //TODO: remove when done testing...
-            textField.text = "27.7736" //Pier
-            //textField.text = "28.0373219" //Another st.pete authorization zone
-            //textField.text = "37.841586" //Oakland
         }
         alertController.addTextField { (textField:UITextField) in
             textField.placeholder = "longitude"
-            //TODO: remove when done testing...
-            textField.text = "-82.6222"
-            //textField.text = "-82.7851948"
-            //textField.text = "-122.236164"
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
