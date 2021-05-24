@@ -80,10 +80,12 @@ class MapController : NSObject, MKMapViewDelegate {
             polygonRender.strokeColor = polygon.strokeColor
             polygonRender.lineWidth = CGFloat(polygon.lineWidth)
             polygonRender.lineDashPattern = polygon.lineDashPattern
-            let polygonLineJoin = polygon.lineJoin
-            polygonRender.lineJoin = polygonLineJoin
-            let polygonLineCap = polygon.lineCap
-            polygonRender.lineCap = polygonLineCap
+            if let polygonLineJoin = polygon.lineJoin {
+                polygonRender.lineJoin = polygonLineJoin
+            }
+            if let polygonLineCap = polygon.lineCap {
+                polygonRender.lineCap = polygonLineCap
+            }
             polygonRender.fillColor = polygon.fillColor
             return polygonRender
         } else if let circle = overlay as? Circle {
