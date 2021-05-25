@@ -12,7 +12,7 @@ import Foundation
 import UIKit
 import DJISDK
 
-let kUseBridge = true
+let kUseBridge = false
 let kBridgeIP = "192.168.128.169"
 
 class RootViewController : UIViewController, DJISDKManagerDelegate {
