@@ -10,7 +10,6 @@ import Foundation
 import MapKit
 
 class FlyZoneCircleView : MKCircleRenderer {
-
     init(circle: FlyZoneCircle) {
         super.init(circle: circle as MKCircle)
         self.fillColor = FlyZoneColorProvider.getFlyZoneOverlayColorFor(category: circle.category,
@@ -21,5 +20,4 @@ class FlyZoneCircleView : MKCircleRenderer {
                                                                           isFill: false)
         self.lineWidth = 1.0
     }
-    
 }

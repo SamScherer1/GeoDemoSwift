@@ -16,7 +16,7 @@ let kUpdateTimeStamp = 10.0
 
 class MapController : NSObject, MKMapViewDelegate {
     
-    public var flyZones = [DJIFlyZoneInformation]()
+    var flyZones = [DJIFlyZoneInformation]()
     var aircraftCoordinate : CLLocationCoordinate2D
     var mapView : MKMapView
     var aircraftAnnotation : AircraftAnnotation?
@@ -59,7 +59,6 @@ class MapController : NSObject, MKMapViewDelegate {
     }
     
     //MARK: - MKMapViewDelegate Methods
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isKind(of: MKUserLocation.self) { return nil }
         if annotation.isKind(of: AircraftAnnotation.self) {
@@ -148,10 +147,7 @@ class MapController : NSObject, MKMapViewDelegate {
                         break
                     }
                 }
-                if anOverlay == nil {
-                    anOverlay = LimitSpaceOverlay(limitSpaceInfo: flyZone)
-                }
-                overlays.append(anOverlay!)
+                overlays.append(anOverlay ?? LimitSpaceOverlay(limitSpaceInfo: flyZone))
                 limitFlyZones.append(flyZone)
             }
 
@@ -271,7 +267,7 @@ class MapController : NSObject, MKMapViewDelegate {
         }
     }
 
-    public func refreshMapViewRegion() {
+    func refreshMapViewRegion() {
         let viewRegion = MKCoordinateRegion(center: self.aircraftCoordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         let adjustedRegion = self.mapView.regionThatFits(viewRegion)
         self.mapView.setRegion(adjustedRegion, animated: true)

@@ -28,7 +28,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     var updateLoginStateTimer : Timer?
     var updateFlyZoneDataTimer : Timer?
     var unlockFlyZoneIDs = [NSNumber]()
-    var unlockedFlyZones : [DJIFlyZoneInformation]?
+    var unlockedFlyZones = [DJIFlyZoneInformation]()
     var selectedFlyZone : DJIFlyZoneInformation?
     var isUnlockEnable = false
     var flyZoneView : DJIScrollView?
@@ -38,7 +38,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     }
     
     override func viewDidLoad() {
-        self.title = "DJI GEO Demo"
+        super.viewDidLoad()
         self.pickerContainerView.isHidden = true
         
         guard let aircraft = fetchAircraft() else { return }
@@ -61,8 +61,17 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
             })
         }
 
-        self.updateLoginStateTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateLoginState), userInfo: nil, repeats: true)
-        self.updateFlyZoneDataTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(onUpdateFlyZone), userInfo: nil, repeats: true)
+        self.updateLoginStateTimer = Timer.scheduledTimer(timeInterval: 0.4,
+                                                          target: self,
+                                                          selector: #selector(onUpdateLoginState),
+                                                          userInfo: nil,
+                                                          repeats: true)
+        
+        self.updateFlyZoneDataTimer = Timer.scheduledTimer(timeInterval: 0.4,
+                                                           target: self,
+                                                           selector: #selector(onUpdateFlyZone),
+                                                           userInfo: nil,
+                                                           repeats: true)
         
         self.mapController?.updateFlyZonesInSurroundingArea()
     }
@@ -78,17 +87,15 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                     print("setFlyZoneLimitationEnabled success")
                 }
             })
-            self.updateLoginStateTimer = nil
-            self.updateFlyZoneDataTimer = nil
         }
+        self.updateLoginStateTimer = nil
+        self.updateFlyZoneDataTimer = nil
     }
 
     func initUI() {
         self.title = "DJI GEO Demo"
         
         self.mapController = MapController(map: self.mapView)
-        self.unlockFlyZoneIDs = [NSNumber]()
-        self.unlockedFlyZones = [DJIFlyZoneInformation]()
         self.flyZoneView = DJIScrollView(parentViewController: self)
         self.flyZoneView?.isHidden = true
         self.flyZoneView?.setDefaultSize()
@@ -127,8 +134,8 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
                 guard let infos = infos else { fatalError() }
                 guard let self = self else { return }
                 var unlockInfo = "unlock zone count = \(infos.count) \n"
-                self.unlockedFlyZones?.removeAll()
-                self.unlockedFlyZones?.append(contentsOf: infos)
+                self.unlockedFlyZones.removeAll()
+                self.unlockedFlyZones.append(contentsOf: infos)
                 for info in infos {
                     unlockInfo = unlockInfo + "ID:\(info.flyZoneID) Name:\(info.name) Begin:\(info.unlockStartTime) end:\(info.unlockEndTime)\n"
                 }
@@ -217,9 +224,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
-            if let unlockedFlyZoneCount = self.unlockedFlyZones?.count {
-                return unlockedFlyZoneCount
-            }
+            return self.unlockedFlyZones.count
         } else if component == 1 {
             return 2
         }
@@ -230,9 +235,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
         var title = ""
         
         if component == 0 {
-            if let infoObject = self.unlockedFlyZones?[row] {
-                title = "\(infoObject.flyZoneID)"
-            }
+            title = "\(self.unlockedFlyZones[row].flyZoneID)"
         } else if component == 1 {
             title = row == 0 ? "YES" : "NO"
         }
@@ -242,10 +245,8 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
     //MARK: - UIPickerViewDelegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            if self.unlockedFlyZones?.count ?? 0 > row {
-                if let flyZoneToSelect = self.unlockedFlyZones?[row] {
-                    self.selectedFlyZone = flyZoneToSelect
-                }
+            if self.unlockedFlyZones.count > row {
+                self.selectedFlyZone = self.unlockedFlyZones[row]
             }
         } else if component == 1 {
             self.isUnlockEnable = pickerView.selectedRow(inComponent: 1) == 0
@@ -357,7 +358,7 @@ class GeoDemoViewController : UIViewController, DJIFlyZoneDelegate, DJIFlightCon
             // Convert degrees to radians
             let heading = Float(state.attitude.yaw * Double.pi / 180.0)
             self.mapController?.updateAircraft(coordinate: aircraftCoordinate,
-                                                   heading: heading)
+                                               heading: heading)
         }
     }
 

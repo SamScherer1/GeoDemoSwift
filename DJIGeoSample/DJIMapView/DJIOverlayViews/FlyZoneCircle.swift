@@ -11,9 +11,9 @@ import MapKit
 import DJISDK
 
 class FlyZoneCircle : MKCircle {
-     public var flyZoneCoordinate : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+     public var flyZoneCoordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
      public var flyZoneRadius : CGFloat = 0.0
-     public var category : DJIFlyZoneCategory = DJIFlyZoneCategory.unknown
+     public var category = DJIFlyZoneCategory.unknown
      public var flyZoneID : UInt = 0
      public var name : String?
      public var heightLimit : CGFloat = 0.0
